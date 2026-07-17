@@ -16,7 +16,6 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background: #f0f2f5; padding: 6px; display: flex; flex-direction: column; align-items: center; }
         
-        /* Compact App Container */
         .app-container { width: 100%; max-width: 440px; background: #fff; border-radius: 8px; padding: 8px; margin-bottom: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         
         .bill-card { 
@@ -27,7 +26,6 @@
             background: rgba(255, 255, 255, 0.94);
             overflow: hidden;
         }
-        /* Blurred Car Motif */
         .bill-card::before {
             content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
@@ -35,12 +33,10 @@
         }
         .bill-content { position: relative; z-index: 1; }
 
-        /* Header Styles */
         .main-title { text-align: center; font-size: 11px; font-weight: bold; color: var(--dark-gold); text-transform: uppercase; letter-spacing: 1px; }
         .company-name { text-align: center; font-size: 18px; font-weight: 800; color: var(--primary); margin: 1px 0; }
         .company-address { text-align: center; font-size: 10px; color: #555; margin-bottom: 10px; border-bottom: 1.5px double var(--gold); padding-bottom: 4px; }
 
-        /* Driver & Logo Section */
         .header-grid { display: grid; grid-template-columns: 1fr 75px; gap: 8px; margin-bottom: 10px; }
         .driver-info { font-size: 11px; color: var(--text); line-height: 1.4; }
         .driver-info strong { color: var(--primary); }
@@ -48,13 +44,11 @@
         
         .divider { border-top: 1px solid var(--gold); margin: 8px 0; }
 
-        /* Customer & Invoice Row */
         .cust-inv-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 8px; margin-bottom: 10px; }
         .vertical-line { background: var(--gold); width: 1px; height: 100%; }
         .form-group { margin-bottom: 5px; }
         .form-group label { display: block; font-size: 10px; font-weight: bold; color: var(--primary); margin-bottom: 2px; }
         
-        /* Fixed Input Styles to prevent Canvas Text Cropping */
         .form-control { 
             width: 100%; 
             height: 28px;
@@ -67,18 +61,15 @@
             display: block;
         }
 
-        /* Route/Stops Section */
         .route-section { background: rgba(197, 168, 128, 0.08); padding: 6px; border-radius: 4px; margin-bottom: 8px; }
         .stop-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
         .btn-small { padding: 3px 6px; font-size: 10px; background: var(--primary); color: white; border: none; border-radius: 3px; cursor: pointer; margin-top: 2px; }
 
-        /* Financial Table */
         .bill-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 11px; }
         .bill-table th { background: var(--primary); color: white; padding: 5px; text-align: left; font-size: 10px; }
         .bill-table td { padding: 4px 2px; border-bottom: 1px solid #eee; vertical-align: middle; }
         .bill-table td:nth-child(2) { width: 90px; text-align: right; }
         
-        /* Form inputs inside table tailored for high-accuracy canvas rendering */
         .table-input { 
             width: 100%; 
             height: 26px;
@@ -91,29 +82,26 @@
         }
         .amount-input { text-align: right; }
 
-        /* Summary Calculations */
         .summary-box { margin-left: auto; width: 100%; max-width: 240px; font-size: 11px; margin-bottom: 8px; }
         .summary-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px dashed #ddd; align-items: center; }
         .summary-row.grand-total { font-weight: bold; font-size: 12px; color: var(--primary); border-bottom: 1.5px solid var(--gold); padding: 4px 0; }
         .amt-words { font-size: 10px; font-style: italic; color: #555; text-align: right; margin-bottom: 8px; word-break: break-word; }
 
-        /* Signatures */
         .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: center; font-size: 11px; }
         .sig-box { border-top: 1px solid #ccc; padding-top: 3px; min-height: 50px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
         .sig-img { max-height: 40px; max-width: 110px; object-fit: contain; margin-bottom: 2px; }
         .upload-label { font-size: 9px; color: var(--dark-gold); cursor: pointer; text-decoration: underline; }
 
-        /* Action Buttons */
         .btn-block { width: 100%; padding: 10px; font-size: 13px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: #25D366; color: white; }
+        .btn-warning { background: #ff9800; color: white; }
 
-        /* History Section */
         .history-container { width: 100%; max-width: 440px; background: white; border-radius: 8px; padding: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .history-title { font-size: 12px; font-weight: bold; color: var(--primary); margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 3px; }
-        .history-item { display: flex; justify-content: space-between; padding: 6px; border-bottom: 1px solid #eee; font-size: 11px; cursor: pointer; }
+        .history-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #eee; font-size: 11px; cursor: pointer; border-radius: 4px; align-items: center; }
+        .history-item:hover { background: #f1f5f9; border-left: 3px solid var(--dark-gold); }
 
-        /* WhatsApp Image Modal Popup */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 15px; border-radius: 8px; text-align: center; max-width: 90%; }
         .modal-content img { max-width: 100%; max-height: 65vh; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
@@ -253,6 +241,7 @@
 
     <!-- Controls -->
     <div style="width: 100%; max-width: 440px; padding: 0 4px;">
+        <button class="btn-block btn-warning" onclick="resetForNewBill()">➕ New Fresh Bill</button>
         <button class="btn-block btn-primary" onclick="saveAndDownloadBill()">💾 Save & Download PDF</button>
         <button class="btn-block btn-success" onclick="shareToWhatsApp()">💬 Send via WhatsApp</button>
     </div>
@@ -261,7 +250,7 @@
 
     <!-- History -->
     <div class="history-container">
-        <div class="history-title">📜 Past Invoices (History)</div>
+        <div class="history-title">📜 Past Invoices (Click to Open & Re-Send)</div>
         <div id="historyList">
             <p style="font-size:11px; color:#888; text-align:center; padding:5px;">No history found.</p>
         </div>
@@ -277,15 +266,41 @@
     </div>
 
     <script>
-        document.getElementById('invDate').valueAsDate = new Date();
-        document.getElementById('invNo').value = 'PRV-' + Math.floor(100000 + Math.random() * 900000);
+        // Init form state
+        resetForNewBill(false);
 
-        function addStop() {
+        function resetForNewBill(generateNewId = true) {
+            if(generateNewId) {
+                document.getElementById('invNo').value = 'PRV-' + Math.floor(100000 + Math.random() * 900000);
+            }
+            document.getElementById('invDate').valueAsDate = new Date();
+            document.getElementById('custName').value = '';
+            document.getElementById('custPhone').value = '';
+            document.getElementById('pickupPt').value = '';
+            document.getElementById('dropPt').value = '';
+            document.getElementById('dynamicStops').innerHTML = '';
+            document.getElementById('tripType').value = 'One Way';
+            document.getElementById('tripRate').value = 0;
+            document.getElementById('tollName').value = '';
+            document.getElementById('tollAmt').value = 0;
+            document.getElementById('pkgName').value = '';
+            document.getElementById('pkgAmt').value = 0;
+            document.getElementById('netReceived').value = 0;
+            
+            // reset custom signatures if any
+            document.getElementById('custSigImg').style.display = 'none';
+            document.getElementById('custSigImg').src = '';
+            document.getElementById('uploadPrompt').style.display = 'block';
+
+            calculateBill();
+        }
+
+        function addStop(val = '') {
             const container = document.getElementById('dynamicStops');
             if(container.children.length >= 3) { alert("Max 3 via-stops allowed."); return; }
             const div = document.createElement('div');
             div.className = 'stop-row';
-            div.innerHTML = `<input type="text" class="form-control" placeholder="Via Stop"><button class="btn-small" style="background:#cc2121; margin:0; padding: 2px 6px;" onclick="this.parentElement.remove()">X</button>`;
+            div.innerHTML = `<input type="text" class="form-control mid-stop-input" placeholder="Via Stop" value="${val}"><button class="btn-small" style="background:#cc2121; margin:0; padding: 2px 6px;" onclick="this.parentElement.remove()">X</button>`;
             container.appendChild(div);
         }
 
@@ -330,13 +345,30 @@
         }
 
         function saveToHistory() {
+            // Collect intermediate mid-stops values
+            const midStops = [];
+            document.querySelectorAll('.mid-stop-input').forEach(input => {
+                if(input.value) midStops.push(input.value);
+            });
+
             const invoice = {
                 invNo: document.getElementById('invNo').value,
                 date: document.getElementById('invDate').value,
                 custName: document.getElementById('custName').value || 'Unknown Customer',
                 phone: document.getElementById('custPhone').value,
-                total: document.getElementById('lblGrandTotal').innerText
+                pickupPt: document.getElementById('pickupPt').value,
+                dropPt: document.getElementById('dropPt').value,
+                midStops: midStops,
+                tripType: document.getElementById('tripType').value,
+                tripRate: document.getElementById('tripRate').value,
+                tollName: document.getElementById('tollName').value,
+                tollAmt: document.getElementById('tollAmt').value,
+                pkgName: document.getElementById('pkgName').value,
+                pkgAmt: document.getElementById('pkgAmt').value,
+                netReceived: document.getElementById('netReceived').value,
+                totalStr: document.getElementById('lblGrandTotal').innerText
             };
+
             let history = JSON.parse(localStorage.getItem('pravas_history')) || [];
             history = history.filter(item => item.invNo !== invoice.invNo);
             history.unshift(invoice);
@@ -352,9 +384,43 @@
             history.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'history-item';
-                div.innerHTML = `<div><strong>${item.custName}</strong> (${item.invNo})</div><div style="font-weight:bold; color:var(--primary);">${item.total}</div>`;
+                div.innerHTML = `<div><strong>${item.custName}</strong> (${item.invNo})<br><small style="color:#777;">${item.date}</small></div><div style="font-weight:bold; color:var(--primary); text-align:right;">${item.totalStr}<br><span style="font-size:9px; color:var(--dark-gold); font-weight:normal;">Click to Load</span></div>`;
+                
+                // Clicking opens the entire archived state back into fields
+                div.onclick = () => loadBillFromHistory(item.invNo);
                 container.appendChild(div);
             });
+        }
+
+        function loadBillFromHistory(targetInvNo) {
+            const history = JSON.parse(localStorage.getItem('pravas_history')) || [];
+            const bill = history.find(item => item.invNo === targetInvNo);
+            if(!bill) return;
+
+            // Load values back to top forms safely
+            document.getElementById('invNo').value = bill.invNo;
+            document.getElementById('invDate').value = bill.date;
+            document.getElementById('custName').value = bill.custName;
+            document.getElementById('custPhone').value = bill.phone;
+            document.getElementById('pickupPt').value = bill.pickupPt || '';
+            document.getElementById('dropPt').value = bill.dropPt || '';
+            
+            // Rebuild intermediate stops arrays
+            document.getElementById('dynamicStops').innerHTML = '';
+            if(bill.midStops && Array.isArray(bill.midStops)) {
+                bill.midStops.forEach(stop => addStop(stop));
+            }
+
+            document.getElementById('tripType').value = bill.tripType || 'One Way';
+            document.getElementById('tripRate').value = bill.tripRate || 0;
+            document.getElementById('tollName').value = bill.tollName || '';
+            document.getElementById('tollAmt').value = bill.tollAmt || 0;
+            document.getElementById('pkgName').value = bill.pkgName || '';
+            document.getElementById('pkgAmt').value = bill.pkgAmt || 0;
+            document.getElementById('netReceived').value = bill.netReceived || 0;
+
+            calculateBill();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function saveAndDownloadBill() {
@@ -380,8 +446,6 @@
             const total = document.getElementById('lblGrandTotal').innerText;
             
             const element = document.getElementById('printable-area');
-            
-            // Set scroll position to top to avoid offset crop errors during html2canvas capture
             window.scrollTo(0,0);
             
             html2canvas(element, { 
