@@ -3,801 +3,584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pravash Tour & Travels - Premium Master Invoice</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Pravas Tour And Travels - Bill of Supply</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #b45309;
-            --text: #334155;
-            --bg: #f8fafc;
-            --border: #e2e8f0;
+            --primary-color: #0f172a;
+            --border-color: #94a3b8;
+            --text-dark: #1e293b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 10px;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            padding: 5px;
         }
 
-        .container {
-            max-width: 700px;
+        /* Compact Mobile Friendly Layout */
+        .bill-card {
+            max-width: 500px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
+            padding: 15px;
+            border: 1px solid var(--border-color);
             position: relative;
         }
 
-        /* Top Header Layout - Company Title Left, Logo Right */
-        .top-banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .uppercase { text-transform: uppercase; }
+
+        .main-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
         }
 
-        .company-title-area h1 {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.1;
+        .subtitle {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 3px 0;
         }
 
-        .company-title-area p {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 4px;
+        .address-line {
+            font-size: 11px;
+            color: #475569;
+            margin-bottom: 8px;
         }
 
-        .logo-box-right {
-            background: #0d1e3d;
-            padding: 10px;
-            border-radius: 50%;
-            width: 85px;
-            height: 85px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            flex-shrink: 0;
+        .divider {
+            border-top: 1px solid #000;
+            margin: 8px 0;
         }
 
-        .logo-box-right span {
-            color: #d4af37;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Two Column Splitted Row (Driver Left, Invoice Info Right) */
-        .identity-row {
+        /* Two Column Header Layout */
+        .info-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .block-title {
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+            color: #000;
+        }
+
+        /* Interactive Inputs Field Panel */
+        .input-element {
+            width: 100%;
+            padding: 4px 6px;
+            margin: 2px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .print-only-text {
+            display: none;
+            font-weight: bold;
+            word-break: break-all;
+        }
+
+        /* Via Stops Layout */
+        .via-wrapper {
             background: #f8fafc;
-            border: 1px solid var(--border);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 4px;
+            margin-top: 4px;
+            border: 1px dashed #cbd5e1;
         }
-
-        @media (min-width: 480px) {
-            .identity-row { grid-template-columns: 1.4fr 0.6fr; }
-        }
-
-        .driver-column-left {
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text);
-        }
-
-        .driver-column-left div {
+        .via-item {
+            display: flex;
+            gap: 4px;
             margin-bottom: 2px;
         }
+        .via-item input { flex: 1; padding: 2px 4px; font-size: 11px; }
+        .btn-del { background: #ef4444; color: white; border: none; padding: 0 4px; cursor: pointer; font-size: 10px; }
 
-        .driver-column-left strong {
-            color: var(--primary);
-            font-size: 14px;
-        }
-
-        .invoice-column-right {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            justify-content: center;
-            border-top: 1px dashed var(--border);
-            padding-top: 10px;
-        }
-
-        @media (min-width: 480px) {
-            .invoice-column-right {
-                border-top: none;
-                padding-top: 0;
-                border-left: 1px dashed var(--border);
-                padding-left: 15px;
-            }
-        }
-
-        /* Form Details */
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-            border-left: 3px solid var(--accent);
-            padding-left: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .form-block {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 480px) {
-            .form-block { grid-template-columns: 1fr 1fr; }
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 4px;
-        }
-
-        .input-group input, .input-group select {
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 14px;
-            color: var(--primary);
-            outline: none;
-            background: #ffffff;
-            width: 100%;
-        }
-
-        /* Via Stops Sub-system */
-        .via-container {
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-        }
-
-        .via-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-            align-items: center;
-        }
-
-        .via-row input {
-            flex: 1;
-            padding: 6px 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 13px;
-        }
-
-        .btn-remove-stop {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 11px;
-        }
-
-        .btn-add-stop {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* Calculations Breakdown Table */
-        .bill-table {
+        /* Itemized Vyapar Grid Table */
+        .vyapar-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            margin-bottom: 15px;
+            margin-top: 10px;
+            font-size: 11px;
         }
 
-        .bill-table th {
-            background: var(--primary);
-            color: #ffffff;
-            text-align: left;
-            padding: 8px 10px;
-            font-size: 12px;
-            text-transform: uppercase;
+        .vyapar-table th {
+            background: #f1f5f9;
+            border: 1px solid #000;
+            padding: 5px;
+            font-weight: bold;
+            color: #000;
         }
 
-        .bill-table td {
-            padding: 9px 10px;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
+        .vyapar-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            vertical-align: top;
         }
 
-        .bill-table td:last-child {
-            text-align: right;
-            font-weight: 600;
-        }
-
-        .total-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .total-box {
-            width: 100%;
-            max-width: 240px;
-            background: #f8fafc;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .total-row {
+        /* Total Calculation Summary Blocks */
+        .summary-wrapper {
             display: flex;
             justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .words-area {
+            width: 55%;
+            font-size: 10px;
+            font-style: italic;
+        }
+
+        .math-area {
+            width: 42%;
+        }
+
+        .math-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+        }
+
+        .math-row.bold-total {
+            font-weight: bold;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 4px 0;
             font-size: 13px;
-            margin-bottom: 6px;
         }
 
-        .total-row.grand-total {
-            border-top: 2px dashed var(--border);
-            padding-top: 6px;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        /* Dual Signatures Setup */
-        .signatures-wrapper {
+        /* Dual Signatures Layout Box */
+        .signature-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
+            margin-top: 15px;
         }
 
-        .sig-box {
+        .sig-block {
+            width: 48%;
             text-align: center;
-            width: 45%;
+            font-size: 11px;
         }
 
-        .sig-frame {
-            height: 60px;
+        .sig-box-display {
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 5px;
-            overflow: hidden;
+            border-bottom: 1px solid #000;
+            margin-bottom: 4px;
         }
 
-        .sig-frame img {
+        .sig-box-display img {
             max-height: 100%;
             max-width: 100%;
             object-fit: contain;
         }
 
-        .sig-underline {
-            border-top: 1px solid var(--primary);
-            padding-top: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #475569;
-        }
-
-        .upload-trigger-btn {
-            background: #e2e8f0;
-            color: var(--primary);
-            border: none;
-            padding: 4px 8px;
-            font-size: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        /* Print Media Texts Layer */
-        .print-txt {
-            display: none;
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 500;
-            padding: 4px 0;
-        }
-
-        /* Control Panel Buttons */
-        .actions-panel {
+        /* Action Controls Layout Panel */
+        .control-panel {
+            max-width: 500px;
+            margin: 10px auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 700px;
-            margin: 20px auto;
+            gap: 8px;
         }
 
-        @media (min-width: 480px) {
-            .actions-panel { flex-direction: row; }
-        }
-
-        .btn-ui {
-            padding: 12px;
+        .action-btn {
+            padding: 10px;
             border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
+            border-radius: 4px;
+            font-weight: bold;
             cursor: pointer;
+            font-size: 13px;
             text-align: center;
+        }
+        .btn-green { background: #25d366; color: white; }
+        .btn-blue { background: #1e3a8a; color: white; }
+        .btn-gray { background: #64748b; color: white; }
+
+        /* Preview Display Frame Box */
+        #previewOutputContainer {
+            max-width: 500px;
+            margin: 15px auto;
+            background: #fff;
+            padding: 10px;
+            border: 2px dashed #25d366;
+            border-radius: 6px;
+            display: none;
+            text-align: center;
+        }
+        #previewOutputContainer img {
             width: 100%;
-        }
-
-        .btn-whatsapp { background: #25d366; color: white; }
-        .btn-download { background: var(--primary); color: white; }
-        .btn-clear { background: #cbd5e1; color: var(--primary); }
-
-        .history-panel {
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            overflow-x: auto;
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-
-        .history-table th, .history-table td {
-            padding: 8px;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
+            border: 1px solid #cbd5e1;
+            margin-top: 5px;
         }
 
         @media print {
             body { background: white; padding: 0; }
-            .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
-            .actions-panel, .history-panel, .btn-add-stop, .btn-remove-stop, .upload-trigger-btn, input, select { display: none !important; }
-            .print-txt { display: block !important; }
-            .form-block { grid-template-columns: 1fr 1fr !important; }
-            .identity-row { grid-template-columns: 1.4fr 0.6fr !important; background: transparent !important; }
+            .bill-card { border: none; max-width: 100%; padding: 0; }
+            .control-panel, .input-element, button, .via-wrapper, #previewOutputContainer { display: none !important; }
+            .print-only-text { display: block !important; }
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="invoiceCard">
-    <!-- Top Header Layout Banner -->
-    <div class="top-banner">
-        <div class="company-title-area">
-            <h1>Pravash Tour & Travels</h1>
-            <p>Premium & Safe Travel Solutions Across Maharashtra</p>
-        </div>
-        <div class="logo-box-right">
-            <span>PRAVASH</span>
-        </div>
+<div class="bill-card" id="vyaparBillStructure">
+    <div class="text-center">
+        <div class="main-title">PRAVAS TOUR AND TRAVELS</div>
+        <div class="subtitle">Bill of Supply</div>
+        <div class="address-line">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
     </div>
 
-    <!-- Structured Split Row Setup -->
-    <div class="identity-row">
-        <!-- Left Side: Driver Row Alignment Data -->
-        <div class="driver-column-left">
-            <div><strong>Driver Name:</strong> Rajit Yadav</div>
-            <div>📞 <strong>Phone:</strong> +91 9326477072</div>
-            <div>✉️ <strong>Email:</strong> rajit.syadav@gmail.com</div>
-            <div>🚗 <strong>Vehicle No:</strong> MH04LY5124</div>
-            <div>📍 <strong>Address:</strong> Hiranandani Meadows, Thane, Maharashtra</div>
+    <div class="divider"></div>
+
+    <!-- Info Block Split Matrix -->
+    <div class="info-grid">
+        <!-- Driver Profile Details Area -->
+        <div>
+            <div class="block-title">Details of Sender</div>
+            <div><strong>DRIVER:</strong> RAJU YADAV</div>
+            <div><strong>VEHICLE:</strong> MH04LY5124</div>
+            <div><strong>PHONE:</strong> 9326477072</div>
+            <div><strong>EMAIL:</strong> rajit.syadav@gmail.com</div>
+            <div><strong>STATE:</strong> 27-Maharashtra</div>
         </div>
 
-        <!-- Right Side: Invoice Meta Data Blocks -->
-        <div class="invoice-column-right">
-            <div class="input-group">
-                <label>Invoice No</label>
-                <input type="text" id="invNum" value="PTT-101">
-                <div class="print-txt" id="p-invNum"></div>
+        <!-- Invoice Meta Details Block -->
+        <div>
+            <div class="block-title">Invoice Details</div>
+            <div>
+                <strong>No:</strong> 
+                <input type="text" class="input-element" id="invNo" value="1206">
+                <span class="print-only-text" id="p-invNo">1206</span>
             </div>
-            <div class="input-group">
-                <label>Date</label>
-                <input type="date" id="invDate">
-                <div class="print-txt" id="p-invDate"></div>
+            <div>
+                <strong>Date:</strong> 
+                <input type="date" class="input-element" id="invDate">
+                <span class="print-only-text" id="p-invDate"></span>
             </div>
         </div>
     </div>
 
-    <!-- Customer Details Form -->
-    <h3 class="section-title">Customer & Route Log</h3>
-    <div class="form-block">
-        <div class="input-group">
-            <label>Customer Name</label>
-            <input type="text" id="custName" placeholder="Enter full name" oninput="refreshPrintValues()">
-            <div class="print-txt" id="p-custName"></div>
-        </div>
-        <div class="input-group">
-            <label>Customer Phone</label>
-            <input type="tel" id="custPhone" placeholder="Enter phone number" oninput="refreshPrintValues()">
-            <div class="print-txt" id="p-custPhone"></div>
-        </div>
-    </div>
+    <div class="divider"></div>
 
-    <!-- Trip Type Selector System -->
-    <div class="form-block">
-        <div class="input-group">
-            <label>Trip Type Profile</label>
-            <select id="tripType" onchange="performCalculations()">
+    <!-- Customer Mapping Area -->
+    <div class="info-grid">
+        <div>
+            <div class="block-title">Bill To:</div>
+            <input type="text" class="input-element" id="custName" placeholder="Customer Name" oninput="syncViewValues()">
+            <span class="print-only-text" id="p-custName">—</span>
+            
+            <input type="tel" class="input-element" id="custPhone" placeholder="Customer Phone" oninput="syncViewValues()">
+            <span class="print-only-text" id="p-custPhone">—</span>
+        </div>
+        <div>
+            <div class="block-title">Trip Configuration</div>
+            <select class="input-element" id="tripType" onchange="runCalculations()">
                 <option value="1">One-Way Trip</option>
                 <option value="2">Two-Way (Round Trip)</option>
-                <option value="rental-8-80">8h:80KM (8.80) [Rental]</option>
-                <option value="rental-6-60">6h:60KM (6.60) [Rental]</option>
-                <option value="rental-4-40">4h:40KM (4.40) [Rental]</option>
-                <option value="mumbai-darshan">Mumbai Darshan Plan</option>
-                <option value="out-station">Out Station Route</option>
+                <option value="rental-8-80">8h:80KM (8.80)</option>
+                <option value="rental-6-60">6h:60KM (6.60)</option>
+                <option value="rental-4-40">4h:40KM (4.40)</option>
+                <option value="mumbai-darshan">Mumbai Darshan</option>
+                <option value="out-station">Out Station</option>
             </select>
-            <div class="print-txt" id="p-tripType"></div>
-        </div>
-        <div></div>
-    </div>
-
-    <!-- Dynamic Waypoint Locations Routing Panel -->
-    <div class="form-block" style="border-top: 1px dashed var(--border); padding-top: 12px;">
-        <div class="input-group">
-            <label>Pickup Location</label>
-            <input type="text" id="pickupLoc" placeholder="From Location" oninput="refreshPrintValues()">
-            <div class="print-txt" id="p-pickupLoc"></div>
-        </div>
-        <div class="input-group">
-            <label>Drop Location</label>
-            <input type="text" id="dropLoc" placeholder="To Ultimate Destination" oninput="refreshPrintValues()">
-            <div class="print-txt" id="p-dropLoc"></div>
+            <span class="print-only-text" id="p-tripType">One-Way Trip</span>
         </div>
     </div>
 
-    <!-- Dynamic Via Point Add-on Block -->
-    <div class="via-container">
-        <label style="font-size:11px; font-weight:700; color:#475569; display:block; margin-bottom:5px; text-transform:uppercase;">Via Locations / Intermediate Stops</label>
-        <div id="viaStopsWrapper"></div>
-        <button type="button" class="btn-add-stop" onclick="addNewViaStop()">+ Add Via Stop</button>
+    <!-- Route Layout System Fields -->
+    <div style="margin-top: 6px;">
+        <div class="info-grid">
+            <input type="text" class="input-element" id="fromLoc" placeholder="Pickup Location" oninput="syncViewValues()">
+            <input type="text" class="input-element" id="toLoc" placeholder="Drop Location" oninput="syncViewValues()">
+        </div>
+        <div class="via-wrapper">
+            <div id="stopsBox"></div>
+            <button style="font-size:10px; padding:2px 6px; cursor:pointer;" onclick="appendStopRow()">+ Add Via Stop</button>
+        </div>
+        <div class="print-only-text" id="p-fullRoute" style="font-size:11px; margin-top:4px; color:#334155;"></div>
     </div>
 
-    <!-- Financial Input Configs -->
-    <h3 class="section-title">Fare Breakdowns Configuration</h3>
-    <div class="form-block">
-        <div class="input-group">
-            <label>Base Fare Rate Amount (₹)</label>
-            <input type="number" id="baseFare" value="0" oninput="performCalculations()">
-        </div>
-        <div class="input-group">
-            <label>Toll Plaza Fees (₹)</label>
-            <input type="number" id="tollCharges" value="0" oninput="performCalculations()">
-        </div>
-    </div>
-    <div class="form-block">
-        <div class="input-group">
-            <label>Parking Charges (₹)</label>
-            <input type="number" id="parkingCharges" value="0" oninput="performCalculations()">
-        </div>
-        <div class="input-group">
-            <label>Other / Night Allowances (₹)</label>
-            <input type="number" id="otherCharges" value="0" oninput="performCalculations()">
-        </div>
-    </div>
-
-    <!-- Live Itemized Statement Table -->
-    <table class="bill-table">
+    <!-- Itemized Vyapar Sheet Table Grid -->
+    <table class="vyapar-table">
         <thead>
             <tr>
-                <th>Itemized Route Details</th>
-                <th style="text-align: right;">Amount Breakdown</th>
+                <th style="width: 8%;">#</th>
+                <th style="width: 47%;">Item Name</th>
+                <th style="width: 15%;">Quantity</th>
+                <th style="width: 15%;">Price/Unit</th>
+                <th style="width: 15%;">Amount</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Calculated Ride Fare Profile (<span id="lblTripType">One-Way</span>)</td>
-                <td id="valBaseFare">₹0.00</td>
+                <td>1</td>
+                <td>
+                    <div style="font-weight: bold;" id="tblItemTitle">DRIVER ALONG (One-Way Trip)</div>
+                    <div style="font-size: 9px; color:#475569;" id="tblRouteDisplay">Route: —</div>
+                </td>
+                <td>1</td>
+                <td id="tblPriceUnit">₹0.00</td>
+                <td id="tblBaseAmount">₹0.00</td>
             </tr>
             <tr>
-                <td>Total Toll Road Fees</td>
-                <td id="valToll">₹0.00</td>
-            </tr>
-            <tr>
-                <td>Station / Airport Parking Charges</td>
-                <td id="valParking">₹0.00</td>
-            </tr>
-            <tr>
-                <td>Night Driver Allowance / Miscellaneous</td>
-                <td id="valOther">₹0.00</td>
+                <td>2</td>
+                <td>Toll, Parking &amp; Other Allowances</td>
+                <td>1</td>
+                <td id="tblTollAddonsPrice">₹0.00</td>
+                <td id="tblTollAddonsAmount">₹0.00</td>
             </tr>
         </tbody>
     </table>
 
-    <!-- Net Statement Total -->
-    <div class="total-wrapper">
-        <div class="total-box">
-            <div class="total-row">
-                <span>Net Subtotal:</span>
-                <span id="subTotal">₹0.00</span>
+    <!-- Direct Cost Manipulators Fields Panel -->
+    <div class="info-grid" style="margin-top:8px; background:#f8fafc; padding:6px; border:1px solid #e2e8f0;">
+        <div>
+            <label style="font-size:10px; font-weight:bold;">Base Fare (₹)</label>
+            <input type="number" class="input-element" id="inpBase" value="0" oninput="runCalculations()">
+        </div>
+        <div>
+            <label style="font-size:10px; font-weight:bold;">Toll + Parking + Other (₹)</label>
+            <input type="number" class="input-element" id="inpTollAddons" value="0" oninput="runCalculations()">
+        </div>
+    </div>
+
+    <!-- Calculations Bottom Grid Wrapper -->
+    <div class="summary-wrapper">
+        <div class="words-area">
+            <div style="font-weight:bold; margin-bottom:2px;">Invoice Amount In Words:</div>
+            <div id="amountInWordsText" style="color:#000; font-weight:bold;">Zero Rupees only</div>
+            
+            <div style="margin-top:10px; font-size:10px; color:#475569;">
+                <strong>Terms And Conditions:</strong><br>
+                Thank you for doing business with us.
             </div>
-            <div class="total-row grand-total">
-                <span>Grand Total Amount:</span>
-                <span id="grandTotal">₹0.00</span>
+        </div>
+        <div class="math-area">
+            <div class="math-row">
+                <span>Sub Total</span>
+                <span id="lblSubTotal">₹0.00</span>
+            </div>
+            <div class="math-row bold-total">
+                <span>Total</span>
+                <span id="lblGrandTotal">₹0.00</span>
+            </div>
+            <div class="math-row" style="color: green; font-weight: bold;">
+                <span>Received</span>
+                <span id="lblReceived">₹0.00</span>
+            </div>
+            <div class="math-row" style="color: red; font-weight: bold; border-top: 1px dashed #cbd5e1;">
+                <span>Balance</span>
+                <span>₹0.00</span>
             </div>
         </div>
     </div>
 
-    <!-- Dual Signature Structural Block Layout -->
-    <div class="signatures-wrapper">
-        <!-- Left Side: Customer Signature Box -->
-        <div class="sig-box">
-            <div class="sig-frame" id="customerSigFrame">
-                <span style="color:#94a3b8; font-size:11px; font-style:italic;" id="custPlaceholder">No Signature Loaded</span>
+    <!-- Footer Signatures Blocks -->
+    <div class="signature-container">
+        <!-- Customer Dynamic Input Signature Holder -->
+        <div class="sig-block">
+            <div class="sig-box-display" id="custSigFrame">
+                <span style="color:#94a3b8; font-size:10px; font-style:italic;">No Signature</span>
             </div>
-            <input type="file" id="custSigInput" accept="image/*" style="display:none;" onchange="loadCustomerSignature(event)">
-            <button class="upload-trigger-btn" onclick="document.getElementById('custSigInput').click()">Upload Customer Sign</button>
-            <div class="sig-underline" style="margin-top:10px;">Customer Signature</div>
+            <input type="file" id="uploadFileHandle" accept="image/*" style="display:none;" onchange="renderCustImage(event)">
+            <button style="font-size:9px; cursor:pointer;" onclick="document.getElementById('uploadFileHandle').click()">Upload Sign</button>
+            <div style="font-weight:bold; margin-top:2px;">Customer Signature</div>
         </div>
 
-        <!-- Right Side: Driver Verified Signature Image -->
-        <div class="sig-box">
-            <div class="sig-frame">
-                <!-- Hardcoded closely cropped original signature base64 extracted representation data -->
-                <img src="data:image/jpeg;base64,` + b64_sig + `" alt="Driver Sign">
+        <!-- Static Image Driver Signature Block -->
+        <div class="sig-block" style="text-align: right;">
+            <div style="font-size:10px; font-style:italic; color:#475569; margin-bottom:2px;">For PRAVAS TOUR AND TRAVELS:</div>
+            <div class="sig-box-display">
+                <img src="data:image/jpeg;base64,` + b64_sig + `" alt="Authorized Signatory">
             </div>
-            <div class="sig-underline" style="margin-top:24px;">Authorized Driver Sign</div>
+            <div style="font-weight:bold;">Authorized Signatory</div>
         </div>
     </div>
 </div>
 
-<!-- Control Systems Block Interlocking Buttons -->
-<div class="actions-panel">
-    <button class="btn-ui btn-whatsapp" onclick="processWhatsAppSharing()">Save & Share via WhatsApp</button>
-    <button class="btn-ui btn-download" onclick="executeNativePrint()">Download Invoice PDF</button>
-    <button class="btn-ui btn-clear" onclick="flushForm()">Clear All Fields</button>
+<!-- Controls Panel Menu UI -->
+<div class="control-panel">
+    <button class="action-btn btn-green" onclick="generateAndTriggerWhatsApp()">Generate Image &amp; Share</button>
+    <button class="action-btn btn-blue" onclick="executePrint()">Print / Save PDF</button>
+    <button class="action-btn btn-gray" onclick="resetInvoiceData()">Clear Fields</button>
 </div>
 
-<!-- History Tracking Interface Layout -->
-<div class="history-panel">
-    <h3 class="section-title">Historical Log Records</h3>
-    <table class="history-table">
-        <thead>
-            <tr>
-                <th>Inv No</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Route Path Log</th>
-                <th>Total Paid</th>
-            </tr>
-        </thead>
-        <tbody id="historyLoggerBody"></tbody>
-    </table>
+<!-- Long Press Image Container Box Frame -->
+<div id="previewOutputContainer">
+    <h4 style="color:#25d366; font-size:13px;">✓ Bill Generated Successfully!</h4>
+    <p style="font-size:11px; color:#475569; margin:3px 0;">नीचे दी गई फोटो पर 1 सेकंड उंगली दबाकर रखें (Long Press) और <b>Share</b> या <b>Copy</b> करके व्हाट्सएप पर भेज दें।</p>
+    <div id="imageInjectedTarget"></div>
 </div>
 
 <script>
     document.getElementById('invDate').value = new Date().toISOString().substring(0, 10);
-    document.getElementById('invNum').value = 'PTT-' + Math.floor(100 + Math.random() * 900);
 
-    function addNewViaStop() {
-        const container = document.getElementById('viaStopsWrapper');
+    function appendStopRow() {
+        const box = document.getElementById('stopsBox');
         const row = document.createElement('div');
-        row.className = 'via-row';
+        row.className = 'via-item';
         row.innerHTML = `
-            <input type="text" class="via-stop-input" placeholder="Enter stop point location..." oninput="refreshPrintValues()">
-            <button type="button" class="btn-remove-stop" onclick="this.parentElement.remove(); refreshPrintValues();">X</button>
+            <input type="text" class="via-input-field" placeholder="Stop Point Name" oninput="syncViewValues()">
+            <button class="btn-del" onclick="this.parentElement.remove(); syncViewValues();">X</button>
         `;
-        container.appendChild(row);
-        refreshPrintValues();
+        box.appendChild(row);
+        syncViewValues();
     }
 
-    function loadCustomerSignature(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const frame = document.getElementById('customerSigFrame');
-                frame.innerHTML = `<img src="${e.target.result}" alt="Customer Signature">`;
+    function renderCustImage(e) {
+        const file = e.target.files[0];
+        if(file) {
+            const r = new FileReader();
+            r.onload = function(event) {
+                document.getElementById('custSigFrame').innerHTML = `<img src="${event.target.result}">`;
             }
-            reader.readAsDataURL(file);
+            r.readAsDataURL(file);
         }
     }
 
-    function refreshPrintValues() {
-        document.getElementById('p-invNum').innerText = document.getElementById('invNum').value;
+    function syncViewValues() {
+        document.getElementById('p-invNo').innerText = document.getElementById('invNo').value;
         document.getElementById('p-invDate').innerText = document.getElementById('invDate').value;
-        document.getElementById('p-tripType').innerText = document.getElementById('tripType').options[document.getElementById('tripType').selectedIndex].text;
-        document.getElementById('p-custName').innerText = document.getElementById('custName').value || "—";
-        document.getElementById('p-custPhone').innerText = document.getElementById('custPhone').value || "—";
         
-        // Collate route information maps
-        const pLoc = document.getElementById('pickupLoc').value || "—";
-        const dLoc = document.getElementById('dropLoc').value || "—";
-        
-        let viaStops = [];
-        document.querySelectorAll('.via-stop-input').forEach(input => {
-            if(input.value.trim() !== "") viaStops.push(input.value.trim());
+        const typeSelect = document.getElementById('tripType');
+        const typeText = typeSelect.options[typeSelect.selectedIndex].text;
+        document.getElementById('p-tripType').innerText = typeText;
+        document.getElementById('tblItemTitle').innerText = `DRIVER ALONG (${typeText})`;
+
+        const name = document.getElementById('custName').value || "—";
+        const phone = document.getElementById('custPhone').value || "—";
+        document.getElementById('p-custName').innerText = name;
+        document.getElementById('p-custPhone').innerText = phone;
+
+        // Route mapping compute logic
+        const start = document.getElementById('fromLoc').value || "—";
+        const end = document.getElementById('toLoc').value || "—";
+        let intermediateList = [];
+        document.querySelectorAll('.via-input-field').forEach(i => {
+            if(i.value.trim() !== "") intermediateList.push(i.value.trim());
         });
-        
-        let fullRoute = pLoc;
-        if(viaStops.length > 0) fullRoute += " ➔ (Via: " + viaStops.join(", ") + ")";
-        fullRoute += " ➔ " + dLoc;
-        
-        document.getElementById('p-pickupLoc').innerText = "Full Route Path Log:";
-        document.getElementById('p-dropLoc').innerText = fullRoute;
+
+        let fullPathText = start;
+        if(intermediateList.length > 0) fullPathText += " -> (" + intermediateList.join(", ") + ")";
+        fullPathText += " -> " + end;
+
+        document.getElementById('tblRouteDisplay').innerText = "Route: " + fullPathText;
+        document.getElementById('p-fullRoute').innerText = "Full Route Track: " + fullPathText;
     }
 
-    function performCalculations() {
-        const base = parseFloat(document.getElementById('baseFare').value) || 0;
-        const profile = document.getElementById('tripType').value;
-        const toll = parseFloat(document.getElementById('tollCharges').value) || 0;
-        const parking = parseFloat(document.getElementById('parkingCharges').value) || 0;
-        const other = parseFloat(document.getElementById('otherCharges').value) || 0;
+    function runCalculations() {
+        const base = parseFloat(document.getElementById('inpBase').value) || 0;
+        const multiplier = document.getElementById('tripType').value === "2" ? 2 : 1;
+        const finalBaseRate = base * multiplier;
 
-        let multiplier = 1;
-        if(profile === "2") multiplier = 2; // Two-way double profile rule match
+        const extras = parseFloat(document.getElementById('inpTollAddons').value) || 0;
+        const overallTotal = finalBaseRate + extras;
 
-        const calculatedBase = base * multiplier;
-        const total = calculatedBase + toll + parking + other;
+        document.getElementById('tblPriceUnit').innerText = "₹" + base.toFixed(2);
+        document.getElementById('tblBaseAmount').innerText = "₹" + finalBaseRate.toFixed(2);
+        document.getElementById('tblTollAddonsPrice').innerText = "₹" + extras.toFixed(2);
+        document.getElementById('tblTollAddonsAmount').innerText = "₹" + extras.toFixed(2);
 
-        // Map titles text fields
-        let profileLabel = document.getElementById('tripType').options[document.getElementById('tripType').selectedIndex].text;
-        document.getElementById('lblTripType').innerText = profileLabel;
-        
-        document.getElementById('valBaseFare').innerText = "₹" + calculatedBase.toFixed(2);
-        document.getElementById('valToll').innerText = "₹" + toll.toFixed(2);
-        document.getElementById('valParking').innerText = "₹" + parking.toFixed(2);
-        document.getElementById('valOther').innerText = "₹" + other.toFixed(2);
-        
-        document.getElementById('subTotal').innerText = "₹" + total.toFixed(2);
-        document.getElementById('grandTotal').innerText = "₹" + total.toFixed(2);
-        
-        refreshPrintValues();
-        return total;
+        document.getElementById('lblSubTotal').innerText = "₹" + overallTotal.toFixed(2);
+        document.getElementById('lblGrandTotal').innerText = "₹" + overallTotal.toFixed(2);
+        document.getElementById('lblReceived').innerText = "₹" + overallTotal.toFixed(2);
+
+        document.getElementById('amountInWordsText').innerText = convertPriceToWords(overallTotal) + " Rupees only";
+        syncViewValues();
     }
 
-    function archiveInvoiceToStorage() {
-        const invNo = document.getElementById('invNum').value;
-        const date = document.getElementById('invDate').value;
-        const name = document.getElementById('custName').value || "Guest Customer";
-        
-        const pLoc = document.getElementById('pickupLoc').value || "Start";
-        const dLoc = document.getElementById('dropLoc').value || "End";
-        let viaStops = [];
-        document.querySelectorAll('.via-stop-input').forEach(input => {
-            if(input.value.trim() !== "") viaStops.push(input.value.trim());
-        });
-        let routeLog = pLoc;
-        if(viaStops.length > 0) routeLog += " ➔ (" + viaStops.join(", ") + ")";
-        routeLog += " ➔ " + dLoc;
-
-        const total = document.getElementById('grandTotal').innerText;
-
-        let history = JSON.parse(localStorage.getItem('ptt_master_history')) || [];
-        history.unshift({ invNo, date, name, routeLog, total });
-        localStorage.setItem('ptt_master_history', JSON.stringify(history.slice(0, 10)));
-        loadHistoryLogger();
-    }
-
-    function processWhatsAppSharing() {
+    function generateAndTriggerWhatsApp() {
         const name = document.getElementById('custName').value;
         const phone = document.getElementById('custPhone').value;
-        const total = document.getElementById('grandTotal').innerText;
-        const invNo = document.getElementById('invNum').value;
-        const profileLabel = document.getElementById('tripType').options[document.getElementById('tripType').selectedIndex].text;
+        const total = document.getElementById('lblGrandTotal').innerText;
+        const inv = document.getElementById('invNo').value;
 
         if(!name || !phone) {
-            alert("कृपया कस्टमर का नाम और मोबाइल नंबर दर्ज करें!");
+            alert("कृपया ग्राहक का नाम और फ़ोन नंबर दर्ज करें!");
             return;
         }
 
-        archiveInvoiceToStorage();
-        refreshPrintValues();
-
-        // 1. Snapshot generation system pipeline trigger
-        const target = document.getElementById('invoiceCard');
-        html2canvas(target, { scale: 2, useCORS: true }).then(canvas => {
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.download = `Invoice_${invNo}_${name}.png`;
-            downloadAnchor.href = canvas.toDataURL('image/png');
-            downloadAnchor.click();
-        });
-
-        // 2. Comprehensive text summary preparation
-        const pLoc = document.getElementById('pickupLoc').value || "Start";
-        const dLoc = document.getElementById('dropLoc').value || "End";
-        let viaStops = [];
-        document.querySelectorAll('.via-stop-input').forEach(input => {
-            if(input.value.trim() !== "") viaStops.push(input.value.trim());
-        });
+        syncViewValues();
         
-        let viaText = viaStops.length > 0 ? `%0A*Stops Via:* ${viaStops.join(" -> ")}` : "";
+        // Hide interactive frame elements momentarily for pure image generation
+        const billElement = document.getElementById('vyaparBillStructure');
+        
+        html2canvas(billElement, { scale: 2, useCORS: true }).then(canvas => {
+            const imgTarget = document.getElementById('imageInjectedTarget');
+            imgTarget.innerHTML = "";
+            
+            const imageElement = document.createElement('img');
+            imageElement.src = canvas.toDataURL('image/png');
+            imgTarget.appendChild(imageElement);
+            
+            // Show Long press box screen area
+            document.getElementById('previewOutputContainer').style.display = 'block';
+            document.getElementById('previewOutputContainer').scrollIntoView({ behavior: 'smooth' });
+        });
 
-        const textMessageTemplate = `*PRAVASH TOUR & TRAVELS*%0A---------------------------%0A*Invoice No:* ${invNo}%0A*Customer Name:* ${name}%0A*Trip Profile:* ${profileLabel}%0A*Pickup From:* ${pLoc}${viaText}%0A*Drop To:* ${dLoc}%0A*Grand Total Due:* ${total}%0A---------------------------%0A*Driver:* Rajit Yadav%0A*Vehicle No:* MH04LY5124%0A%0A_Note: आपके बिल की प्रीमियम डिजिटल रसीद (Image) आपके फोन में डाउनलोड हो चुकी है, उसे कृपया यहाँ गैलरी से अटैच करके सेंड कर दें।_`;
-
-        const formatPhone = phone.replace(/[^0-9]/g, "");
-        const internationalizedPhone = formatPhone.length === 10 ? "91" + formatPhone : formatPhone;
+        // Open WhatsApp Api Text Stream Channel
+        const msg = `*PRAVAS TOUR AND TRAVELS*%0A*Bill of Supply*%0A---------------------------%0A*Invoice No:* ${inv}%0A*Customer:* ${name}%0A*Total Amount Due:* ${total}%0A---------------------------%0A_नोट: नीचे दिए गए बॉक्स से बिल की फोटो कॉपी को लॉन्ग प्रेस करके व्हाट्सएप चैट में सेंड करें।_`;
+        
+        const cleanNumber = phone.replace(/[^0-9]/g, "");
+        const finalPhoneString = cleanNumber.length === 10 ? "91" + cleanNumber : cleanNumber;
 
         setTimeout(() => {
-            window.open(`https://api.whatsapp.com/send?phone=${internationalizedPhone}&text=${textMessageTemplate}`, '_blank');
-        }, 1000);
+            window.open(`https://api.whatsapp.com/send?phone=${finalPhoneString}&text=${msg}`, '_blank');
+        }, 800);
     }
 
-    function executeNativePrint() {
-        refreshPrintValues();
+    function executePrint() {
+        syncViewValues();
         window.print();
     }
 
-    function loadHistoryLogger() {
-        let history = JSON.parse(localStorage.getItem('ptt_master_history')) || [];
-        const loggerBody = document.getElementById('historyLoggerBody');
-        loggerBody.innerHTML = "";
-        
-        if(history.length === 0) {
-            loggerBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94a3b8;">No history logs found.</td></tr>`;
-            return;
-        }
-
-        history.forEach(item => {
-            loggerBody.innerHTML += `<tr>
-                <td><strong>${item.invNo}</strong></td>
-                <td>${item.date}</td>
-                <td>${item.name}</td>
-                <td>${item.routeLog}</td>
-                <td style="color:var(--accent); font-weight:700;">${item.total}</td>
-            </tr>`;
-        });
-    }
-
-    function flushForm() {
+    function resetInvoiceData() {
         document.getElementById('custName').value = "";
         document.getElementById('custPhone').value = "";
-        document.getElementById('pickupLoc').value = "";
-        document.getElementById('dropLoc').value = "";
-        document.getElementById('viaStopsWrapper').innerHTML = "";
-        document.getElementById('baseFare').value = "0";
-        document.getElementById('tollCharges').value = "0";
-        document.getElementById('parkingCharges').value = "0";
-        document.getElementById('otherCharges').value = "0";
-        document.getElementById('customerSigFrame').innerHTML = `<span style="color:#94a3b8; font-size:11px; font-style:italic;" id="custPlaceholder">No Signature Loaded</span>`;
-        document.getElementById('invNum').value = 'PTT-' + Math.floor(100 + Math.random() * 900);
-        performCalculations();
+        document.getElementById('fromLoc').value = "";
+        document.getElementById('toLoc').value = "";
+        document.getElementById('stopsBox').innerHTML = "";
+        document.getElementById('inpBase').value = "0";
+        document.getElementById('inpTollAddons').value = "0";
+        document.getElementById('custSigFrame').innerHTML = `<span style="color:#94a3b8; font-size:10px; font-style:italic;">No Signature</span>`;
+        document.getElementById('previewOutputContainer').style.display = 'none';
+        runCalculations();
     }
 
-    performCalculations();
-    loadHistoryLogger();
+    function convertPriceToWords(num) {
+        if (num === 0) return "Zero";
+        const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+        
+        let n = Math.floor(num);
+        if (n < 20) return a[n];
+        if (n < 100) return b[Math.floor(n / 10)] + (n % 10 !== 0 ? " " + a[n % 10] : "");
+        if (n < 1000) return a[Math.floor(n / 100)] + " Hundred" + (n % 100 !== 0 ? " and " + convertPriceToWords(n % 100) : "");
+        if (n < 100000) return convertPriceToWords(Math.floor(n / 1000)) + " Thousand" + (n % 1000 !== 0 ? " " + convertPriceToWords(n % 1000) : "");
+        return n.toString();
+    }
+
+    runCalculations();
 </script>
 
 </body>
