@@ -3,559 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pravas Tour And Travels - Bill of Supply</title>
-    <!-- Web Share API and Canvas Screenshot Engine -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>Pravasa Tours Bill</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary-color: #0f172a;
-            --border-color: #000000;
-            --text-dark: #000000;
+            --primary: #111e38;
+            --gold: #c5a880;
+            --dark-gold: #aa8b5c;
+            --text: #333;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--text-dark);
-            padding: 5px;
-        }
-
-        /* Highly Compact Mobile Layout matching PDF style */
-        .bill-card {
-            max-width: 480px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background: #f0f2f5; padding: 10px; display: flex; flex-direction: column; align-items: center; }
         
-        .main-title {
-            font-size: 19px;
-            font-weight: bold;
-            color: #000;
+        /* Main Container with Blurred Car Background Theme */
+        .app-container { width: 100%; max-width: 500px; background: #fff; border-radius: 12px; shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 15px; margin-bottom: 20px; }
+        
+        .bill-card { 
+            position: relative; 
+            border: 2px solid var(--gold); 
+            border-radius: 8px; 
+            padding: 15px; 
+            background: rgba(255, 255, 255, 0.93);
+            overflow: hidden;
         }
+        /* Blurred Car Motif via CSS */
+        .bill-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.06; filter: blur(2px); z-index: 0; pointer-events: none;
+        }
+        .bill-content { position: relative; z-index: 1; }
 
-        .subtitle {
-            font-size: 13px;
-            font-weight: bold;
-            margin: 2px 0;
-        }
+        /* Header Styles */
+        .main-title { text-align: center; font-size: 14px; font-weight: bold; color: var(--dark-gold); text-transform: uppercase; letter-spacing: 1px; }
+        .company-name { text-align: center; font-size: 22px; font-weight: 800; color: var(--primary); margin: 2px 0; }
+        .company-address { text-align: center; font-size: 11px; color: #666; margin-bottom: 15px; border-bottom: 2px double var(--gold); padding-bottom: 8px; }
 
-        .address-line {
-            font-size: 10px;
-            color: #334155;
-            margin-bottom: 5px;
-        }
+        /* Driver & Logo Section */
+        .header-grid { display: grid; grid-template-columns: 1fr 90px; gap: 10px; margin-bottom: 15px; }
+        .driver-info { font-size: 12px; color: var(--text); line-height: 1.5; }
+        .driver-info strong { color: var(--primary); }
+        .logo-box { width: 90px; height: 90px; border: 1px solid var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: #111e38; overflow: hidden; }
+        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        .divider {
-            border-top: 1px solid #000;
-            margin: 6px 0;
-        }
+        .divider { border-top: 1px solid var(--gold); margin: 10px 0; }
 
-        /* Two Column Top Identity Layout */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 8px;
-            font-size: 11px;
-            line-height: 1.4;
-        }
+        /* Customer & Invoice Row */
+        .cust-inv-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 10px; margin-bottom: 15px; }
+        .vertical-line { background: var(--gold); width: 1px; height: 100%; }
+        .form-group { margin-bottom: 8px; }
+        .form-group label { display: block; font-size: 11px; font-weight: bold; color: var(--primary); margin-bottom: 2px; }
+        .form-control { width: 100%; padding: 6px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255,255,255,0.8); }
+        .form-control:focus { border-color: var(--dark-gold); outline: none; }
 
-        .block-title {
-            font-weight: bold;
-            font-size: 11px;
-            border-bottom: 1px solid #000;
-            padding-bottom: 1px;
-            margin-bottom: 3px;
-            color: #000;
-            text-transform: uppercase;
-        }
+        /* Route/Stops Section */
+        .route-section { background: rgba(197, 168, 128, 0.1); padding: 8px; border-radius: 6px; margin-bottom: 12px; }
+        .stop-row { display: flex; gap: 5px; margin-bottom: 5px; }
+        .btn-small { padding: 4px 8px; font-size: 11px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 4px; }
 
-        /* Interactive Dynamic Forms Layout */
-        .input-element {
-            width: 100%;
-            padding: 4px 6px;
-            margin: 2px 0;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            font-size: 11px;
-        }
+        /* Financial Table */
+        .bill-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 12px; }
+        .bill-table th { background: var(--primary); color: white; padding: 6px; text-align: left; font-size: 11px; }
+        .bill-table td { padding: 6px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .bill-table td:nth-child(2) { width: 100px; text-align: right; }
+        .table-input { width: 100%; padding: 4px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; }
+        .amount-input { text-align: right; }
 
-        .print-only-text {
-            display: none;
-            font-weight: bold;
-        }
+        /* Summary Calculations */
+        .summary-box { margin-left: auto; width: 100%; max-width: 280px; font-size: 12px; margin-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #ddd; }
+        .summary-row.grand-total { font-weight: bold; font-size: 14px; color: var(--primary); border-bottom: 2px solid var(--gold); padding: 6px 0; }
+        .amt-words { font-size: 11px; font-style: italic; color: #555; text-align: right; margin-bottom: 10px; word-break: break-word; }
 
-        /* Via Stops Layout Alignment */
-        .via-wrapper {
-            background: #f8fafc;
-            padding: 3px;
-            margin-top: 3px;
-            border: 1px dashed #cbd5e1;
-        }
-        .via-item {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 2px;
-        }
-        .via-item input { flex: 1; padding: 2px 4px; font-size: 10px; }
-        .btn-del { background: #ef4444; color: white; border: none; padding: 0 4px; cursor: pointer; font-size: 9px; }
+        /* Signatures */
+        .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; text-align: center; font-size: 12px; }
+        .sig-box { border-top: 1px solid #999; padding-top: 5px; min-height: 60px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+        .sig-img { max-height: 50px; max-width: 120px; object-fit: contain; margin-bottom: 2px; }
+        .upload-label { font-size: 10px; color: var(--dark-gold); cursor: pointer; text-decoration: underline; }
 
-        /* Modified Left-Right Balanced Items Table */
-        .vyapar-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px;
-            font-size: 11px;
-        }
+        /* Action Buttons */
+        .btn-block { width: 100%; padding: 12px; font-size: 14px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: #25D366; color: white; }
 
-        .vyapar-table th {
-            background: #f1f5f9;
-            border: 1px solid #000;
-            padding: 4px;
-            font-weight: bold;
-        }
-
-        .vyapar-table td {
-            border: 1px solid #000;
-            padding: 5px;
-            vertical-align: middle;
-        }
-
-        /* Calculation Breakdown Summary Structure */
-        .summary-wrapper {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 6px;
-            font-size: 11px;
-        }
-
-        .words-area {
-            width: 50%;
-            font-size: 9px;
-            font-style: italic;
-        }
-
-        .math-area {
-            width: 48%;
-        }
-
-        .math-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 1px 0;
-        }
-
-        .math-row.bold-total {
-            font-weight: bold;
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #000;
-            padding: 3px 0;
-            font-size: 12px;
-        }
-
-        /* Signatures Platform Setup */
-        .signature-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 12px;
-        }
-
-        .sig-block {
-            width: 46%;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        .sig-box-display {
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #000;
-            margin-bottom: 3px;
-        }
-
-        .sig-box-display img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        /* Command Controls Interface */
-        .control-panel {
-            max-width: 480px;
-            margin: 8px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .action-btn {
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            text-align: center;
-        }
-        .btn-green { background: #25d366; color: white; }
-        .btn-blue { background: #1e3a8a; color: white; }
-        .btn-gray { background: #64748b; color: white; }
-
-        @media print {
-            body { background: white; padding: 0; }
-            .bill-card { border: none; max-width: 100%; padding: 0; }
-            .control-panel, .input-element, button, .via-wrapper, .btn-del { display: none !important; }
-            .print-only-text { display: block !important; }
-        }
+        /* History Section */
+        .history-container { width: 100%; max-width: 500px; background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .history-title { font-size: 14px; font-weight: bold; color: var(--primary); margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .history-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #eee; font-size: 12px; cursor: pointer; border-radius: 4px; }
+        .history-item:hover { background: #f9f9f9; }
     </style>
 </head>
 <body>
 
-<div class="bill-card" id="vyaparBillStructure">
-    <!-- Header Block Matching Source Layout -->
-    <div class="text-center">
-        <div class="main-title">PRAVAS TOUR AND TRAVELS[cite: 1]</div>
-        <div class="subtitle">Bill of Supply[cite: 1]</div>
-        <div class="address-line">R MALL MANPADA Thane West MUMBAI MAHARASHTRA[cite: 1]</div>
-    </div>
+    <div class="app-container" id="printable-area">
+        <div class="bill-card">
+            <div class="bill-content">
+                <!-- Header -->
+                <div class="main-title">Pravasa Tours Bill</div>
+                <div class="company-name">Pravas Tour & Travels</div>
+                <div class="company-address">Hiranandani Meadows, Thane, Maharashtra 400607</div>
 
-    <div class="divider"></div>
-
-    <!-- Drivers & Invoice Top Information Rows -->
-    <div class="info-grid">
-        <div>
-            <div class="block-title">Details of Sender</div>
-            <div><strong>DRIVER:</strong> RAJU YADAV[cite: 1]</div>
-            <div><strong>VEHICLE:</strong> MH04LY5124[cite: 1]</div>
-            <div><strong>PHONE:</strong> 9326477072[cite: 1]</div>
-            <div><strong>EMAIL:</strong> rajit.syadav@gmail.com[cite: 1]</div>
-            <div><strong>STATE:</strong> 27-Maharashtra[cite: 1]</div>
-        </div>
-        <div>
-            <div class="block-title">Invoice Details[cite: 1]</div>
-            <div>
-                <strong>No:</strong> 
-                <input type="text" class="input-element" id="invNo" value="1206">
-                <span class="print-only-text" id="p-invNo">1206</span>
-            </div>
-            <div>
-                <strong>Date:</strong> 
-                <input type="date" class="input-element" id="invDate">
-                <span class="print-only-text" id="p-invDate"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Reordered Component Rows: Fields on Left, Computed Fares linked dynamically to Right Column -->
-    <div class="block-title">Customer, Trip & Addons Calculation Breakdown</div>
-    
-    <table class="vyapar-table">
-        <thead>
-            <tr>
-                <th style="text-align: left; width: 60%;">Billing Parameter / Details</th>
-                <th style="text-align: right; width: 40%;">Fare Amount (₹)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Row 1: Customer Details System Entry Box -->
-            <tr>
-                <td>
-                    <div style="font-weight: bold; margin-bottom: 2px;">Bill To:[cite: 1]</div>
-                    <input type="text" class="input-element" id="custName" placeholder="Enter Customer Name" oninput="syncPrintData()">
-                    <span class="print-only-text" id="p-custName">—</span>
-                    
-                    <input type="tel" class="input-element" id="custPhone" placeholder="Enter Mobile Number" oninput="syncPrintData()">
-                    <span class="print-only-text" id="p-custPhone">—</span>
-                </td>
-                <td style="text-align: right; font-weight: bold; color: #475569;">Customer Info Registered</td>
-            </tr>
-
-            <!-- Row 2: Trip Profile Mapping Input Selection Matrix -->
-            <tr>
-                <td>
-                    <div style="font-weight: bold; margin-bottom: 2px;">Trip Type Profile Selection:</div>
-                    <select class="input-element" id="tripType" onchange="executeCalculations()">
-                        <option value="1">One-Way Trip</option>
-                        <option value="2">Two-Way (Round Trip)</option>
-                        <option value="rental-8-80">8h:80KM (8.80)</option>
-                        <option value="rental-6-60">6h:60KM (6.60)</option>
-                        <option value="rental-4-40">4h:40KM (4.40)</option>
-                        <option value="mumbai-darshan">Mumbai Darshan</option>
-                        <option value="out-station">Out Station</option>
-                    </select>
-                    <span class="print-only-text" id="p-tripType">One-Way Trip</span>
-                    
-                    <!-- Integrated Compact Routing Tracks System Inside Grid Cell -->
-                    <div style="margin-top: 4px; border-top: 1px dashed #cbd5e1; padding-top: 4px;">
-                        <input type="text" class="input-element" id="fromLoc" placeholder="Pickup Location" oninput="syncPrintData()">
-                        <input type="text" class="input-element" id="toLoc" placeholder="Drop Location" oninput="syncPrintData()">
-                        <div class="via-wrapper">
-                            <div id="stopsBox"></div>
-                            <button type="button" style="font-size:9px; padding:1px 4px; cursor:pointer;" onclick="addViaStopElement()">+ Add Via Stop</button>
-                        </div>
-                        <span class="print-only-text" id="p-fullRoute" style="font-size: 10px; color:#475569;"></span>
+                <!-- Driver & Logo Section -->
+                <div class="header-grid">
+                    <div class="driver-info">
+                        <strong>Driver Name:</strong> Rajit Yadav<br>
+                        <strong>Car No:</strong> MH04LY5124<br>
+                        <strong>Phone No:</strong> 932647702<br>
+                        <strong>State:</strong> Maharashtra
                     </div>
-                </td>
-                <td>
-                    <div style="font-size:10px; color:#475569; margin-bottom:4px;">Base Rate:</div>
-                    <input type="number" class="input-element text-right" id="inpBase" value="0" oninput="executeCalculations()">
-                    <div style="font-weight: bold; margin-top: 6px;" id="outBaseFare">₹0.00</div>
-                </td>
-            </tr>
+                    <div class="logo-box">
+                        <!-- Minimal SVG Recreation of the Pravash Emblem Logo -->
+                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#c5a880" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="#c5a880" stroke-width="1" stroke-dasharray="2,2"/>
+                            <path d="M50,15 L53,25 L65,25 L55,32 L58,45 L50,37 L42,45 L45,32 L35,25 L47,25 Z" fill="#c5a880"/>
+                            <text x="50" y="62" font-size="9" fill="#c5a880" font-weight="bold" text-anchor="middle">PRAVASH</text>
+                            <text x="50" y="72" font-size="5" fill="#fff" text-anchor="middle" letter-spacing="1">TOURS</text>
+                        </svg>
+                    </div>
+                </div>
 
-            <!-- Row 3: Toll Plaza Charges Record -->
-            <tr>
-                <td>
-                    <div style="font-weight: bold;">Toll Charges</div>
-                    <div style="font-size: 10px; color: #64748b;">Fastag / Highway Toll booth entry taxes</div>
-                </td>
-                <td>
-                    <input type="number" class="input-element text-right" id="inpToll" value="0" oninput="executeCalculations()">
-                    <div style="font-weight: bold; margin-top: 4px;" id="outToll">₹0.00</div>
-                </td>
-            </tr>
+                <div class="divider"></div>
 
-            <!-- Row 4: Parking Charges Record -->
-            <tr>
-                <td>
-                    <div style="font-weight: bold;">Parking Charges</div>
-                    <div style="font-size: 10px; color: #64748b;">Airport, Station or Mall Terminal stays</div>
-                </td>
-                <td>
-                    <input type="number" class="input-element text-right" id="inpParking" value="0" oninput="executeCalculations()">
-                    <div style="font-weight: bold; margin-top: 4px;" id="outParking">₹0.00</div>
-                </td>
-            </tr>
+                <!-- Customer & Invoice Info -->
+                <div class="cust-inv-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <input type="text" id="custName" class="form-control" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="number" id="custPhone" class="form-control" placeholder="Enter Mobile">
+                        </div>
+                    </div>
+                    <div class="vertical-line"></div>
+                    <div>
+                        <div class="form-group">
+                            <label>Invoice No</label>
+                            <input type="text" id="invNo" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="invDate" class="form-control">
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Row 5: Other/Night Allowances Record -->
-            <tr>
-                <td>
-                    <div style="font-weight: bold;">Other / Night Allowances</div>
-                    <div style="font-size: 10px; color: #64748b;">Night driving premium driver logs</div>
-                </td>
-                <td>
-                    <input type="number" class="input-element text-right" id="inpOther" value="0" oninput="executeCalculations()">
-                    <div style="font-weight: bold; margin-top: 4px;" id="outOther">₹0.00</div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                <!-- Dynamic Route Points -->
+                <div class="route-section">
+                    <label style="font-size:11px; font-weight:bold; color:var(--primary);">Trip Route Stops</label>
+                    <div class="stop-row">
+                        <input type="text" id="pickupPt" class="form-control" placeholder="Pickup Point">
+                    </div>
+                    <div id="dynamicStops"></div>
+                    <div class="stop-row">
+                        <input type="text" id="dropPt" class="form-control" placeholder="Drop Point">
+                    </div>
+                    <button class="btn-small" type="button" onclick="addStop()">+ Add Mid-Stop</button>
+                </div>
 
-    <!-- Computation Summary Math Columns -->
-    <div class="summary-wrapper">
-        <div class="words-area">
-            <div style="font-weight:bold; margin-bottom:2px;">Invoice Amount In Words:[cite: 1]</div>
-            <div id="amountInWordsText" style="color:#000; font-weight:bold;">Zero Rupees only[cite: 1]</div>
+                <!-- Rates and Calculations Table -->
+                <table class="bill-table">
+                    <thead>
+                        <tr>
+                            <th>Trip Details & Particulars</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label style="font-size:11px; font-weight:bold; display:block; margin-bottom:2px;">Trip Type</label>
+                                <select id="tripType" class="form-control" onchange="calculateBill()">
+                                    <option value="One Way">One Way</option>
+                                    <option value="Two Way">Two Way</option>
+                                    <option value="Rental 8h:80KM">Rental 8.80 (8h:80KM)</option>
+                                    <option value="Rental 6h:60KM">Rental 6.60 (6h:60KM)</option>
+                                    <option value="Rental 4h:40KM">Rental 4.40 (4h:40KM)</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" id="tripRate" class="table-input amount-input" value="0" oninput="calculateBill()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="tollName" class="table-input" placeholder="Toll Name / Location">
+                            </td>
+                            <td>
+                                <input type="number" id="tollAmt" class="table-input amount-input" value="0" oninput="calculateBill()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="pkgName" class="table-input" placeholder="Parking Location">
+                            </td>
+                            <td>
+                                <input type="number" id="pkgAmt" class="table-input amount-input" value="0" oninput="calculateBill()">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Summary Breakdown -->
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>Sub Total:</span>
+                        <span id="lblSubTotal">₹0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Toll + Parking:</span>
+                        <span id="lblTaxToll">₹0.00</span>
+                    </div>
+                    <div class="summary-row grand-total">
+                        <span>Total Amount:</span>
+                        <span id="lblGrandTotal">₹0.00</span>
+                    </div>
+                </div>
+                <div class="amt-words" id="lblWords">Rupees Zero Only</div>
+
+                <div class="summary-box" style="margin-top: 5px;">
+                    <div class="summary-row">
+                        <span style="font-weight:bold;">Received Amount:</span>
+                        <span><input type="number" id="netReceived" class="table-input amount-input" style="width:90px; padding:2px;" value="0" oninput="calculateBill()"></span>
+                    </div>
+                    <div class="summary-row" style="color: red; font-weight: bold;">
+                        <span>Balance Due:</span>
+                        <span id="lblBalance">₹0.00</span>
+                    </div>
+                </div>
+
+                <!-- Signatures -->
+                <div class="sig-container">
+                    <div class="sig-box">
+                        <!-- Hardcoded clean approximation of Owner/Driver Signature via SVG paths -->
+                        <svg class="sig-img" viewBox="0 0 150 60">
+                            <path d="M10,40 Q30,5 40,35 T60,25 Q80,50 110,35 T140,20" fill="none" stroke="#000" stroke-width="2"/>
+                            <path d="M35,30 Q50,45 55,20" fill="none" stroke="#000" stroke-width="1.5"/>
+                        </svg>
+                        <strong>Pravas Travels</strong>
+                        <span style="font-size:9px; color:#777;">(Owner/Driver Signature)</span>
+                    </div>
+                    <div class="sig-box" id="custSigWrapper">
+                        <img id="custSigImg" class="sig-img" style="display:none;"/>
+                        <span id="uploadPrompt">
+                            <label for="custSigFile" class="upload-label">Upload Signature</label>
+                            <input type="file" id="custSigFile" accept="image/*" style="display:none;" onchange="loadSignature(event)">
+                        </span>
+                        <strong>Customer Signature</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Operations Trigger Containers -->
+    <div style="width: 100%; max-width: 500px; padding: 0 5px;">
+        <button class="btn-block btn-primary" onclick="saveAndDownloadBill()">💾 Save & Download Bill PDF</button>
+        <button class="btn-block btn-success" onclick="shareToWhatsApp()">💬 Send Directly to WhatsApp</button>
+    </div>
+
+    <br>
+
+    <!-- History Display List Component -->
+    <div class="history-container">
+        <div class="history-title">📜 Past Generated Invoices (History)</div>
+        <div id="historyList">
+            <p style="font-size:12px; color:#888; text-align:center; padding:10px;">No saved history found.</p>
+        </div>
+    </div>
+
+    <script>
+        // Automatic Unique Invoice Generator Initialization
+        document.getElementById('invDate').valueAsDate = new Date();
+        document.getElementById('invNo').value = 'PRV-' + Math.floor(100000 + Math.random() * 900000);
+
+        function addStop() {
+            const container = document.getElementById('dynamicStops');
+            const stopCount = container.children.length + 1;
+            if(stopCount > 3) { alert("Maximum 3 intermediate stops allowed."); return; }
             
-            <div style="margin-top:12px; font-size:10px; color:#475569;">
-                <strong>Terms And Conditions:</strong><br>
-                Thank you for doing business with us.[cite: 1]
-            </div>
-        </div>
-        <div class="math-area">
-            <div class="math-row">
-                <span>Sub Total[cite: 1]</span>
-                <span id="lblSubTotal">₹0.00[cite: 1]</span>
-            </div>
-            <div class="math-row bold-total">
-                <span>Total[cite: 1]</span>
-                <span id="lblGrandTotal">₹0.00[cite: 1]</span>
-            </div>
-            <div class="math-row" style="color: green; font-weight: bold;">
-                <span>Received[cite: 1]</span>
-                <span id="lblReceived">₹0.00[cite: 1]</span>
-            </div>
-            <div class="math-row" style="color: red; font-weight: bold; border-top: 1px dashed #cbd5e1;">
-                <span>Balance[cite: 1]</span>
-                <span>₹0.00[cite: 1]</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signatures Placement Section -->
-    <div class="signature-container">
-        <div class="sig-block">
-            <div class="sig-box-display" id="custSigFrame">
-                <span style="color:#94a3b8; font-size:10px; font-style:italic;">No Signature</span>
-            </div>
-            <input type="file" id="uploadFileHandle" accept="image/*" style="display:none;" onchange="loadCustImage(event)">
-            <button class="action-btn" style="font-size:9px; padding:2px 5px; background:#e2e8f0; color:#000;" onclick="document.getElementById('uploadFileHandle').click()">Upload Customer Sign</button>
-            <div style="font-weight:bold; margin-top:3px;">Customer Signature</div>
-        </div>
-
-        <div class="sig-block" style="text-align: right;">
-            <div style="font-size:10px; font-style:italic; color:#475569; margin-bottom:2px;">For PRAVAS TOUR AND TRAVELS:[cite: 1]</div>
-            <div class="sig-box-display">
-                <!-- Cropped Base64 Premium Signature Stream -->
-                <img src="data:image/jpeg;base64,` + b64_sig + `" alt="Authorized Signatory">
-            </div>
-            <div style="font-weight:bold;">Authorized Signatory[cite: 1]</div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer Interface Interactive Actions Module Panel -->
-<div class="control-panel">
-    <button class="action-btn btn-green" onclick="shareOnlyImageWhatsApp()">✓ Send Only Image to WhatsApp</button>
-    <button class="action-btn btn-blue" onclick="executeNativePrint()">Print / Save Vyapar PDF</button>
-    <button class="action-btn btn-gray" onclick="clearFormInputs()">Clear Fields</button>
-</div>
-
-<script>
-    document.getElementById('invDate').value = new Date().toISOString().substring(0, 10);
-
-    function addViaStopElement() {
-        const box = document.getElementById('stopsBox');
-        const row = document.createElement('div');
-        row.className = 'via-item';
-        row.innerHTML = `
-            <input type="text" class="via-input-field" placeholder="Stop Point Name" oninput="syncPrintData()">
-            <button type="button" class="btn-del" onclick="this.parentElement.remove(); syncPrintData();">X</button>
-        `;
-        box.appendChild(row);
-        syncPrintData();
-    }
-
-    function loadCustImage(e) {
-        const file = e.target.files[0];
-        if(file) {
-            const r = new FileReader();
-            r.onload = function(event) {
-                document.getElementById('custSigFrame').innerHTML = `<img src="${event.target.result}">`;
-            }
-            r.readAsDataURL(file);
-        }
-    }
-
-    function syncPrintData() {
-        document.getElementById('p-invNo').innerText = document.getElementById('invNo').value;
-        document.getElementById('p-invDate').innerText = document.getElementById('invDate').value;
-        
-        const sel = document.getElementById('tripType');
-        document.getElementById('p-tripType').innerText = sel.options[sel.selectedIndex].text;
-
-        document.getElementById('p-custName').innerText = document.getElementById('custName').value || "—";
-        document.getElementById('p-custPhone').innerText = document.getElementById('custPhone').value || "—";
-
-        const start = document.getElementById('fromLoc').value || "—";
-        const end = document.getElementById('toLoc').value || "—";
-        let viaPoints = [];
-        document.querySelectorAll('.via-input-field').forEach(i => {
-            if(i.value.trim() !== "") viaPoints.push(i.value.trim());
-        });
-
-        let totalTrack = start;
-        if(viaPoints.length > 0) totalTrack += " ➔ (Via: " + viaPoints.join(", ") + ")";
-        totalTrack += " ➔ " + end;
-        document.getElementById('p-fullRoute').innerText = "Route Path Log: " + totalTrack;
-    }
-
-    function executeCalculations() {
-        const base = parseFloat(document.getElementById('inpBase').value) || 0;
-        const mult = document.getElementById('tripType').value === "2" ? 2 : 1;
-        const computedBase = base * mult;
-
-        const toll = parseFloat(document.getElementById('inpToll').value) || 0;
-        const parking = parseFloat(document.getElementById('inpParking').value) || 0;
-        const other = parseFloat(document.getElementById('inpOther').value) || 0;
-
-        const grand = computedBase + toll + parking + other;
-
-        document.getElementById('outBaseFare').innerText = "₹" + computedBase.toFixed(2);
-        document.getElementById('outToll').innerText = "₹" + toll.toFixed(2);
-        document.getElementById('outParking').innerText = "₹" + parking.toFixed(2);
-        document.getElementById('outOther').innerText = "₹" + other.toFixed(2);
-
-        document.getElementById('lblSubTotal').innerText = "₹" + grand.toFixed(2);
-        document.getElementById('lblGrandTotal').innerText = "₹" + grand.toFixed(2);
-        document.getElementById('lblReceived').innerText = "₹" + grand.toFixed(2);
-
-        document.getElementById('amountInWordsText').innerText = numToWordsConverter(grand) + " Rupees only";
-        syncPrintData();
-    }
-
-    async function shareOnlyImageWhatsApp() {
-        const name = document.getElementById('custName').value;
-        if(!name) {
-            alert("कृपया आगे बढ़ने के लिए कस्टमर का नाम दर्ज करें!");
-            return;
+            const div = document.createElement('div');
+            div.className = 'stop-row';
+            div.innerHTML = `<input type="text" class="form-control mid-stop" placeholder="Via Stop ${stopCount}">
+                             <button class="btn-small" style="background:#cc2121; margin:0;" onclick="this.parentElement.remove()">X</button>`;
+            container.appendChild(div);
         }
 
-        syncPrintData();
-        const billCard = document.getElementById('vyaparBillStructure');
+        function loadSignature(event) {
+            const output = document.getElementById('custSigImg');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block';
+            document.getElementById('uploadPrompt').style.display = 'none';
+        }
 
-        // Capture clean high resolution screenshot image blob
-        html2canvas(billCard, { scale: 2, useCORS: true }).then(async (canvas) => {
-            canvas.toBlob(async (blob) => {
-                const imageFile = new File([blob], `Invoice_${document.getElementById('invNo').value}.png`, { type: 'image/png' });
-                
-                // Native OS Web Share System invocation to route file completely directly through WhatsApp
-                if (navigator.canShare && navigator.canShare({ files: [imageFile] })) {
-                    try {
-                        await navigator.share({
-                            files: [imageFile],
-                            title: 'Pravas Tour And Travels Invoice'
-                        });
-                    } catch (error) {
-                        alert("शेयरिंग कैंसल की गई या डिवाइस सपोर्टेड नहीं है।");
-                    }
-                } else {
-                    // Fallback configuration channel
-                    alert("आपका ब्राउज़र डायरेक्ट फाइल शेयरिंग सपोर्ट नहीं करता। कृपया इमेज डाउनलोड करने के लिए 'Print / Save' बटन दबाएं।");
-                }
-            }, 'image/png');
-        });
-    }
+        function numberToWords(num) {
+            if (num === 0) return 'Rupees Zero Only';
+            const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            
+            let words = 'Rupees ';
+            if ((num = num.toString()).length > 9) return 'overflow';
+            let n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+            if (!n) return ''; 
+            words += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+            words += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+            words += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+            words += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+            words += (n[5] != 0) ? ((words != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) : '';
+            return words + ' Only';
+        }
 
-    function executeNativePrint() {
-        syncPrintData();
-        window.print();
-    }
+        function calculateBill() {
+            const tripRate = parseFloat(document.getElementById('tripRate').value) || 0;
+            const tollAmt = parseFloat(document.getElementById('tollAmt').value) || 0;
+            const pkgAmt = parseFloat(document.getElementById('pkgAmt').value) || 0;
+            const received = parseFloat(document.getElementById('netReceived').value) || 0;
 
-    function clearFormInputs() {
-        document.getElementById('custName').value = "";
-        document.getElementById('custPhone').value = "";
-        document.getElementById('fromLoc').value = "";
-        document.getElementById('toLoc').value = "";
-        document.getElementById('stopsBox').innerHTML = "";
-        document.getElementById('inpBase').value = "0";
-        document.getElementById('inpToll').value = "0";
-        document.getElementById('inpParking').value = "0";
-        document.getElementById('inpOther').value = "0";
-        document.getElementById('custSigFrame').innerHTML = `<span style="color:#94a3b8; font-size:10px; font-style:italic;">No Signature</span>`;
-        executeCalculations();
-    }
+            const subTotal = tripRate;
+            const taxToll = tollAmt + pkgAmt;
+            const grandTotal = subTotal + taxToll;
+            const balance = grandTotal - received;
 
-    function numToWordsConverter(num) {
-        if (num === 0) return "Zero";
-        const arrA = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-        const arrB = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-        
-        let val = Math.floor(num);
-        if (val < 20) return arrA[val];
-        if (val < 100) return arrB[Math.floor(val / 10)] + (val % 10 !== 0 ? " " + arrA[val % 10] : "");
-        if (val < 1000) return arrA[Math.floor(val / 100)] + " Hundred" + (val % 100 !== 0 ? " and " + numToWordsConverter(val % 100) : "");
-        if (val < 100000) return numToWordsConverter(Math.floor(val / 1000)) + " Thousand" + (val % 1000 !== 0 ? " " + numToWordsConverter(val % 1000) : "");
-        return val.toString();
-    }
+            document.getElementById('lblSubTotal').innerText = '₹' + subTotal.toFixed(2);
+            document.getElementById('lblTaxToll').innerText = '₹' + taxToll.toFixed(2);
+            document.getElementById('lblGrandTotal').innerText = '₹' + grandTotal.toFixed(2);
+            document.getElementById('lblBalance').innerText = '₹' + balance.toFixed(2);
+            document.getElementById('lblWords').innerText = numberToWords(Math.floor(grandTotal));
+        }
 
-    executeCalculations();
-</script>
+        // Local Storage persistent state initialization engines
+        function saveToHistory() {
+            const invoice = {
+                invNo: document.getElementById('invNo').value,
+                date: document.getElementById('invDate').value,
+                custName: document.getElementById('custName').value || 'Unknown Customer',
+                phone: document.getElementById('custPhone').value,
+                pickup: document.getElementById('pickupPt').value,
+                drop: document.getElementById('dropPt').value,
+                tripType: document.getElementById('tripType').value,
+                total: document.getElementById('lblGrandTotal').innerText
+            };
 
+            let history = JSON.parse(localStorage.getItem('pravas_history')) || [];
+            // Anti-duplicate checks
+            history = history.filter(item => item.invNo !== invoice.invNo);
+            history.unshift(invoice);
+            localStorage.setItem('pravas_history', JSON.stringify(history));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem('pravas_history')) || [];
+            const container = document.getElementById('historyList');
+            if(history.length === 0) return;
+            
+            container.innerHTML = '';
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `<div><strong>${item.custName}</strong> (${item.invNo})<br><small>${item.pickup} ➔ ${item.drop}</small></div>
+                                 <div style="text-align:right; font-weight:bold; color:var(--primary);">${item.total}<br><small style="color:#777; font-weight:normal;">${item.date}</small></div>`;
+                div.onclick = () => alert("Viewing archived system records: " + item.invNo + "\\nCustomer: " + item.custName + "\\nFare: " + item.total);
+                container.appendChild(div);
+            });
+        }
+
+        function saveAndDownloadBill() {
+            saveToHistory();
+            const element = document.getElementById('printable-area');
+            const opt = {
+                margin:       5,
+                filename:     'Pravas_Bill_' + document.getElementById('invNo').value + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+
+        function shareToWhatsApp() {
+            const phone = document.getElementById('custPhone').value;
+            if(!phone) { alert("Please enter the customer's mobile number first!"); return; }
+            saveToHistory();
+
+            const name = document.getElementById('custName').value || 'Customer';
+            const inv = document.getElementById('invNo').value;
+            const total = document.getElementById('lblGrandTotal').innerText;
+            const balance = document.getElementById('lblBalance').innerText;
+            const pku = document.getElementById('pickupPt').value;
+            const drp = document.getElementById('dropPt').value;
+
+            const txt = `*Pravas Tour & Travels Bill*%0A%0AHello ${name},%0AYour trip invoice *${inv}* has been generated.%0A%0A*Trip Details:* ${pku} to ${drp}%0A*Total Amount:* ${total}%0A*Balance Due:* ${balance}%0A%0APdf generated successfully. Thank you for riding with Pravas!`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
+        }
+
+        window.onload = renderHistory;
+    </script>
 </body>
 </html>
