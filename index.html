@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pravsh Tour & Travels - Premium Responsive Invoice</title>
+    <title>Pravsh Tour & Travels - Premium Invoice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- html2canvas Library for Auto Image Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary: #0f172a;
@@ -28,10 +31,10 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             border: 1px solid var(--border);
@@ -39,14 +42,14 @@
             overflow: hidden;
         }
 
-        /* Premium Blurred Car Background Effect */
+        /* Watermark Background */
         .car-watermark {
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80%;
-            opacity: 0.04;
+            opacity: 0.03;
             z-index: 0;
             pointer-events: none;
         }
@@ -56,88 +59,56 @@
             z-index: 1;
         }
 
-        /* Header Layout Fix */
+        /* Top Header Area */
         .header {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
             border-bottom: 2px solid var(--border);
             padding-bottom: 15px;
             margin-bottom: 15px;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .company-logo-name h1 {
-            font-size: 24px;
+        .company-logo {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .company-info h1 {
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .company-logo-name p {
+        .company-info p {
             font-size: 12px;
             color: #64748b;
+            margin-top: 2px;
         }
 
-        .driver-card {
-            font-size: 13px;
-            line-height: 1.5;
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 6px;
-        }
-
-        .driver-card strong {
-            color: var(--primary);
-        }
-
-        /* Meta Grid Fix */
-        .invoice-meta {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
+        /* Main Structured Layout Block */
+        .details-block {
             background: #f8fafc;
-            padding: 12px;
+            border: 1px solid var(--border);
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
-            border: 1px solid var(--border);
         }
 
-        .meta-box span {
-            display: block;
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .meta-box input, .meta-box select {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-            background: #ffffff;
-            border: 1px solid var(--border);
-            padding: 6px;
-            border-radius: 4px;
-            width: 100%;
-            outline: none;
-        }
-
-        .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 10px;
-            border-left: 3px solid var(--accent);
-            padding-left: 6px;
-        }
-
-        /* Form Inputs Responsive Fix */
-        .grid-layout {
+        .row-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 480px) {
+            .row-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .input-group {
@@ -147,21 +118,49 @@
 
         .input-group label {
             font-size: 11px;
-            font-weight: 500;
-            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #64748b;
             margin-bottom: 4px;
+            letter-spacing: 0.5px;
         }
 
-        .input-group input {
+        .input-group input, .input-group select {
             padding: 8px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
             font-size: 14px;
             color: var(--primary);
+            background: #ffffff;
+            outline: none;
             width: 100%;
         }
 
-        /* Printable Value Mirror (Crucial Fix for values disappearing) */
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--accent);
+        }
+
+        .driver-display-box {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent);
+            padding-left: 6px;
+        }
+
+        /* Printable Text Mirrors */
         .print-val {
             display: none;
             font-size: 14px;
@@ -170,11 +169,10 @@
             padding: 4px 0;
         }
 
-        /* Table */
+        /* Itemized Calculation Table */
         .bill-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
             margin-bottom: 15px;
         }
 
@@ -184,10 +182,11 @@
             text-align: left;
             padding: 8px 10px;
             font-size: 12px;
+            text-transform: uppercase;
         }
 
         .bill-table td {
-            padding: 10px;
+            padding: 9px 10px;
             border-bottom: 1px solid var(--border);
             font-size: 13px;
         }
@@ -197,16 +196,16 @@
             font-weight: 600;
         }
 
-        /* Total Box */
+        /* Total Section */
         .total-wrapper {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .total-box {
             width: 100%;
-            max-width: 250px;
+            max-width: 240px;
             background: #f8fafc;
             padding: 12px;
             border-radius: 6px;
@@ -228,16 +227,14 @@
             color: var(--accent);
         }
 
-        /* Footer Section Single Page Fit */
+        /* Compact Footer */
         .footer-section {
             display: flex;
-            justify-span: space-between;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid var(--border);
-            gap: 10px;
         }
 
         .company-vision {
@@ -251,7 +248,7 @@
         }
 
         .company-vision p {
-            font-size: 11px;
+            font-size: 10px;
             color: #64748b;
             font-style: italic;
             line-height: 1.4;
@@ -263,21 +260,19 @@
 
         .sig-line {
             border-top: 1px solid var(--primary);
-            margin-top: 30px;
+            margin-top: 25px;
             padding-top: 3px;
             font-size: 11px;
             font-weight: 500;
         }
 
-        /* Buttons Layout */
+        /* Control UI Actions */
         .actions {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 20px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 20px auto;
+            max-width: 650px;
         }
 
         .btn {
@@ -291,14 +286,13 @@
             width: 100%;
         }
 
-        .btn-primary { background: #25d366; color: white; } /* WhatsApp Green */
+        .btn-primary { background: #25d366; color: white; }
         .btn-secondary { background: var(--primary); color: white; }
         .btn-clear { background: #e2e8f0; color: var(--primary); }
 
-        /* History Table */
         .history-section {
-            max-width: 700px;
-            margin: 20px auto 0 auto;
+            max-width: 650px;
+            margin: 0 auto 20px auto;
             background: white;
             padding: 15px;
             border-radius: 12px;
@@ -318,29 +312,21 @@
             text-align: left;
         }
 
-        /* Responsive Tablet & Desktop view adjustments */
-        @media (min-width: 480px) {
-            .header { flex-direction: row; justify-content: space-between; align-items: center; }
-            .invoice-meta { grid-template-columns: repeat(3, 1fr); }
-            .grid-layout { grid-template-columns: 1fr 1fr; }
-            .actions { flex-direction: row; }
-        }
-
-        /* CRITICAL PRINT FIXES: Ensures fields convert to plain text when saving/printing */
+        /* PRINT CONFIG */
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
             .actions, .history-section, input, select { display: none !important; }
             .print-val { display: block !important; }
-            .invoice-meta { grid-template-columns: repeat(3, 1fr); background: transparent !important; }
-            .car-watermark { opacity: 0.06; }
+            .row-grid { grid-template-columns: 1fr 1fr !important; }
+            .car-watermark { opacity: 0.05; }
         }
     </style>
 </head>
 <body>
 
 <div class="container" id="invoice">
-    <!-- Blurred Premium Car SVG Background Layer -->
+    <!-- Blurred Car SVG Watermark -->
     <svg class="car-watermark" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
         <path d="M10,35 Q15,28 30,26 L65,24 Q75,24 85,32 L95,35 Q98,38 95,42 L90,45 L10,45 Z" fill="none" stroke="#0f172a" stroke-width="1.5"/>
         <circle cx="25" cy="45" r="6" fill="none" stroke="#0f172a" stroke-width="1.5"/>
@@ -349,72 +335,85 @@
     </svg>
 
     <div class="invoice-content">
-        <!-- Header -->
+        <!-- Header with Premium Logo Image -->
         <div class="header">
-            <div class="company-logo-name">
-                <h1>Pravsh Tour & Travels</h1>
+            <!-- Emulated placeholder image utilizing your uploaded high premium artwork layout -->
+            <div style="background: #0d1e3d; padding: 10px; border-radius: 50%; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <span style="color: #d4af37; font-weight: 800; font-size: 14px; letter-spacing: 0.5px;">PRAVASH</span>
+            </div>
+            <div class="company-info">
+                <h1>Pravash Tour & Travels</h1>
                 <p>Hiranandani Meadows, Thane, Maharashtra</p>
             </div>
-            <div class="driver-card">
-                <strong>Driver: Rajit Yadav</strong><br>
-                🚗 Vehicle No: MH04LY5124<br>
-                📞 Call: +91 9326477072<br>
-                ✉️ rajit.syadav@gmail.com
+        </div>
+
+        <!-- Driver Details Box (Shifted to Top instead of Invoice No) -->
+        <div class="driver-display-box">
+            <strong>Driver Details:</strong> Rajit Yadav | 🚗 <strong>Vehicle No:</strong> MH04LY5124<br>
+            📞 <strong>Call:</strong> +91 9326477072 | ✉️ <strong>Email:</strong> rajit.syadav@gmail.com
+        </div>
+
+        <!-- Master Ordered Content Layout Block -->
+        <div class="details-block">
+            <!-- Row 1: Invoice Number & Date (Trip Type moved out) -->
+            <div class="row-grid">
+                <div class="input-group">
+                    <label>Invoice No</label>
+                    <input type="text" id="invNum" value="PTT-1001">
+                    <div class="print-val" id="p-invNum"></div>
+                </div>
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" id="invDate">
+                    <div class="print-val" id="p-invDate"></div>
+                </div>
+            </div>
+
+            <!-- Row 2: Customer Name & Phone Number -->
+            <div class="row-grid">
+                <div class="input-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="custName" placeholder="Enter Customer Name" oninput="syncPrintValues()">
+                    <div class="print-val" id="p-custName"></div>
+                </div>
+                <div class="input-group">
+                    <label>Customer Phone</label>
+                    <input type="tel" id="custPhone" placeholder="Enter Mobile Number" oninput="syncPrintValues()">
+                    <div class="print-val" id="p-custPhone"></div>
+                </div>
+            </div>
+
+            <!-- Row 3: Trip Type (Placed exactly underneath Customer Name) -->
+            <div class="row-grid">
+                <div class="input-group">
+                    <label>Trip Type</label>
+                    <select id="tripType" onchange="calculateTotal()">
+                        <option value="1">One-Way Trip</option>
+                        <option value="2">Two-Way (Round Trip)</option>
+                    </select>
+                    <div class="print-val" id="p-tripType"></div>
+                </div>
+                <div style="display:none;"></div> <!-- Empty block spacer -->
+            </div>
+
+            <!-- Row 4: Route Locations -->
+            <div class="row-grid" style="margin-top: 5px; border-top: 1px dashed var(--border); padding-top: 10px;">
+                <div class="input-group">
+                    <label>Pickup Location</label>
+                    <input type="text" id="pickupLoc" placeholder="From Start Point" oninput="syncPrintValues()">
+                    <div class="print-val" id="p-pickupLoc"></div>
+                </div>
+                <div class="input-group">
+                    <label>Drop Location</label>
+                    <input type="text" id="dropLoc" placeholder="To Destination" oninput="syncPrintValues()">
+                    <div class="print-val" id="p-dropLoc"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Invoice Meta Data -->
-        <div class="invoice-meta">
-            <div class="meta-box">
-                <span>Invoice No</span>
-                <input type="text" id="invNum" value="PTT-1001">
-                <div class="print-val" id="p-invNum"></div>
-            </div>
-            <div class="meta-box">
-                <span>Date</span>
-                <input type="date" id="invDate">
-                <div class="print-val" id="p-invDate"></div>
-            </div>
-            <div class="meta-box">
-                <span>Trip Type</span>
-                <select id="tripType" onchange="calculateTotal()">
-                    <option value="1">One-Way Trip</option>
-                    <option value="2">Two-Way (Round Trip)</option>
-                </select>
-                <div class="print-val" id="p-tripType"></div>
-            </div>
-        </div>
-
-        <!-- Customer & Route Details -->
-        <h3 class="section-title">Customer & Route Details</h3>
-        <div class="grid-layout">
-            <div class="input-group">
-                <label>Customer Name</label>
-                <input type="text" id="custName" placeholder="Customer Name" oninput="syncPrintValues()">
-                <div class="print-val" id="p-custName"></div>
-            </div>
-            <div class="input-group">
-                <label>Customer Phone</label>
-                <input type="tel" id="custPhone" placeholder="Phone Number" oninput="syncPrintValues()">
-                <div class="print-val" id="p-custPhone"></div>
-            </div>
-        </div>
-        <div class="grid-layout">
-            <div class="input-group">
-                <label>Pickup Location</label>
-                <input type="text" id="pickupLoc" placeholder="From Location" oninput="syncPrintValues()">
-                <div class="print-val" id="p-pickupLoc"></div>
-            </div>
-            <div class="input-group">
-                <label>Drop Location</label>
-                <input type="text" id="dropLoc" placeholder="To Location" oninput="syncPrintValues()">
-                <div class="print-val" id="p-dropLoc"></div>
-            </div>
-        </div>
-
-        <!-- Charges Inputs -->
-        <h3 class="section-title">Fare Breakdown Config</h3>
-        <div class="grid-layout">
+        <!-- Charges Inputs Configurations -->
+        <h3 class="section-title">Fare Breakdown Settings</h3>
+        <div class="row-grid">
             <div class="input-group">
                 <label>Base Fare (One Way) (₹)</label>
                 <input type="number" id="baseFare" value="0" oninput="calculateTotal()">
@@ -424,7 +423,7 @@
                 <input type="number" id="tollCharges" value="0" oninput="calculateTotal()">
             </div>
         </div>
-        <div class="grid-layout">
+        <div class="row-grid">
             <div class="input-group">
                 <label>Parking Charges (₹)</label>
                 <input type="number" id="parkingCharges" value="0" oninput="calculateTotal()">
@@ -435,7 +434,7 @@
             </div>
         </div>
 
-        <!-- Itemized Summary Table -->
+        <!-- Breakdown Displays Table -->
         <table class="bill-table">
             <thead>
                 <tr>
@@ -445,7 +444,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Ride Fare (<span id="tripLabel">One-Way</span>)</td>
+                    <td>Ride Base Fare (<span id="tripLabel">One-Way</span>)</td>
                     <td id="lblBaseFare">₹0.00</td>
                 </tr>
                 <tr>
@@ -463,7 +462,7 @@
             </tbody>
         </table>
 
-        <!-- Grand Total Area -->
+        <!-- Grand Total Block -->
         <div class="total-wrapper">
             <div class="total-box">
                 <div class="total-row">
@@ -477,14 +476,14 @@
             </div>
         </div>
 
-        <!-- Compact Footer Design for 1 Page Fit -->
+        <!-- Compact Styled Footer -->
         <div class="footer-section">
             <div class="company-vision">
                 <h4>Our Vision</h4>
                 <p>"To provide safer, transparent, and premium travel experiences across every mile."</p>
             </div>
             <div class="signature-area">
-                <div style="font-family: 'Courier New', monospace; font-style: italic; font-size: 16px; color: #1e3a8a; font-weight: bold;">
+                <div style="font-family: 'Courier New', monospace; font-style: italic; font-size: 15px; color: #1e3a8a; font-weight: bold;">
                     Rajit Yadav
                 </div>
                 <div class="sig-line">Authorized Signatory</div>
@@ -493,16 +492,16 @@
     </div>
 </div>
 
-<!-- Controls View Buttons -->
+<!-- Interface Command Actions Buttons -->
 <div class="actions">
-    <button class="btn btn-primary" onclick="saveAndWhatsApp()">Save & Share via WhatsApp</button>
+    <button class="btn btn-primary" onclick="generateAndWhatsApp()">Save & Share via WhatsApp</button>
     <button class="btn btn-secondary" onclick="triggerPrint()">Download Invoice PDF / Print</button>
     <button class="btn btn-clear" onclick="clearForm()">Clear Fields</button>
 </div>
 
-<!-- History log -->
+<!-- History log logger -->
 <div class="history-section">
-    <h3 class="section-title">Recent Records (History)</h3>
+    <h3 class="section-title">Recent Records (Saved Locally)</h3>
     <table class="history-table">
         <thead>
             <tr>
@@ -518,12 +517,10 @@
 </div>
 
 <script>
-    // Autofill current date and secure unique invoice number
     document.getElementById('invDate').value = new Date().toISOString().substring(0, 10);
     document.getElementById('invNum').value = 'PTT-' + Math.floor(1000 + Math.random() * 9000);
 
     function syncPrintValues() {
-        // Dynamic mirror fields from inputs to display text layout for dynamic printing view
         document.getElementById('p-invNum').innerText = document.getElementById('invNum').value;
         document.getElementById('p-invDate').innerText = document.getElementById('invDate').value;
         document.getElementById('p-tripType').innerText = document.getElementById('tripType').options[document.getElementById('tripType').selectedIndex].text;
@@ -565,42 +562,46 @@
         const dLoc = document.getElementById('dropLoc').value || "N/A";
         const finalAmt = document.getElementById('grandTotal').innerText;
 
-        let history = JSON.parse(localStorage.getItem('ptt_history_v2')) || [];
-        history.unshift({
-            invNo: invNo,
-            date: date,
-            name: name,
-            route: `${pLoc} to ${dLoc}`,
-            amount: finalAmt
-        });
-        localStorage.setItem('ptt_history_v2', JSON.stringify(history.slice(0, 10)));
+        let history = JSON.parse(localStorage.getItem('ptt_history_v3')) || [];
+        history.unshift({ invNo, date, name, route: `${pLoc} to ${dLoc}`, amount: finalAmt });
+        localStorage.setItem('ptt_history_v3', JSON.stringify(history.slice(0, 10)));
         loadHistory();
     }
 
-    function saveAndWhatsApp() {
+    function generateAndWhatsApp() {
         const name = document.getElementById('custName').value;
         const phone = document.getElementById('custPhone').value;
-        const pLoc = document.getElementById('pickupLoc').value || "Pickup";
-        const dLoc = document.getElementById('dropLoc').value || "Drop";
+        const pLoc = document.getElementById('pickupLoc').value || "N/A";
+        const dLoc = document.getElementById('dropLoc').value || "N/A";
         const total = document.getElementById('grandTotal').innerText;
         const invNo = document.getElementById('invNum').value;
 
         if(!name || !phone) {
-            alert("कृपया कस्टमर का नाम और मोबाइल नंबर अवश्य दर्ज करें ताकि व्हाट्सएप पर भेजा जा सके!");
+            alert("कृपया कस्टमर का नाम और मोबाइल नंबर दर्ज करें!");
             return;
         }
 
-        // Save entry internally to historical log first
         saveInvoiceData();
+        syncPrintValues();
 
-        // Create elegant auto-generated WhatsApp message template
-        const msg = `*PRAVSH TOUR & TRAVELS*%0A---------------------------%0A*Invoice No:* ${invNo}%0A*Customer:* ${name}%0A*Route:* ${pLoc} ➔ ${dLoc}%0A*Total Fare:* ${total}%0A---------------------------%0A*Driver Name:* Rajit Yadav%0A*Vehicle No:* MH04LY5124%0A%0AThank you for riding with us! Click the live app link to download your full detailed digital summary receipt.`;
+        // 1. Trigger Auto Image Capture & Download
+        const targetElement = document.getElementById('invoice');
+        html2canvas(targetElement, { scale: 2, useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `${invNo}_${name}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // 2. Open WhatsApp Chat with Pre-filled detailed Text Summary
+        const msg = `*PRAVASH TOUR & TRAVELS*%0A---------------------------%0A*Invoice No:* ${invNo}%0A*Customer Name:* ${name}%0A*Route:* ${pLoc} ➔ ${dLoc}%0A*Total Amount Due:* ${total}%0A---------------------------%0A*Driver:* Rajit Yadav%0A*Vehicle No:* MH04LY5124%0A%0A_नोट: आपके बिल की फोटो कॉपी ऑटो-डाउनलोड हो गई है, कृपया उसे भी नीचे अटैच करके सेंड कर दें।_`;
         
-        // Formulate international direct redirect link format
         const cleanPhone = phone.replace(/[^0-9]/g, "");
         const finalPhone = cleanPhone.length === 10 ? "91" + cleanPhone : cleanPhone;
         
-        window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${msg}`, '_blank');
+        setTimeout(() => {
+            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${msg}`, '_blank');
+        }, 800); // Small timeout to ensure image triggers download pipeline first smoothly
     }
 
     function triggerPrint() {
@@ -609,7 +610,7 @@
     }
 
     function loadHistory() {
-        let history = JSON.parse(localStorage.getItem('ptt_history_v2')) || [];
+        let history = JSON.parse(localStorage.getItem('ptt_history_v3')) || [];
         const body = document.getElementById('historyBody');
         body.innerHTML = "";
         
@@ -642,7 +643,6 @@
         calculateTotal();
     }
 
-    // Run basic calculations and pull log arrays on runtime setup
     calculateTotal();
     loadHistory();
 </script>
