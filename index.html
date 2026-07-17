@@ -23,7 +23,7 @@
             position: relative; 
             border: 1.5px solid var(--gold); 
             border-radius: 6px; 
-            padding: 10px; 
+            padding: 12px; 
             background: rgba(255, 255, 255, 0.94);
             overflow: hidden;
         }
@@ -35,7 +35,7 @@
         }
         .bill-content { position: relative; z-index: 1; }
 
-        /* Header Styles - More Compact */
+        /* Header Styles */
         .main-title { text-align: center; font-size: 11px; font-weight: bold; color: var(--dark-gold); text-transform: uppercase; letter-spacing: 1px; }
         .company-name { text-align: center; font-size: 18px; font-weight: 800; color: var(--primary); margin: 1px 0; }
         .company-address { text-align: center; font-size: 10px; color: #555; margin-bottom: 10px; border-bottom: 1.5px double var(--gold); padding-bottom: 4px; }
@@ -52,25 +52,48 @@
         .cust-inv-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 8px; margin-bottom: 10px; }
         .vertical-line { background: var(--gold); width: 1px; height: 100%; }
         .form-group { margin-bottom: 5px; }
-        .form-group label { display: block; font-size: 10px; font-weight: bold; color: var(--primary); margin-bottom: 1px; }
-        .form-control { width: 100%; padding: 4px 6px; font-size: 11px; border: 1px solid #ccc; border-radius: 4px; background: rgba(255,255,255,0.8); }
+        .form-group label { display: block; font-size: 10px; font-weight: bold; color: var(--primary); margin-bottom: 2px; }
+        
+        /* Fixed Input Styles to prevent Canvas Text Cropping */
+        .form-control { 
+            width: 100%; 
+            height: 28px;
+            padding: 2px 6px; 
+            font-size: 12px; 
+            line-height: 24px;
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            background: rgba(255,255,255,0.9);
+            display: block;
+        }
 
         /* Route/Stops Section */
         .route-section { background: rgba(197, 168, 128, 0.08); padding: 6px; border-radius: 4px; margin-bottom: 8px; }
-        .stop-row { display: flex; gap: 4px; margin-bottom: 4px; }
+        .stop-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
         .btn-small { padding: 3px 6px; font-size: 10px; background: var(--primary); color: white; border: none; border-radius: 3px; cursor: pointer; margin-top: 2px; }
 
         /* Financial Table */
         .bill-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 11px; }
         .bill-table th { background: var(--primary); color: white; padding: 5px; text-align: left; font-size: 10px; }
-        .bill-table td { padding: 4px; border-bottom: 1px solid #eee; }
+        .bill-table td { padding: 4px 2px; border-bottom: 1px solid #eee; vertical-align: middle; }
         .bill-table td:nth-child(2) { width: 90px; text-align: right; }
-        .table-input { width: 100%; padding: 3px; border: 1px solid #ddd; border-radius: 3px; font-size: 11px; }
+        
+        /* Form inputs inside table tailored for high-accuracy canvas rendering */
+        .table-input { 
+            width: 100%; 
+            height: 26px;
+            padding: 2px 4px; 
+            border: 1px solid #ddd; 
+            border-radius: 3px; 
+            font-size: 12px; 
+            line-height: 22px;
+            display: block;
+        }
         .amount-input { text-align: right; }
 
         /* Summary Calculations */
         .summary-box { margin-left: auto; width: 100%; max-width: 240px; font-size: 11px; margin-bottom: 8px; }
-        .summary-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px dashed #ddd; }
+        .summary-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px dashed #ddd; align-items: center; }
         .summary-row.grand-total { font-weight: bold; font-size: 12px; color: var(--primary); border-bottom: 1.5px solid var(--gold); padding: 4px 0; }
         .amt-words { font-size: 10px; font-style: italic; color: #555; text-align: right; margin-bottom: 8px; word-break: break-word; }
 
@@ -93,8 +116,8 @@
         /* WhatsApp Image Modal Popup */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 15px; border-radius: 8px; text-align: center; max-width: 90%; }
-        .modal-content img { max-width: 100%; max-height: 65vh; border: 1px solid #ddd; }
-        .modal-text { font-size: 12px; margin-bottom: 10px; color: #333; font-weight: bold; }
+        .modal-content img { max-width: 100%; max-height: 65vh; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .modal-text { font-size: 12px; margin-bottom: 10px; color: #333; font-weight: bold; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -112,7 +135,7 @@
                     <div class="driver-info">
                         <strong>Driver Name:</strong> Rajit Yadav<br>
                         <strong>Car No:</strong> MH04LY5124<br>
-                        <strong>Phone No:</strong> 932647702<br>
+                        <strong>Phone No:</strong> 9326477072<br>
                         <strong>State:</strong> Maharashtra
                     </div>
                     <div class="logo-box">
@@ -173,7 +196,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <select id="tripType" class="form-control" onchange="calculateBill()">
+                                <select id="tripType" class="form-control" style="padding: 0 4px;" onchange="calculateBill()">
                                     <option value="One Way">One Way</option>
                                     <option value="Two Way">Two Way</option>
                                     <option value="Rental 8h:80KM">Rental 8.80 (8h:80KM)</option>
@@ -203,14 +226,13 @@
                 <div class="amt-words" id="lblWords">Rupees Zero Only</div>
 
                 <div class="summary-box" style="margin-top: 3px;">
-                    <div class="summary-row"><strong>Received:</strong><input type="number" id="netReceived" class="table-input amount-input" style="width:75px; padding:1px;" value="0" oninput="calculateBill()"></div>
+                    <div class="summary-row"><strong>Received:</strong><input type="number" id="netReceived" class="table-input amount-input" style="width:75px;" value="0" oninput="calculateBill()"></div>
                     <div class="summary-row" style="color: red; font-weight: bold;"><span>Balance Due:</span><span id="lblBalance">₹0.00</span></div>
                 </div>
 
                 <!-- Signatures -->
                 <div class="sig-container">
                     <div class="sig-box">
-                        <!-- Accurate SVG representation of your uploaded signature image -->
                         <svg class="sig-img" viewBox="0 0 150 60" style="width: 110px; height: 40px;">
                             <path d="M 12 52 C 16 45, 23 21, 29 18 C 36 14, 43 27, 36 41 C 28 58, 16 63, 23 54 C 29 46, 36 34, 41 34 C 47 34, 48 44, 42 46 C 36 48, 35 39, 41 38 C 47 37, 56 26, 61 24 C 67 21, 69 31, 64 35 C 57 41, 55 35, 62 33 C 70 30, 85 29, 102 28 C 118 27, 131 23, 137 21" fill="none" stroke="#0b1326" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -263,7 +285,7 @@
             if(container.children.length >= 3) { alert("Max 3 via-stops allowed."); return; }
             const div = document.createElement('div');
             div.className = 'stop-row';
-            div.innerHTML = `<input type="text" class="form-control" placeholder="Via Stop"><button class="btn-small" style="background:#cc2121; margin:0;" onclick="this.parentElement.remove()">X</button>`;
+            div.innerHTML = `<input type="text" class="form-control" placeholder="Via Stop"><button class="btn-small" style="background:#cc2121; margin:0; padding: 2px 6px;" onclick="this.parentElement.remove()">X</button>`;
             container.appendChild(div);
         }
 
@@ -357,16 +379,24 @@
             const inv = document.getElementById('invNo').value;
             const total = document.getElementById('lblGrandTotal').innerText;
             
-            // Generate Image Popup dynamically using html2canvas
             const element = document.getElementById('printable-area');
-            html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
+            
+            // Set scroll position to top to avoid offset crop errors during html2canvas capture
+            window.scrollTo(0,0);
+            
+            html2canvas(element, { 
+                scale: 2, 
+                useCORS: true,
+                scrollY: -window.scrollY,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const container = document.getElementById('modalImageContainer');
                 container.innerHTML = `<img src="${imgData}" alt="Bill Image">`;
                 document.getElementById('imageModal').style.display = 'flex';
                 
-                // Open WhatsApp text protocol simultaneously
-                const txt = `*Pravas Tour & Travels Bill*%0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease save the shared bill photo below. Thank you!`;
+                const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease save the shared bill photo below. Thank you!`;
                 window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
             });
         }
