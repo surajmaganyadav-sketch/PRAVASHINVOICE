@@ -87,7 +87,6 @@
         .summary-row.grand-total { font-weight: bold; font-size: 12px; color: var(--primary); border-bottom: 1.5px solid var(--gold); padding: 4px 0; }
         .amt-words { font-size: 10px; font-style: italic; color: #555; text-align: right; margin-bottom: 8px; word-break: break-word; }
 
-        /* Signature layout adjusted: Customer Left, Driver Right */
         .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: center; font-size: 11px; }
         .sig-box { border-top: 1px solid #ccc; padding-top: 3px; min-height: 50px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
         .sig-img { max-height: 40px; max-width: 110px; object-fit: contain; margin-bottom: 2px; }
@@ -105,8 +104,8 @@
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 15px; border-radius: 8px; text-align: center; max-width: 90%; }
-        .modal-content img { max-width: 100%; max-height: 65vh; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .modal-text { font-size: 12px; margin-bottom: 10px; color: #333; font-weight: bold; line-height: 1.4; }
+        .modal-content img { max-width: 100%; max-height: 55vh; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 8px;}
+        .modal-text { font-size: 13px; margin-bottom: 5px; color: #333; font-weight: bold; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -119,7 +118,7 @@
                 <div class="company-name">Pravas Tour & Travels</div>
                 <div class="company-address">Hiranandani Meadows, Thane, Maharashtra 400607</div>
 
-                <!-- Driver & Logo Section (Updated with requested Logo) -->
+                <!-- Driver & Logo Section -->
                 <div class="header-grid">
                     <div class="driver-info">
                         <strong>Driver Name:</strong> Rajit Yadav<br>
@@ -129,28 +128,18 @@
                     </div>
                     <div class="logo-box">
                         <svg viewBox="0 0 120 120" width="100%" height="100%">
-                            <!-- Outer Ring and Compass Details matching user image -->
                             <circle cx="60" cy="60" r="42" fill="none" stroke="#c5a880" stroke-width="2.5"/>
                             <circle cx="60" cy="60" r="36" fill="none" stroke="#c5a880" stroke-width="1" stroke-dasharray="3,1.5"/>
-                            
-                            <!-- Eagle Wing & Globe Silhouette Core Motif -->
                             <path d="M60,25 C68,25 76,32 73,42 C71,48 64,52 60,56 C56,52 49,48 47,42 C44,32 52,25 60,25 Z" fill="#111e38"/>
                             <path d="M60,28 C51,32 47,39 49,46 C52,43 55,42 60,45 C65,42 68,43 71,46 C73,39 69,32 60,28 Z" fill="#c5a880"/>
-                            <!-- Wings -->
                             <path d="M47,32 C40,26 44,40 50,42 C43,36 46,46 51,47" fill="none" stroke="#c5a880" stroke-width="1.5"/>
                             <path d="M73,32 C80,26 76,40 70,42 C77,36 74,46 69,47" fill="none" stroke="#c5a880" stroke-width="1.5"/>
-                            
-                            <!-- Compass Points Direction Indicators -->
                             <text x="60" y="23" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">N</text>
                             <text x="60" y="103" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">S</text>
                             <text x="18" y="63" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">W</text>
                             <text x="102" y="63" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">E</text>
-
-                            <!-- Banner Typography -->
                             <text x="60" y="78" font-size="11" fill="#111e38" font-weight="900" text-anchor="middle" letter-spacing="0.5">PRAVASH</text>
                             <text x="60" y="88" font-size="6.5" fill="#c5a880" font-weight="bold" text-anchor="middle" letter-spacing="0.5">TOUR & TRAVELS</text>
-                            
-                            <!-- Laurel Leaves Branch Bottom Motif -->
                             <path d="M35,95 Q60,108 85,95" fill="none" stroke="#c5a880" stroke-width="1.5"/>
                             <path d="M38,94 C42,92 46,95 44,97 M48,97 C52,95 55,98 53,100 M67,100 C65,98 68,95 72,97 M76,97 C74,95 78,92 82,94" fill="none" stroke="#c5a880" stroke-width="1"/>
                         </svg>
@@ -238,7 +227,7 @@
                     <div class="summary-row" style="color: red; font-weight: bold;"><span>Balance Due:</span><span id="lblBalance">₹0.00</span></div>
                 </div>
 
-                <!-- Signatures (Sides Swapped: Customer Left, Driver/Company Right) -->
+                <!-- Signatures -->
                 <div class="sig-container">
                     <div class="sig-box" id="custSigWrapper">
                         <img id="custSigImg" class="sig-img" style="display:none;"/>
@@ -279,14 +268,17 @@
     <!-- Image Share Modal Container -->
     <div id="imageModal" class="modal">
         <div class="modal-content">
-            <p class="modal-text" style="color: green; font-size: 13px;">📋 Bill Image Automatically Copied to Clipboard!<br><span style="color:#333; font-size:11px; font-weight:normal;">WhatsApp par jaakar seedhe Paste kar dein. Agar auto-copy na hua ho toh niche image par Long Press karke copy karein.</span></p>
+            <p class="modal-text" id="statusMessage" style="color: green; font-size: 13px;">📋 Copying Image...</p>
             <div id="modalImageContainer"></div>
+            <!-- Extra Interactive Copy Button for Bulletproof copy across all mobile browsers -->
+            <button id="manualCopyBtn" class="btn-block btn-warning" style="display:none; font-size:12px; padding:6px;" onclick="copyImageDirectly()">📋 Copy Image Again</button>
             <button class="btn-block btn-primary" onclick="closeModal()" style="margin-top:10px;">Close Window</button>
         </div>
     </div>
 
     <script>
         resetForNewBill(false);
+        let absoluteBlobStore = null; 
 
         function resetForNewBill(generateNewId = true) {
             if(generateNewId) {
@@ -450,7 +442,7 @@
             html2pdf().from(element).set(opt).save();
         }
 
-        // Feature: Automatically copy generated image to user's device clipboard
+        // Fixed Bulletproof Image Copy Mechanism
         function shareToWhatsApp() {
             const phone = document.getElementById('custPhone').value;
             if(!phone) { alert("Please enter the customer's mobile number first!"); return; }
@@ -463,6 +455,11 @@
             const element = document.getElementById('printable-area');
             window.scrollTo(0,0);
             
+            // Open modal immediately to show status loading
+            document.getElementById('imageModal').style.display = 'flex';
+            document.getElementById('statusMessage').innerHTML = "⌛ Generating & Copying Bill Image...";
+            document.getElementById('manualCopyBtn').style.display = 'none';
+
             html2canvas(element, { 
                 scale: 2, 
                 useCORS: true,
@@ -471,23 +468,55 @@
                 windowHeight: element.scrollHeight
             }).then(canvas => {
                 canvas.toBlob(blob => {
-                    // Try write straight to local operating system clipboard
-                    if (navigator.clipboard && navigator.clipboard.write) {
-                        const item = new ClipboardItem({ "image/png": blob });
-                        navigator.clipboard.write([item]).catch(err => {
-                            console.log("Clipboard auto-copy deferred to manual popup mode.");
+                    absoluteBlobStore = blob; // Store globally for manual click fallback
+                    
+                    // Native Clipboard Write Operation directly linked to driver's user click event context
+                    if (navigator.clipboard && window.ClipboardItem) {
+                        const data = [new ClipboardItem({ [blob.type]: blob })];
+                        navigator.clipboard.write(data).then(() => {
+                            document.getElementById('statusMessage').innerHTML = "📋 Bill Image Copied Successfully!<br><span style='color:#333; font-size:11px; font-weight:normal;'>WhatsApp me jaakar sirf paste (Ctrl+V) karna hai.</span>";
+                        }).catch(err => {
+                            console.error("Auto copy failed, activating fallback button", err);
+                            triggerTextFallback(name, inv, total);
                         });
+                    } else {
+                        triggerTextFallback(name, inv, total);
                     }
                 }, 'image/png');
 
                 const imgData = canvas.toDataURL('image/png');
-                const container = document.getElementById('modalImageContainer');
-                container.innerHTML = `<img src="${imgData}" alt="Bill Image">`;
-                document.getElementById('imageModal').style.display = 'flex';
+                document.getElementById('modalImageContainer').innerHTML = `<img src="${imgData}" alt="Bill Image">`;
                 
-                const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease paste the automatically copied bill image here. Thank you!`;
-                window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
+                // Fire WhatsApp redirection 
+                const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease paste the copied bill image below. Thank you!`;
+                setTimeout(() => {
+                    window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
+                }, 800);
             });
+        }
+
+        // Fallback method if mobile security aggressively blocks asynchronous clipboard access
+        function triggerTextFallback(name, inv, total) {
+            document.getElementById('statusMessage').innerHTML = "⚠️ Security block: Please click the orange button below to copy the image, then paste it into WhatsApp.";
+            document.getElementById('manualCopyBtn').style.display = 'block';
+            
+            // Silently copy summary details text into clipboard as emergency secondary layer
+            const fallbackText = `Pravas Tour & Travels\nInvoice: ${inv}\nCustomer: ${name}\nTotal: ${total}`;
+            navigator.clipboard.writeText(fallbackText).catch(e => console.log(e));
+        }
+
+        // Interactive explicit user click to bypass mobile security sandbox restrictions
+        function copyImageDirectly() {
+            if(!absoluteBlobStore) return;
+            if (navigator.clipboard && window.ClipboardItem) {
+                const data = [new ClipboardItem({ [absoluteBlobStore.type]: absoluteBlobStore })];
+                navigator.clipboard.write(data).then(() => {
+                    alert("Image copied to clipboard! Now paste it on WhatsApp.");
+                    document.getElementById('statusMessage').innerHTML = "📋 Bill Image Copied Successfully!";
+                }).catch(err => {
+                    alert("Please long-press the image below to copy manually.");
+                });
+            }
         }
 
         function closeModal() { document.getElementById('imageModal').style.display = 'none'; }
