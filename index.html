@@ -37,10 +37,10 @@
         .company-name { text-align: center; font-size: 18px; font-weight: 800; color: var(--primary); margin: 1px 0; }
         .company-address { text-align: center; font-size: 10px; color: #555; margin-bottom: 10px; border-bottom: 1.5px double var(--gold); padding-bottom: 4px; }
 
-        .header-grid { display: grid; grid-template-columns: 1fr 75px; gap: 8px; margin-bottom: 10px; }
+        .header-grid { display: grid; grid-template-columns: 1fr 85px; gap: 8px; margin-bottom: 10px; align-items: center; }
         .driver-info { font-size: 11px; color: var(--text); line-height: 1.4; }
         .driver-info strong { color: var(--primary); }
-        .logo-box { width: 75px; height: 75px; border: 1px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; background: #111e38; overflow: hidden; }
+        .logo-box { width: 85px; height: 85px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         
         .divider { border-top: 1px solid var(--gold); margin: 8px 0; }
 
@@ -87,6 +87,7 @@
         .summary-row.grand-total { font-weight: bold; font-size: 12px; color: var(--primary); border-bottom: 1.5px solid var(--gold); padding: 4px 0; }
         .amt-words { font-size: 10px; font-style: italic; color: #555; text-align: right; margin-bottom: 8px; word-break: break-word; }
 
+        /* Signature layout adjusted: Customer Left, Driver Right */
         .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: center; font-size: 11px; }
         .sig-box { border-top: 1px solid #ccc; padding-top: 3px; min-height: 50px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
         .sig-img { max-height: 40px; max-width: 110px; object-fit: contain; margin-bottom: 2px; }
@@ -118,7 +119,7 @@
                 <div class="company-name">Pravas Tour & Travels</div>
                 <div class="company-address">Hiranandani Meadows, Thane, Maharashtra 400607</div>
 
-                <!-- Driver & Logo Section -->
+                <!-- Driver & Logo Section (Updated with requested Logo) -->
                 <div class="header-grid">
                     <div class="driver-info">
                         <strong>Driver Name:</strong> Rajit Yadav<br>
@@ -127,12 +128,31 @@
                         <strong>State:</strong> Maharashtra
                     </div>
                     <div class="logo-box">
-                        <svg viewBox="0 0 100 100" width="100%" height="100%">
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="#c5a880" stroke-width="2"/>
-                            <circle cx="50" cy="50" r="38" fill="none" stroke="#c5a880" stroke-width="1" stroke-dasharray="2,2"/>
-                            <path d="M50,15 L53,25 L65,25 L55,32 L58,45 L50,37 L42,45 L45,32 L35,25 L47,25 Z" fill="#c5a880"/>
-                            <text x="50" y="62" font-size="9" fill="#c5a880" font-weight="bold" text-anchor="middle">PRAVASH</text>
-                            <text x="50" y="72" font-size="5" fill="#fff" text-anchor="middle" letter-spacing="1">TOURS</text>
+                        <svg viewBox="0 0 120 120" width="100%" height="100%">
+                            <!-- Outer Ring and Compass Details matching user image -->
+                            <circle cx="60" cy="60" r="42" fill="none" stroke="#c5a880" stroke-width="2.5"/>
+                            <circle cx="60" cy="60" r="36" fill="none" stroke="#c5a880" stroke-width="1" stroke-dasharray="3,1.5"/>
+                            
+                            <!-- Eagle Wing & Globe Silhouette Core Motif -->
+                            <path d="M60,25 C68,25 76,32 73,42 C71,48 64,52 60,56 C56,52 49,48 47,42 C44,32 52,25 60,25 Z" fill="#111e38"/>
+                            <path d="M60,28 C51,32 47,39 49,46 C52,43 55,42 60,45 C65,42 68,43 71,46 C73,39 69,32 60,28 Z" fill="#c5a880"/>
+                            <!-- Wings -->
+                            <path d="M47,32 C40,26 44,40 50,42 C43,36 46,46 51,47" fill="none" stroke="#c5a880" stroke-width="1.5"/>
+                            <path d="M73,32 C80,26 76,40 70,42 C77,36 74,46 69,47" fill="none" stroke="#c5a880" stroke-width="1.5"/>
+                            
+                            <!-- Compass Points Direction Indicators -->
+                            <text x="60" y="23" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">N</text>
+                            <text x="60" y="103" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">S</text>
+                            <text x="18" y="63" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">W</text>
+                            <text x="102" y="63" font-size="8" fill="#c5a880" font-weight="bold" text-anchor="middle">E</text>
+
+                            <!-- Banner Typography -->
+                            <text x="60" y="78" font-size="11" fill="#111e38" font-weight="900" text-anchor="middle" letter-spacing="0.5">PRAVASH</text>
+                            <text x="60" y="88" font-size="6.5" fill="#c5a880" font-weight="bold" text-anchor="middle" letter-spacing="0.5">TOUR & TRAVELS</text>
+                            
+                            <!-- Laurel Leaves Branch Bottom Motif -->
+                            <path d="M35,95 Q60,108 85,95" fill="none" stroke="#c5a880" stroke-width="1.5"/>
+                            <path d="M38,94 C42,92 46,95 44,97 M48,97 C52,95 55,98 53,100 M67,100 C65,98 68,95 72,97 M76,97 C74,95 78,92 82,94" fill="none" stroke="#c5a880" stroke-width="1"/>
                         </svg>
                     </div>
                 </div>
@@ -218,14 +238,8 @@
                     <div class="summary-row" style="color: red; font-weight: bold;"><span>Balance Due:</span><span id="lblBalance">₹0.00</span></div>
                 </div>
 
-                <!-- Signatures -->
+                <!-- Signatures (Sides Swapped: Customer Left, Driver/Company Right) -->
                 <div class="sig-container">
-                    <div class="sig-box">
-                        <svg class="sig-img" viewBox="0 0 150 60" style="width: 110px; height: 40px;">
-                            <path d="M 12 52 C 16 45, 23 21, 29 18 C 36 14, 43 27, 36 41 C 28 58, 16 63, 23 54 C 29 46, 36 34, 41 34 C 47 34, 48 44, 42 46 C 36 48, 35 39, 41 38 C 47 37, 56 26, 61 24 C 67 21, 69 31, 64 35 C 57 41, 55 35, 62 33 C 70 30, 85 29, 102 28 C 118 27, 131 23, 137 21" fill="none" stroke="#0b1326" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <strong>Pravas Travels</strong>
-                    </div>
                     <div class="sig-box" id="custSigWrapper">
                         <img id="custSigImg" class="sig-img" style="display:none;"/>
                         <span id="uploadPrompt">
@@ -233,6 +247,12 @@
                             <input type="file" id="custSigFile" accept="image/*" style="display:none;" onchange="loadSignature(event)">
                         </span>
                         <strong>Customer Signature</strong>
+                    </div>
+                    <div class="sig-box">
+                        <svg class="sig-img" viewBox="0 0 150 60" style="width: 110px; height: 40px;">
+                            <path d="M 12 52 C 16 45, 23 21, 29 18 C 36 14, 43 27, 36 41 C 28 58, 16 63, 23 54 C 29 46, 36 34, 41 34 C 47 34, 48 44, 42 46 C 36 48, 35 39, 41 38 C 47 37, 56 26, 61 24 C 67 21, 69 31, 64 35 C 57 41, 55 35, 62 33 C 70 30, 85 29, 102 28 C 118 27, 131 23, 137 21" fill="none" stroke="#0b1326" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <strong>Pravas Travels</strong>
                     </div>
                 </div>
             </div>
@@ -259,14 +279,13 @@
     <!-- Image Share Modal Container -->
     <div id="imageModal" class="modal">
         <div class="modal-content">
-            <p class="modal-text">1. Is Bill Image par thodi der ungli daba kar rakhein (Long Press).<br>2. "Copy Image" ya "Share" chunein.<br>3. WhatsApp par paste karke send kar dein!</p>
+            <p class="modal-text" style="color: green; font-size: 13px;">📋 Bill Image Automatically Copied to Clipboard!<br><span style="color:#333; font-size:11px; font-weight:normal;">WhatsApp par jaakar seedhe Paste kar dein. Agar auto-copy na hua ho toh niche image par Long Press karke copy karein.</span></p>
             <div id="modalImageContainer"></div>
             <button class="btn-block btn-primary" onclick="closeModal()" style="margin-top:10px;">Close Window</button>
         </div>
     </div>
 
     <script>
-        // Init form state
         resetForNewBill(false);
 
         function resetForNewBill(generateNewId = true) {
@@ -287,7 +306,6 @@
             document.getElementById('pkgAmt').value = 0;
             document.getElementById('netReceived').value = 0;
             
-            // reset custom signatures if any
             document.getElementById('custSigImg').style.display = 'none';
             document.getElementById('custSigImg').src = '';
             document.getElementById('uploadPrompt').style.display = 'block';
@@ -345,7 +363,6 @@
         }
 
         function saveToHistory() {
-            // Collect intermediate mid-stops values
             const midStops = [];
             document.querySelectorAll('.mid-stop-input').forEach(input => {
                 if(input.value) midStops.push(input.value);
@@ -386,7 +403,6 @@
                 div.className = 'history-item';
                 div.innerHTML = `<div><strong>${item.custName}</strong> (${item.invNo})<br><small style="color:#777;">${item.date}</small></div><div style="font-weight:bold; color:var(--primary); text-align:right;">${item.totalStr}<br><span style="font-size:9px; color:var(--dark-gold); font-weight:normal;">Click to Load</span></div>`;
                 
-                // Clicking opens the entire archived state back into fields
                 div.onclick = () => loadBillFromHistory(item.invNo);
                 container.appendChild(div);
             });
@@ -397,7 +413,6 @@
             const bill = history.find(item => item.invNo === targetInvNo);
             if(!bill) return;
 
-            // Load values back to top forms safely
             document.getElementById('invNo').value = bill.invNo;
             document.getElementById('invDate').value = bill.date;
             document.getElementById('custName').value = bill.custName;
@@ -405,7 +420,6 @@
             document.getElementById('pickupPt').value = bill.pickupPt || '';
             document.getElementById('dropPt').value = bill.dropPt || '';
             
-            // Rebuild intermediate stops arrays
             document.getElementById('dynamicStops').innerHTML = '';
             if(bill.midStops && Array.isArray(bill.midStops)) {
                 bill.midStops.forEach(stop => addStop(stop));
@@ -436,6 +450,7 @@
             html2pdf().from(element).set(opt).save();
         }
 
+        // Feature: Automatically copy generated image to user's device clipboard
         function shareToWhatsApp() {
             const phone = document.getElementById('custPhone').value;
             if(!phone) { alert("Please enter the customer's mobile number first!"); return; }
@@ -455,12 +470,22 @@
                 windowWidth: element.scrollWidth,
                 windowHeight: element.scrollHeight
             }).then(canvas => {
+                canvas.toBlob(blob => {
+                    // Try write straight to local operating system clipboard
+                    if (navigator.clipboard && navigator.clipboard.write) {
+                        const item = new ClipboardItem({ "image/png": blob });
+                        navigator.clipboard.write([item]).catch(err => {
+                            console.log("Clipboard auto-copy deferred to manual popup mode.");
+                        });
+                    }
+                }, 'image/png');
+
                 const imgData = canvas.toDataURL('image/png');
                 const container = document.getElementById('modalImageContainer');
                 container.innerHTML = `<img src="${imgData}" alt="Bill Image">`;
                 document.getElementById('imageModal').style.display = 'flex';
                 
-                const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease save the shared bill photo below. Thank you!`;
+                const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease paste the automatically copied bill image here. Thank you!`;
                 window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
             });
         }
