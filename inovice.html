@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pravsh Tour & Travels - Premium Invoice</title>
+    <!-- Google Fonts for Premium Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #b45309;
+            --text: #334155;
+            --bg: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        /* Header / Company Info */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .company-logo-name h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .company-logo-name p {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .driver-card {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .driver-card strong {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* Invoice Meta (No. & Date) */
+        .invoice-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .meta-box span {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .meta-box input, .meta-box p {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+
+        /* Form / Inputs Style */
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group select {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--primary);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.05);
+        }
+
+        /* Pricing Table */
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .bill-table th {
+            background: var(--primary);
+            color: #ffffff;
+            text-align: left;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .bill-table th:first-child { border-radius: 6px 0 0 6px; }
+        .bill-table th:last-child { border-radius: 0 6px 6px 0; text-align: right; }
+
+        .bill-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .bill-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Grand Total Area */
+        .total-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .total-box {
+            width: 300px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .total-row.grand-total {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px dashed var(--border);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Footer Vision & Signature */
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        .company-vision {
+            max-width: 50%;
+        }
+
+        .company-vision h4 {
+            font-size: 12px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .company-vision p {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .signature-area {
+            text-align: center;
+            width: 200px;
+        }
+
+        .sig-line {
+            border-top: 1px solid var(--primary);
+            margin-top: 45px;
+            padding-top: 5px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #1e293b; }
+        .btn-secondary { background: #e2e8f0; color: var(--primary); }
+        .btn-secondary:hover { background: #cbd5e1; }
+
+        /* History Section */
+        .history-section {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .history-table th, .history-table td {
+            padding: 10px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .history-table th { background: #f1f5f9; color: var(--primary); }
+
+        /* Print Specific Styling */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; }
+            .actions, .history-section, input, select { display: none !important; }
+            .printable-value { display: block !important; font-size: 14px; color: var(--primary); font-weight: 500; }
+            .meta-box input { display: block !important; }
+        }
+        
+        .printable-value { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="invoice">
+    <!-- Header -->
+    <div class="header">
+        <div class="company-logo-name">
+            <h1>Pravsh Tour & Travels</h1>
+            <p>Hiranandani Meadows, Thane, Maharashtra</p>
+        </div>
+        <div class="driver-card">
+            <strong>Driver: Rajit Yadav</strong><br>
+            📞 +91 9326477072<br>
+            ✉️ rajit.syadav@gmail.com
+        </div>
+    </div>
+
+    <!-- Invoice Meta -->
+    <div class="invoice-meta">
+        <div class="meta-box">
+            <span>Invoice No</span>
+            <input type="text" id="invNum" value="PTT-1001">
+        </div>
+        <div class="meta-box">
+            <span>Date</span>
+            <input type="date" id="invDate">
+        </div>
+        <div class="meta-box">
+            <span>Trip Type</span>
+            <select id="tripType" onchange="calculateTotal()">
+                <option value="1">One-Way Trip</option>
+                <option value="2">Two-Way (Round Trip)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Customer & Route Details -->
+    <h3 class="section-title">Customer & Route Details</h3>
+    <div class="grid-2">
+        <div class="input-group">
+            <label>Customer Full Name</label>
+            <input type="text" id="custName" placeholder="Enter Customer Name">
+        </div>
+        <div class="input-group">
+            <label>Customer Phone Number</label>
+            <input type="tel" id="custPhone" placeholder="Enter Phone Number">
+        </div>
+    </div>
+    <div class="grid-2">
+        <div class="input-group">
+            <label>Pickup Location</label>
+            <input type="text" id="pickupLoc" placeholder="Starting Point">
+        </div>
+        <div class="input-group">
+            <label>Drop Location</label>
+            <input type="text" id="dropLoc" placeholder="Destination">
+        </div>
+    </div>
+
+    <!-- Charges Configuration -->
+    <h3 class="section-title">Fare & Extra Charges (Transparent Breakdown)</h3>
+    <div class="grid-2">
+        <div class="input-group">
+            <label>Base Fare (One-Way Amt) (₹)</label>
+            <input type="number" id="baseFare" value="0" oninput="calculateTotal()">
+        </div>
+        <div class="input-group">
+            <label>Toll Charges (₹)</label>
+            <input type="number" id="tollCharges" value="0" oninput="calculateTotal()">
+        </div>
+    </div>
+    <div class="grid-2">
+        <div class="input-group">
+            <label>Parking Charges (₹)</label>
+            <input type="number" id="parkingCharges" value="0" oninput="calculateTotal()">
+        </div>
+        <div class="input-group">
+            <label>Other/Night Charges (₹)</label>
+            <input type="number" id="otherCharges" value="0" oninput="calculateTotal()">
+        </div>
+    </div>
+
+    <!-- Itemized Breakdown Table for Customer Clarity -->
+    <table class="bill-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th style="text-align: right;">Amount (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Base Ride Fare (<span id="tripLabel">One-Way</span>)</td>
+                <td id="lblBaseFare">₹0.00</td>
+            </tr>
+            <tr>
+                <td>Toll Plaza Charges</td>
+                <td id="lblToll">₹0.00</td>
+            </tr>
+            <tr>
+                <td>Parking Fees</td>
+                <td id="lblParking">₹0.00</td>
+            </tr>
+            <tr>
+                <td>Extra / Night Stay Allowances</td>
+                <td id="lblOther">₹0.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Grand Total Area -->
+    <div class="total-wrapper">
+        <div class="total-box">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subTotal">₹0.00</span>
+            </div>
+            <div class="total-row grand-total">
+                <span>Total Amount:</span>
+                <span id="grandTotal">₹0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Premium Vision & Signature Section -->
+    <div class="footer-section">
+        <div class="company-vision">
+            <h4>Our Vision</h4>
+            <p>"To provide safer, transparent, and premium travel experiences across every mile. Ensuring comfort without any hidden surprises."</p>
+        </div>
+        <div class="signature-area">
+            <!-- Space for Digital Signature Image or Text -->
+            <div id="sigContainer" style="font-family: 'Courier New', monospace; font-style: italic; font-size: 18px; color: #1e3a8a;">
+                Rajit Yadav
+            </div>
+            <div class="sig-line">Authorized Driver Sign</div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Buttons Layout -->
+<div class="actions">
+    <button class="btn btn-primary" onclick="saveAndPrint()">Save & Share (PDF/Print)</button>
+    <button class="btn btn-secondary" onclick="clearForm()">Clear Fields</button>
+</div>
+
+<!-- History Log Section -->
+<div class="history-section">
+    <h3 class="section-title">Recent Invoice History (Saved Locally)</h3>
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>Inv No</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Route</th>
+                <th>Total Paid</th>
+            </tr>
+        </thead>
+        <tbody id="historyBody">
+            <!-- Saved rows insert here dynamically -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Set Default Current Date
+    document.getElementById('invDate').value = new Date().toISOString().substring(0, 10);
+    
+    // Auto Generate invoice number based on timestamp for uniqueness
+    document.getElementById('invNum').value = 'PTT-' + Math.floor(1000 + Math.random() * 9000);
+
+    function calculateTotal() {
+        const base = parseFloat(document.getElementById('baseFare').value) || 0;
+        const multiplier = parseInt(document.getElementById('tripType').value) || 1;
+        const toll = parseFloat(document.getElementById('tollCharges').value) || 0;
+        const parking = parseFloat(document.getElementById('parkingCharges').value) || 0;
+        const other = parseFloat(document.getElementById('otherCharges').value) || 0;
+
+        // Calculate
+        const calculatedBase = base * multiplier;
+        const total = calculatedBase + toll + parking + other;
+
+        // Update UI Text Details
+        document.getElementById('tripLabel').innerText = multiplier === 2 ? "Round Trip / 2-Way" : "One-Way";
+        document.getElementById('lblBaseFare').innerText = "₹" + calculatedBase.toFixed(2);
+        document.getElementById('lblToll').innerText = "₹" + toll.toFixed(2);
+        document.getElementById('lblParking').innerText = "₹" + parking.toFixed(2);
+        document.getElementById('lblOther').innerText = "₹" + other.toFixed(2);
+        
+        document.getElementById('subTotal').innerText = "₹" + total.toFixed(2);
+        document.getElementById('grandTotal').innerText = "₹" + total.toFixed(2);
+        
+        return total;
+    }
+
+    function saveAndPrint() {
+        const invNo = document.getElementById('invNum').value;
+        const date = document.getElementById('invDate').value;
+        const name = document.getElementById('custName').value || "Guest Customer";
+        const pLoc = document.getElementById('pickupLoc').value || "N/A";
+        const dLoc = document.getElementById('dropLoc').value || "N/A";
+        const finalAmt = document.getElementById('grandTotal').innerText;
+
+        if(!document.getElementById('custName').value) {
+            alert("कृपया कस्टमर का नाम जरूर भरें!");
+            return;
+        }
+
+        // Save to History LocalStorage Array
+        let history = JSON.parse(localStorage.getItem('ptt_history')) || [];
+        history.unshift({
+            invNo: invNo,
+            date: date,
+            name: name,
+            route: `${pLoc} ➔ ${dLoc}`,
+            amount: finalAmt
+        });
+        
+        localStorage.setItem('ptt_history', JSON.stringify(history.slice(0, 10))); // Keep last 10 records
+        loadHistory();
+
+        // Trigger System Print or "Save As PDF" Options natively
+        window.print();
+    }
+
+    function loadHistory() {
+        let history = JSON.parse(localStorage.getItem('ptt_history')) || [];
+        const body = document.getElementById('historyBody');
+        body.innerHTML = "";
+        
+        if(history.length === 0) {
+            body.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94a3b8;">No history found.</td></tr>`;
+            return;
+        }
+
+        history.forEach(item => {
+            let row = `<tr>
+                <td><strong>${item.invNo}</strong></td>
+                <td>${item.date}</td>
+                <td>${item.name}</td>
+                <td>${item.route}</td>
+                <td style="color:var(--accent); font-weight:600;">${item.amount}</td>
+            </tr>`;
+            body.innerHTML += row;
+        });
+    }
+
+    function clearForm() {
+        document.getElementById('custName').value = "";
+        document.getElementById('custPhone').value = "";
+        document.getElementById('pickupLoc').value = "";
+        document.getElementById('dropLoc').value = "";
+        document.getElementById('baseFare').value = "0";
+        document.getElementById('tollCharges').value = "0";
+        document.getElementById('parkingCharges').value = "0";
+        document.getElementById('otherCharges').value = "0";
+        document.getElementById('invNum').value = 'PTT-' + Math.floor(1000 + Math.random() * 9000);
+        calculateTotal();
+    }
+
+    // Load initial history on page setup
+    loadHistory();
+</script>
+
+</body>
+</html>
