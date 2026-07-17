@@ -87,10 +87,12 @@
         .summary-row.grand-total { font-weight: bold; font-size: 12px; color: var(--primary); border-bottom: 1.5px solid var(--gold); padding: 4px 0; }
         .amt-words { font-size: 10px; font-style: italic; color: #555; text-align: right; margin-bottom: 8px; word-break: break-word; }
 
-        .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; text-align: center; font-size: 11px; }
-        .sig-box { border-top: 1px solid #ccc; padding-top: 3px; min-height: 50px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
-        .sig-img { max-height: 40px; max-width: 110px; object-fit: contain; margin-bottom: 2px; }
-        .upload-label { font-size: 9px; color: var(--dark-gold); cursor: pointer; text-decoration: underline; }
+        /* Updated Digital Signature Layout */
+        .sig-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; text-align: center; font-size: 11px; }
+        .sig-box { border-top: 1px solid #ccc; padding-top: 4px; min-height: 75px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+        .sig-canvas { border: 1px dashed #bbb; background: rgba(0,0,0,0.02); border-radius: 4px; cursor: crosshair; touch-action: none; width: 100%; height: 55px; display: block; }
+        .clear-sig-btn { font-size: 9px; color: #cc2121; background: none; border: none; cursor: pointer; text-decoration: underline; margin-top: 2px; z-index: 5; }
+        .sig-img { max-height: 45px; max-width: 110px; object-fit: contain; margin-bottom: 2px; }
 
         .btn-block { width: 100%; padding: 10px; font-size: 13px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-primary { background: var(--primary); color: white; }
@@ -227,14 +229,11 @@
                     <div class="summary-row" style="color: red; font-weight: bold;"><span>Balance Due:</span><span id="lblBalance">₹0.00</span></div>
                 </div>
 
-                <!-- Signatures -->
+                <!-- Signatures Section with Live Signature Pad -->
                 <div class="sig-container">
-                    <div class="sig-box" id="custSigWrapper">
-                        <img id="custSigImg" class="sig-img" style="display:none;"/>
-                        <span id="uploadPrompt">
-                            <label for="custSigFile" class="upload-label">Upload from Album</label>
-                            <input type="file" id="custSigFile" accept="image/*" style="display:none;" onchange="loadSignature(event)">
-                        </span>
+                    <div class="sig-box">
+                        <canvas id="custSigCanvas" class="sig-canvas"></canvas>
+                        <button type="button" class="clear-sig-btn" onclick="clearCustomerSignature()">Clear Pad</button>
                         <strong>Customer Signature</strong>
                     </div>
                     <div class="sig-box">
@@ -270,15 +269,58 @@
         <div class="modal-content">
             <p class="modal-text" id="statusMessage" style="color: green; font-size: 13px;">📋 Copying Image...</p>
             <div id="modalImageContainer"></div>
-            <!-- Extra Interactive Copy Button for Bulletproof copy across all mobile browsers -->
             <button id="manualCopyBtn" class="btn-block btn-warning" style="display:none; font-size:12px; padding:6px;" onclick="copyImageDirectly()">📋 Copy Image Again</button>
             <button class="btn-block btn-primary" onclick="closeModal()" style="margin-top:10px;">Close Window</button>
         </div>
     </div>
 
     <script>
-        resetForNewBill(false);
         let absoluteBlobStore = null; 
+        
+        // Touch/Mouse Drawing logic variables
+        const canvas = document.getElementById('custSigCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        // Auto resolution correction for canvas drawing blur prevention
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            ctx.strokeStyle = "#111e38";
+            ctx.lineWidth = 2;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+        }
+
+        // Mouse drawing bindings
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+        canvas.addEventListener('mousemove', (e) => { if(isDrawing) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } });
+        window.addEventListener('mouseup', () => isDrawing = false);
+
+        // Mobile touch drawing bindings
+        canvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            ctx.beginPath();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if(!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            ctx.stroke();
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', () => isDrawing = false);
+
+        function clearCustomerSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
         function resetForNewBill(generateNewId = true) {
             if(generateNewId) {
@@ -298,10 +340,7 @@
             document.getElementById('pkgAmt').value = 0;
             document.getElementById('netReceived').value = 0;
             
-            document.getElementById('custSigImg').style.display = 'none';
-            document.getElementById('custSigImg').src = '';
-            document.getElementById('uploadPrompt').style.display = 'block';
-
+            clearCustomerSignature();
             calculateBill();
         }
 
@@ -312,13 +351,6 @@
             div.className = 'stop-row';
             div.innerHTML = `<input type="text" class="form-control mid-stop-input" placeholder="Via Stop" value="${val}"><button class="btn-small" style="background:#cc2121; margin:0; padding: 2px 6px;" onclick="this.parentElement.remove()">X</button>`;
             container.appendChild(div);
-        }
-
-        function loadSignature(event) {
-            const output = document.getElementById('custSigImg');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.style.display = 'block';
-            document.getElementById('uploadPrompt').style.display = 'none';
         }
 
         function numberToWords(num) {
@@ -426,6 +458,7 @@
             document.getElementById('netReceived').value = bill.netReceived || 0;
 
             calculateBill();
+            clearCustomerSignature(); 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -442,7 +475,6 @@
             html2pdf().from(element).set(opt).save();
         }
 
-        // Fixed Bulletproof Image Copy Mechanism
         function shareToWhatsApp() {
             const phone = document.getElementById('custPhone').value;
             if(!phone) { alert("Please enter the customer's mobile number first!"); return; }
@@ -455,7 +487,6 @@
             const element = document.getElementById('printable-area');
             window.scrollTo(0,0);
             
-            // Open modal immediately to show status loading
             document.getElementById('imageModal').style.display = 'flex';
             document.getElementById('statusMessage').innerHTML = "⌛ Generating & Copying Bill Image...";
             document.getElementById('manualCopyBtn').style.display = 'none';
@@ -466,17 +497,15 @@
                 scrollY: -window.scrollY,
                 windowWidth: element.scrollWidth,
                 windowHeight: element.scrollHeight
-            }).then(canvas => {
-                canvas.toBlob(blob => {
-                    absoluteBlobStore = blob; // Store globally for manual click fallback
+            }).then(canvasEl => {
+                canvasEl.toBlob(blob => {
+                    absoluteBlobStore = blob;
                     
-                    // Native Clipboard Write Operation directly linked to driver's user click event context
                     if (navigator.clipboard && window.ClipboardItem) {
                         const data = [new ClipboardItem({ [blob.type]: blob })];
                         navigator.clipboard.write(data).then(() => {
-                            document.getElementById('statusMessage').innerHTML = "📋 Bill Image Copied Successfully!<br><span style='color:#333; font-size:11px; font-weight:normal;'>WhatsApp me jaakar sirf paste (Ctrl+V) karna hai.</span>";
+                            document.getElementById('statusMessage').innerHTML = "📋 Bill Image (with Live Signature) Copied Successfully!<br><span style='color:#333; font-size:11px; font-weight:normal;'>WhatsApp me jaakar sirf paste (Ctrl+V) karna hai.</span>";
                         }).catch(err => {
-                            console.error("Auto copy failed, activating fallback button", err);
                             triggerTextFallback(name, inv, total);
                         });
                     } else {
@@ -484,10 +513,9 @@
                     }
                 }, 'image/png');
 
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvasEl.toDataURL('image/png');
                 document.getElementById('modalImageContainer').innerHTML = `<img src="${imgData}" alt="Bill Image">`;
                 
-                // Fire WhatsApp redirection 
                 const txt = `*Pravas Tour & Travels* %0A%0AHello ${name},%0AYour invoice *${inv}* for *${total}* is ready.%0A%0APlease paste the copied bill image below. Thank you!`;
                 setTimeout(() => {
                     window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${txt}`, '_blank');
@@ -495,32 +523,33 @@
             });
         }
 
-        // Fallback method if mobile security aggressively blocks asynchronous clipboard access
         function triggerTextFallback(name, inv, total) {
-            document.getElementById('statusMessage').innerHTML = "⚠️ Security block: Please click the orange button below to copy the image, then paste it into WhatsApp.";
+            document.getElementById('statusMessage').innerHTML = "⚠️ Click the orange button below to copy the signature-verified bill image.";
             document.getElementById('manualCopyBtn').style.display = 'block';
-            
-            // Silently copy summary details text into clipboard as emergency secondary layer
             const fallbackText = `Pravas Tour & Travels\nInvoice: ${inv}\nCustomer: ${name}\nTotal: ${total}`;
             navigator.clipboard.writeText(fallbackText).catch(e => console.log(e));
         }
 
-        // Interactive explicit user click to bypass mobile security sandbox restrictions
         function copyImageDirectly() {
             if(!absoluteBlobStore) return;
             if (navigator.clipboard && window.ClipboardItem) {
                 const data = [new ClipboardItem({ [absoluteBlobStore.type]: absoluteBlobStore })];
                 navigator.clipboard.write(data).then(() => {
-                    alert("Image copied to clipboard! Now paste it on WhatsApp.");
+                    alert("Image copied successfully!");
                     document.getElementById('statusMessage').innerHTML = "📋 Bill Image Copied Successfully!";
                 }).catch(err => {
-                    alert("Please long-press the image below to copy manually.");
+                    alert("Please long-press the image to copy.");
                 });
             }
         }
 
         function closeModal() { document.getElementById('imageModal').style.display = 'none'; }
-        window.onload = renderHistory;
+        
+        window.onload = () => {
+            resizeCanvas();
+            renderHistory();
+        };
+        window.onresize = resizeCanvas;
     </script>
 </body>
 </html>
