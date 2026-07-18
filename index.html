@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background-color: #f0f2f5;
+            background-color: #f4f4f7;
             margin: 0;
             padding: 10px;
             display: flex;
@@ -21,51 +21,63 @@
             width: 100%;
             max-width: 500px;
             background: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         h2.title {
             text-align: center;
-            margin: 0 0 15px 0;
-            color: #333;
-            font-size: 20px;
+            margin: 5px 0 10px 0;
+            color: #444;
+            font-size: 18px;
         }
         
-        /* Bill UI Container */
+        /* EXACT BILL BOX FORMAT */
         .bill-box {
-            border: 1.5px solid #000;
-            background: #fff;
-            padding: 10px;
+            border: 1px solid #000000;
+            background: #ffffff;
+            padding: 0; /* No initial padding to match outer border exactly */
             width: 100%;
             position: relative;
         }
         
-        .bill-header {
+        .bill-header-title {
             text-align: center;
-            margin-bottom: 10px;
+            font-size: 26px;
+            font-weight: normal;
+            margin: 10px 0;
+            color: #000;
         }
-        .bill-header .main-title {
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin: 0;
-        }
-        .bill-header .subtitle {
-            font-size: 11px;
-            font-weight: bold;
-            margin: 3px 0;
+
+        .company-header-box {
+            border: 1px solid #000000;
+            margin: 8px;
+            padding: 8px;
+            background-color: #ffffff;
         }
         
-        /* Driver info section grid-like layout using tables */
+        .main-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 2px;
+        }
+        .subtitle {
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        /* Driver Info Layout */
         .info-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px;
         }
         .info-table td {
-            padding: 3px 2px;
+            padding: 3px 0;
             font-size: 12px;
+            color: #000;
             vertical-align: top;
         }
         .input-line {
@@ -76,29 +88,35 @@
             padding: 1px 0;
             outline: none;
             background: transparent;
+            color: #000;
         }
         
-        /* Sections Grid */
+        /* Sections Layout split */
         .section-table {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid #000;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
         }
         .section-table td {
-            border: 1px solid #000;
+            border-right: 1px solid #000;
             width: 50%;
-            padding: 4px;
+            padding: 6px;
             font-size: 12px;
             vertical-align: top;
+            color: #000;
+        }
+        .section-table td:last-child {
+            border-right: none;
         }
         .section-title {
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         .row-flex {
             display: flex;
             align-items: center;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
         .row-flex label {
             font-size: 11px;
@@ -110,83 +128,100 @@
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
             border-bottom: 1px solid #000;
         }
         .items-table th, .items-table td {
-            border: 1px solid #000;
-            padding: 4px;
-            font-size: 11px;
-            text-align: left;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 5px;
+            font-size: 12px;
+            color: #000;
         }
         .items-table th {
-            background-color: #f2f2f2;
             font-weight: bold;
+            text-align: left;
+            background-color: #f5f5f5;
+        }
+        .items-table th:last-child, .items-table td:last-child {
+            border-right: none;
+        }
+        .items-table tr:last-child td {
+            border-bottom: none;
         }
         .center { text-align: center; }
         .right { text-align: right; }
         
-        /* Dropdown selector */
+        /* Toggle Dropdown selector styling */
         .trip-type-btn {
-            background: #e1e1e1;
-            border: 1px solid #888;
-            padding: 4px;
+            background: #e7e7e7;
+            border: 1px solid #666;
+            padding: 6px;
             font-size: 11px;
             cursor: pointer;
-            width: 100%;
+            width: calc(100% - 16px);
+            margin: 4px 8px;
             text-align: left;
             font-weight: bold;
-            border-radius: 3px;
-            margin-bottom: 4px;
         }
         .trip-options {
             display: none;
-            border: 1px solid #999;
+            border: 1px solid #000;
             background: white;
             position: absolute;
             z-index: 100;
-            width: calc(100% - 20px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: calc(100% - 16px);
+            left: 8px;
         }
         .trip-options div {
-            padding: 6px;
+            padding: 8px;
             cursor: pointer;
             font-size: 12px;
+            border-bottom: 1px solid #eee;
         }
         .trip-options div:hover {
             background-color: #f0f0f0;
         }
 
-        /* Total Section Box */
+        /* Calculation Layout */
         .bottom-grid {
             width: 100%;
             border-collapse: collapse;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
             border-bottom: 1px solid #000;
         }
         .bottom-grid td {
-            border: 1px solid #000;
-            padding: 4px;
-            font-size: 11px;
+            padding: 0;
             vertical-align: top;
+        }
+        .calc-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calc-table td {
+            border-bottom: 1px solid #000;
+            padding: 4px 6px;
+            font-size: 12px;
+            color: #000;
+        }
+        .calc-table tr:last-child td {
+            border-bottom: none;
         }
         
         /* Description & Terms Table */
         .desc-terms-table {
             width: 100%;
             border-collapse: collapse;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
             border-bottom: 1px solid #000;
         }
         .desc-terms-table td {
-            border: 1px solid #000;
+            border-right: 1px solid #000;
             width: 50%;
-            padding: 4px;
-            font-size: 11px;
+            padding: 6px;
+            font-size: 12px;
             vertical-align: top;
+            color: #000;
+        }
+        .desc-terms-table td:last-child {
+            border-right: none;
         }
         .textarea-line {
             width: 100%;
@@ -195,32 +230,34 @@
             font-size: 11px;
             outline: none;
             background: transparent;
-            height: 40px;
+            height: 45px;
         }
 
-        /* Signature Section */
+        /* Signature Space format */
         .sig-table {
             width: 100%;
             border-collapse: collapse;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
         }
         .sig-table td {
-            border: 1px solid #000;
-            padding: 4px;
-            font-size: 11px;
+            border-right: 1px solid #000;
+            width: 50%;
+            padding: 6px;
+            font-size: 12px;
             vertical-align: top;
+            color: #000;
+        }
+        .sig-table td:last-child {
+            border-right: none;
         }
         .sig-canvas-box {
-            border: 1px dashed #ccc;
+            border: 1px dashed #999;
             background: #fafafa;
             position: relative;
             margin-top: 5px;
         }
         canvas {
             width: 100%;
-            height: 60px;
+            height: 55px;
             display: block;
         }
         .clear-btn {
@@ -233,15 +270,15 @@
             border: none;
             cursor: pointer;
             padding: 1px 4px;
-            border-radius: 2px;
         }
 
-        /* Action Buttons */
+        /* Controls buttons buttons */
         .actions-box {
             margin-top: 15px;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            width: 100%;
         }
         .btn {
             width: 100%;
@@ -249,7 +286,7 @@
             font-size: 14px;
             font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             text-align: center;
             color: white;
@@ -257,77 +294,73 @@
         .btn-save { background-color: #28a745; }
         .btn-whatsapp { background-color: #25d366; }
         
-        /* History Section */
+        /* Dashboard logger */
         .history-box {
-            margin-top: 25px;
-            border-top: 2px solid #ccc;
-            padding-top: 15px;
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+            width: 100%;
         }
         .history-title {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 8px;
-            color: #444;
+            margin-bottom: 6px;
+            color: #333;
         }
         .history-item {
             background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 8px;
-            margin-bottom: 6px;
-            border-radius: 4px;
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            margin-bottom: 5px;
             cursor: pointer;
             font-size: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .history-item:hover {
-            background: #eef5fc;
-        }
     </style>
-    <!-- Include html2pdf.js library securely -->
+    <!-- Dynamic pdf rendering support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
 <div class="app-container">
-    <h2 class="title">Bill of Supply Generator</h2>
+    <h2 class="title">Bill of Supply Portal</h2>
     
-    <!-- Outer Form Structure exactly matching provided Image format -->
+    <!-- MAIN EXACT SAME-TO-SAME BILL TEMPLATE -->
     <div class="bill-box" id="bill-invoice-capture">
         
-        <div class="bill-header">
-            <div style="font-size: 16px; margin-bottom: 2px;">Bill of Supply</div>
+        <div class="bill-header-title">Bill of Supply</div>
+        
+        <div class="company-header-box">
             <div class="main-title">PRAVAS TOUR AND TRAVELS</div>
             <div class="subtitle">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
+            
+            <table class="info-table">
+                <tr>
+                    <td style="width: 70%;">
+                        <strong>DRIVER NAME:</strong> Rajit Yadav<br>
+                        <strong>CAR NO:</strong> MH04LY5124
+                        <div style="border-bottom: 1px solid #000; height: 12px; width: 85%;"></div>
+                    </td>
+                    <td style="width: 30%; text-align: right;">
+                        <div style="border: 1px solid #000; width: 65px; height: 42px; display: inline-block; text-align: center; font-size: 9px; padding-top: 14px; font-weight: bold; background: #fff;">PRAVAS</div>
+                    </td>
+                </tr>
+            </table>
+            
+            <table class="info-table" style="margin-top: 5px;">
+                <tr>
+                    <td style="width: 50%;">Phone: 9327477072</td>
+                    <td style="width: 50%;">Email: Rajit.syadav@gmail.com</td>
+                </tr>
+                <tr>
+                    <td colspan="2">State: Maharashtra</td>
+                </tr>
+            </table>
         </div>
         
-        <!-- Driver Details Fixed Rows -->
-        <table class="info-table">
-            <tr>
-                <td style="width: 75%;">
-                    <strong>DRIVER NAME:</strong> Rajit Yadav<br>
-                    <strong>CAR NO:</strong> MH04LY5124<br>
-                    <div style="border-bottom: 1px solid #000; height: 14px; width: 90%;"></div>
-                </td>
-                <td style="width: 25%; text-align: center;">
-                    <!-- Placeholder graphic mimicking image logo -->
-                    <div style="border: 1px solid #777; width: 55px; height: 40px; margin: auto; font-size: 8px; padding-top: 10px; background: #fdfaf2; border-radius: 4px; font-weight: bold;">PRAVAS</div>
-                </td>
-            </tr>
-        </table>
-        
-        <table class="info-table" style="margin-bottom: 8px;">
-            <tr>
-                <td style="width: 50%;">Phone: 9327477072</td>
-                <td style="width: 50%;">Email: Rajit.syadav@gmail.com</td>
-            </tr>
-            <tr>
-                <td colspan="2">State: Maharashtra</td>
-            </tr>
-        </table>
-        
-        <!-- Bill To / Invoice Details Headers split -->
+        <!-- Customer & Invoice layout grid split -->
         <table class="section-table">
             <tr>
                 <td>
@@ -341,7 +374,7 @@
                         <input type="text" id="cust-phone" class="input-line">
                     </div>
                 </td>
-                <td>
+                <td style="border-right: none;">
                     <div class="section-title">Invoice Details:</div>
                     <div class="row-flex">
                         <label>No:</label>
@@ -355,9 +388,9 @@
             </tr>
         </table>
         
-        <!-- Trip Selection Toggle (Hidden inside the template flow dynamically as requested) -->
-        <div style="position: relative; margin: 4px 0;">
-            <button class="trip-type-btn" type="button" onclick="toggleTripOptions()">🔽 Select Trip Plan Type (Click to Open/Hide)</button>
+        <!-- Interactive Category Panel -->
+        <div style="position: relative;">
+            <button class="trip-type-btn" type="button" onclick="toggleTripOptions()">🔽 Select Trip Plan Type (Click to Hide/Show)</button>
             <div class="trip-options" id="trip-dropdown-options">
                 <div onclick="selectTripPlan('One Way')">Trip One Way</div>
                 <div onclick="selectTripPlan('Two Way')">Trip Two Way</div>
@@ -367,152 +400,149 @@
             </div>
         </div>
 
-        <!-- Dynamic Items Table -->
+        <!-- Custom Row Fields -->
         <table class="items-table">
             <thead>
                 <tr>
                     <th style="width: 8%;" class="center">#</th>
                     <th style="width: 52%;">Trip Details</th>
                     <th style="width: 20%;" class="right">Price/ Unit (₹)</th>
-                    <th style="width: 20%;" class="right">Amount(₹)</th>
+                    <th style="width: 20%;" class="right" style="border-right: none;">Amount(₹)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="center">1</td>
-                    <td><strong>Pick Up:</strong> <input type="text" id="detail-pickup" class="input-line" style="width:75%; display:inline-block;" placeholder="Enter location"></td>
+                    <td><strong>Pick Up:</strong> <input type="text" id="detail-pickup" class="input-line" style="width:72%; display:inline-block;"></td>
                     <td><input type="number" id="price-pickup" class="input-line right" oninput="calculateTotals()"></td>
-                    <td><input type="number" id="amt-pickup" class="input-line right" readonly></td>
+                    <td style="border-right: none;"><input type="number" id="amt-pickup" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">2</td>
-                    <td><strong>Drop:</strong> <input type="text" id="detail-drop" class="input-line" style="width:75%; display:inline-block;" placeholder="Enter location"></td>
+                    <td><strong>Drop:</strong> <input type="text" id="detail-drop" class="input-line" style="width:75%; display:inline-block;"></td>
                     <td><input type="number" id="price-drop" class="input-line right" oninput="calculateTotals()"></td>
-                    <td><input type="number" id="amt-drop" class="input-line right" readonly></td>
+                    <td style="border-right: none;"><input type="number" id="amt-drop" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">3</td>
-                    <td><strong>Toll:</strong> <input type="text" id="detail-toll" class="input-line" style="width:75%; display:inline-block;" placeholder="Toll name/details"></td>
+                    <td><strong>Toll:</strong> <input type="text" id="detail-toll" class="input-line" style="width:75%; display:inline-block;" placeholder="Toll Name"></td>
                     <td><input type="number" id="price-toll" class="input-line right" oninput="calculateTotals()"></td>
-                    <td><input type="number" id="amt-toll" class="input-line right" readonly></td>
+                    <td style="border-right: none;"><input type="number" id="amt-toll" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">4</td>
-                    <td><strong>Parking:</strong> <input type="text" id="detail-parking" class="input-line" style="width:75%; display:inline-block;" placeholder="Parking details"></td>
+                    <td><strong>Parking:</strong> <input type="text" id="detail-parking" class="input-line" style="width:70%; display:inline-block;" placeholder="Parking Name"></td>
                     <td><input type="number" id="price-parking" class="input-line right" oninput="calculateTotals()"></td>
-                    <td><input type="number" id="amt-parking" class="input-line right" readonly></td>
+                    <td style="border-right: none;"><input type="number" id="amt-parking" class="input-line right" readonly></td>
                 </tr>
             </tbody>
         </table>
         
-        <!-- Bottom Pricing Calculation Block aligned exactly right side like original image -->
+        <!-- Totals aligned exactly to the structure -->
         <table class="bottom-grid">
             <tr>
-                <td style="width: 50%; border-right: 1px solid #000;">
-                    <div style="font-weight: bold; color: #555; margin-bottom: 5px;">Selected Category:</div>
+                <td style="width: 50%; border-right: 1px solid #000; padding: 6px;">
+                    <div style="font-weight: bold; color: #444; margin-bottom: 4px; font-size: 11px;">Selected Category:</div>
                     <div id="selected-plan-label" style="font-weight: bold; font-size: 12px; color: #000;">One Way</div>
                 </td>
-                <td style="width: 50%; padding: 0;">
-                    <table style="width: 100%; border-collapse: collapse; margin: 0;">
+                <td style="width: 50%;">
+                    <table class="calc-table">
                         <tr>
-                            <td style="border: none; border-bottom: 1px solid #000; width: 50%;"><strong>Sub Total</strong></td>
-                            <td style="border: none; border-bottom: 1px solid #000; text-align: right;"><span id="lbl-subtotal">0.00</span></td>
+                            <td style="width: 50%;"><strong>Sub Total</strong></td>
+                            <td class="right"><strong>:</strong> <span id="lbl-subtotal">0.00</span></td>
                         </tr>
                         <tr>
-                            <td style="border: none; border-bottom: 1px solid #000;"><strong>Total</strong></td>
-                            <td style="border: none; border-bottom: 1px solid #000; text-align: right;"><span id="lbl-total">0.00</span></td>
+                            <td><strong>Total</strong></td>
+                            <td class="right"><strong>:</strong> <span id="lbl-total">0.00</span></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="border: none; border-bottom: 1px solid #000; padding: 2px;">
+                            <td colspan="2" style="padding: 3px 6px;">
                                 <div style="font-size: 9px; font-weight: bold;">Invoice Amount In Words :</div>
-                                <div id="lbl-words" style="font-size: 10px; font-style: italic; color: #333; min-height:15px; padding-top: 2px;">Zero Rupees Only</div>
+                                <div id="lbl-words" style="font-size: 10px; font-style: italic; min-height:14px; margin-top: 2px;">Zero Rupees Only</div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="border: none; border-bottom: 1px solid #000;"><strong>Received</strong></td>
-                            <td style="border: none; border-bottom: 1px solid #000;"><input type="number" id="val-received" class="input-line right" style="padding:0;" value="0" oninput="calculateTotals()"></td>
+                            <td><strong>Received</strong></td>
+                            <td class="right"><strong>:</strong> <input type="number" id="val-received" class="input-line right" style="width: 70%; display:inline-block;" value="0" oninput="calculateTotals()"></td>
                         </tr>
                         <tr>
-                            <td style="border: none;"><strong>Balance</strong></td>
-                            <td style="border: none; text-align: right;"><span id="lbl-balance">0.00</span></td>
+                            <td><strong>Balance</strong></td>
+                            <td class="right"><strong>:</strong> <span id="lbl-balance">0.00</span></td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
         
-        <!-- Description and Terms box Layout -->
+        <!-- Notes box description split -->
         <table class="desc-terms-table">
             <tr>
                 <td>
                     <div class="section-title">Description:</div>
-                    <textarea id="desc-box" class="textarea-line" placeholder="Driver notes or remarks for customer..."></textarea>
+                    <textarea id="desc-box" class="textarea-line" placeholder="Write remarks here..."></textarea>
                 </td>
-                <td>
+                <td style="border-right: none;">
                     <div class="section-title">Terms And Conditions:</div>
-                    <div style="font-size: 9px; line-height: 1.1; height: 40px; overflow-y: auto;">
-                        1. Toll and Parking fees are included as mentioned.<br>
-                        2. Waiting charges applicable after 15 mins.<br>
-                        3. Night charges apply between 11 PM to 5 AM.
+                    <div style="font-size: 8px; line-height: 1.2; height: 45px; overflow-y: auto;">
+                        1. Toll and Parking fees are charged extra at actuals.<br>
+                        2. Waiting charges applicable after 15 minutes.<br>
+                        3. Running limits calculated garage to garage.
                     </div>
                 </td>
             </tr>
         </table>
         
-        <!-- Signatures Row Box -->
+        <!-- Live Signature pad logic -->
         <table class="sig-table">
             <tr>
-                <td style="width: 50%;">
-                    <div class="section-title">Customer Digital Signature Pad:</div>
+                <td>
+                    <div class="section-title">Customer Digital Sign Pad:</div>
                     <div class="sig-canvas-box">
                         <button type="button" class="clear-btn" onclick="clearCustomerSignature()">Clear</button>
                         <canvas id="customer-sig-canvas"></canvas>
                     </div>
                 </td>
-                <td style="width: 50%; text-align: center; position: relative;">
+                <td style="text-align: center; border-right: none; position: relative;">
                     <div class="section-title" style="text-align: left;">For PRAVAS TOUR AND TRAVELS:</div>
-                    <div style="font-family: 'Courier New', cursive; font-size: 15px; color: blue; margin-top: 15px; font-weight: bold; transform: rotate(-5deg);">
+                    <div style="font-family: 'Courier New', cursive; font-size: 14px; color: blue; margin-top: 18px; font-weight: bold; transform: rotate(-3deg); display: inline-block;">
                         Rajit Yadav
                     </div>
-                    <div style="font-size: 10px; margin-top: 10px; border-top: 1px solid #ccc; padding-top: 2px;">Authorized Signatory</div>
+                    <div style="font-size: 10px; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 2px;">Authorized Signatory</div>
                 </td>
             </tr>
         </table>
     </div>
     
-    <!-- Practical action items buttons -->
+    <!-- Utility CTA controls -->
     <div class="actions-box">
         <button class="btn btn-save" onclick="saveAndDownloadBill()">💾 Save & Download Bill PDF</button>
         <button class="btn btn-whatsapp" onclick="sendViaWhatsApp()">💬 Send via WhatsApp</button>
     </div>
     
-    <!-- Local Storage Dashboard History Tracker -->
+    <!-- Logs Section dashboard -->
     <div class="history-box">
         <div class="history-title">🕒 Past Invoices History logs (Click to auto-restore)</div>
         <div id="history-list-container">
-            <p style="font-size: 12px; color: #888; font-style: italic;">No bills generated yet.</p>
+            <p style="font-size: 11px; color: #888; font-style: italic;">No bills generated yet.</p>
         </div>
     </div>
 </div>
 
 <script>
-    // Initialize standard state auto counters
     let currentInvoiceNo = "";
     let savedBills = JSON.parse(localStorage.getItem('pravas_bills_history') || '[]');
 
-    // Setup signature canvas logic
     const canvas = document.getElementById('customer-sig-canvas');
     const ctx = canvas.getContext('2d');
     let drawing = false;
 
     function resizeCanvas() {
         canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = 60;
+        canvas.height = 55;
         ctx.strokeStyle = "#0000ff";
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1.8;
     }
 
-    // Canvas drawing events for mobile touch/mouse
     function getTouchPos(canvasDom, touchEvent) {
         var rect = canvasDom.getBoundingClientRect();
         return {
@@ -555,7 +585,6 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Toggle option dropdown panel
     function toggleTripOptions() {
         const panel = document.getElementById('trip-dropdown-options');
         panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
@@ -566,34 +595,28 @@
         toggleTripOptions();
     }
 
-    // Helper functions for auto calculating cells
     function calculateTotals() {
         const pPickup = parseFloat(document.getElementById('price-pickup').value) || 0;
         const pDrop = parseFloat(document.getElementById('price-drop').value) || 0;
         const pToll = parseFloat(document.getElementById('price-toll').value) || 0;
         const pParking = parseFloat(document.getElementById('price-parking').value) || 0;
 
-        document.getElementById('amt-pickup').value = pPickup.toFixed(2);
-        document.getElementById('amt-drop').value = pDrop.toFixed(2);
-        document.getElementById('amt-toll').value = pToll.toFixed(2);
-        document.getElementById('amt-parking').value = pParking.toFixed(2);
+        document.getElementById('amt-pickup').value = pPickup ? pPickup.toFixed(2) : "";
+        document.getElementById('amt-drop').value = pDrop ? pDrop.toFixed(2) : "";
+        document.getElementById('amt-toll').value = pToll ? pToll.toFixed(2) : "";
+        document.getElementById('amt-parking').value = pParking ? pParking.toFixed(2) : "";
 
         const subtotal = pPickup + pDrop + pToll + pParking;
-        const total = subtotal; // matching the plain structure
         
         document.getElementById('lbl-subtotal').innerText = subtotal.toFixed(2);
-        document.getElementById('lbl-total').innerText = total.toFixed(2);
+        document.getElementById('lbl-total').innerText = subtotal.toFixed(2);
 
-        // Calculate balance
         const received = parseFloat(document.getElementById('val-received').value) || 0;
-        const balance = total - received;
+        const balance = subtotal - received;
         document.getElementById('lbl-balance').innerText = balance.toFixed(2);
-
-        // Convert total value to clean text string
-        document.getElementById('lbl-words').innerText = numberToWords(Math.round(total)) + " Rupees Only";
+        document.getElementById('lbl-words').innerText = numberToWords(Math.round(subtotal)) + " Rupees Only";
     }
 
-    // Number to words Indian system translation logic
     function numberToWords(num) {
         if (num === 0) return 'Zero';
         const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
@@ -610,10 +633,6 @@
         }
         
         let str = '';
-        if (Math.floor(num / 10000000) > 0) {
-            str += c(Math.floor(num / 10000000)) + ' Crore ';
-            num %= 10000000;
-        }
         if (Math.floor(num / 100000) > 0) {
             str += c(Math.floor(num / 100000)) + ' Lakh ';
             num %= 100000;
@@ -629,7 +648,6 @@
     }
 
     function initNewInvoice() {
-        // Auto increments based on timestamp seconds for safe non-collision sequence IDs
         currentInvoiceNo = "PTT-" + Math.floor(Date.now() / 1000).toString().substring(4);
         document.getElementById('inv-no').value = currentInvoiceNo;
 
@@ -639,7 +657,6 @@
                         now.getFullYear();
         document.getElementById('inv-date').value = dateStr;
 
-        // Reset inputs
         document.getElementById('cust-name').value = "";
         document.getElementById('cust-phone').value = "";
         document.getElementById('detail-pickup').value = "";
@@ -661,7 +678,6 @@
         renderHistory();
     }
 
-    // Storage Save Routine
     function saveBillDataState() {
         const record = {
             invoiceNo: currentInvoiceNo,
@@ -682,7 +698,6 @@
             sigData: canvas.toDataURL()
         };
 
-        // If exists replace, otherwise push new
         const idx = savedBills.findIndex(b => b.invoiceNo === currentInvoiceNo);
         if(idx > -1) {
             savedBills[idx] = record;
@@ -721,9 +736,7 @@
         if (item.sigData) {
             const img = new Image();
             img.src = item.sigData;
-            img.onload = function() {
-                ctx.drawImage(img, 0, 0);
-            }
+            img.onload = function() { ctx.drawImage(img, 0, 0); }
         }
         calculateTotals();
     }
@@ -731,14 +744,14 @@
     function renderHistory() {
         const container = document.getElementById('history-list-container');
         if(savedBills.length === 0) {
-            container.innerHTML = '<p style="font-size: 12px; color: #888; font-style: italic;">No bills generated yet.</p>';
+            container.innerHTML = '<p style="font-size: 11px; color: #888; font-style: italic;">No bills generated yet.</p>';
             return;
         }
         container.innerHTML = savedBills.map(b => `
             <div class="history-item" onclick="loadInvoiceRecord('${b.invoiceNo}')">
                 <div>
                     <strong>${b.invoiceNo}</strong> - ${b.customerName || 'No Name'}<br>
-                    <span style="font-size:10px; color:#666;">Date: ${b.date} | Route: ${b.pickup || '?'} to ${b.drop || '?'}</span>
+                    <span style="font-size:10px; color:#666;">Date: ${b.date}</span>
                 </div>
                 <div style="font-weight:bold; color:#28a745;">₹${parseFloat(b.pPickup||0)+parseFloat(b.pDrop||0)+parseFloat(b.pToll||0)+parseFloat(b.pParking||0)}</div>
             </div>
@@ -749,7 +762,7 @@
         saveBillDataState();
         const element = document.getElementById('bill-invoice-capture');
         const opt = {
-            margin:       5,
+            margin:       4,
             filename:     currentInvoiceNo + '_' + document.getElementById('cust-name').value + '.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
@@ -764,20 +777,18 @@
         const name = document.getElementById('cust-name').value;
         const totalAmt = document.getElementById('lbl-total').innerText;
         
-        const messageText = `नमस्ते ${name}, प्रवास टूर एंड ट्रैवल्स (PRAVAS TOUR AND TRAVELS) द्वारा आपका बिल जनरेट कर दिया गया है।\n\nइन्वॉइस नंबर: ${currentInvoiceNo}\nकुल राशि: ₹${totalAmt}\n\nकृपया बिल डाउनलोड या देखने के लिए ड्राइवर से संपर्क करें। धन्यवाद!`;
+        const messageText = `नमस्ते ${name},\nPRAVAS TOUR AND TRAVELS द्वारा आपका बिल जनरेट कर दिया गया है।\n\nइन्वॉइस नंबर: ${currentInvoiceNo}\nकुल राशि: ₹${totalAmt}\n\nधन्यवाद!`;
         
         const encodedText = encodeURIComponent(messageText);
         let whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
         if(phone) {
-            // Clean phone formats if country code missing
-            let cleanPhone = phone.replace(/[^0-digits]/g, "");
+            let cleanPhone = phone.replace(/[^0-9]/g, "");
             if(cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
             whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedText}`;
         }
         window.open(whatsappUrl, '_blank');
     }
 
-    // Execute setup lifecycle on windows activation
     window.onload = function() {
         resizeCanvas();
         initNewInvoice();
