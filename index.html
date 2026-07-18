@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bill of Supply</title>
+    <title>Bill of Supply - Pravas Travels</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,70 +11,85 @@
             color: #000;
         }
         body {
-            background-color: #f0f0f0;
+            background-color: #f0f2f5;
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
+        
+        /* Control Panel */
         .action-bar {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 210mm;
         }
-        .print-btn {
-            background-color: #2ea44f;
+        .btn {
             color: white;
-            border: 1px solid rgba(27, 31, 35, 0.15);
-            padding: 12px 24px;
-            font-size: 16px;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 6px;
-            box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .print-btn { background-color: #2ea44f; }
         .print-btn:hover { background-color: #2c974b; }
+        .whatsapp-btn { background-color: #25D366; }
+        .whatsapp-btn:hover { background-color: #20ba5a; }
 
-        /* A4 Page Setup */
+        /* Perfect Mobile Scaling & Desktop A4 */
         .bill-page {
-            width: 210mm;
-            min-height: 297mm;
+            width: 100%;
+            max-width: 210mm;
             background-color: #fff;
-            padding: 40px 35px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            position: relative;
+            padding: 30px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            margin: 20px 0;
         }
 
         .main-title {
             text-align: center;
-            font-size: 32px;
+            font-size: 28px;
             line-height: 1.2;
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
 
-        /* Outer Border Box */
         .outer-matrix {
             border: 1.5px solid #000;
             width: 100%;
         }
 
-        /* Top Header */
+        /* Header */
         .header-block {
             display: flex;
-            padding: 20px 15px;
+            padding: 15px 10px;
             border-bottom: 1.5px solid #000;
         }
         .logo-placeholder {
-            width: 110px;
-            height: 75px;
+            width: 90px;
+            height: 70px;
             border: 1px solid #777;
             border-radius: 4px;
-            margin-right: 20px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             color: #555;
             background: #fafafa;
         }
@@ -82,21 +97,19 @@
             flex: 1;
         }
         .brand-name {
-            font-size: 25px;
-            font-weight: 500;
+            font-size: 20px;
+            font-weight: bold;
             margin: 0 0 4px 0;
-            letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 13px;
-            font-weight: 500;
-            margin: 0 0 15px 0;
+            font-size: 12px;
+            margin: 0 0 10px 0;
         }
 
-        /* Inline Form Inputs */
+        /* Inputs & Structure */
         .field-row {
-            margin-bottom: 8px;
-            font-size: 14.5px;
+            margin-bottom: 6px;
+            font-size: 13.5px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
@@ -110,7 +123,7 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 0 4px;
-            font-size: 14.5px;
+            font-size: 13.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -118,56 +131,48 @@
         
         .grid-contact {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 30px;
-            margin-top: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
         }
 
-        /* Sections Split */
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box {
-            padding: 10px;
-        }
-        .col-box:first-child {
-            border-right: 1.5px solid #000;
-        }
+        .col-box { padding: 8px; }
+        .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 14.5px;
-            margin-bottom: 10px;
+            font-size: 13.5px;
+            margin-bottom: 8px;
         }
 
-        /* Items Table */
+        /* Tables */
         .data-table {
             width: 100%;
             border-collapse: collapse;
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 8px 10px;
-            font-size: 14.5px;
-            text-align: left;
+            padding: 6px 8px;
+            font-size: 13.5px;
         }
         .data-table th {
             font-weight: bold;
             background-color: #e6e6e6;
+            text-align: left;
         }
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 59%; }
-        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 17%; text-align: right; }
-        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 18%; text-align: right; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 54%; }
         
         .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 14.5px;
-            padding: 0;
+            font-size: 13.5px;
         }
         .align-right { text-align: right; }
 
@@ -175,11 +180,9 @@
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
-            min-height: 240px;
+            min-height: 160px;
         }
-        .spacer-side {
-            flex: 1.35;
-        }
+        .spacer-side { flex: 1.2; }
         .math-side {
             flex: 1;
             border-left: 1.5px solid #000;
@@ -189,118 +192,115 @@
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 14.5px;
+            font-size: 13.5px;
         }
         .math-label {
-            padding: 8px 10px;
+            padding: 6px 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
         }
         .math-input-wrap {
-            padding: 8px 10px;
+            padding: 6px 8px;
             width: 45%;
         }
-        
         .words-section {
             border-bottom: 1.5px solid #000;
-            min-height: 70px;
-            padding: 8px 10px;
+            min-height: 50px;
+            padding: 6px 8px;
         }
-        .words-title {
-            font-weight: bold;
-            font-size: 14.5px;
-            margin-bottom: 8px;
-        }
+        .words-title { font-weight: bold; font-size: 13.5px; margin-bottom: 4px; }
 
-        /* Bottom Details */
-        .footer-notes {
-            display: flex;
-            border-bottom: 1.5px solid #000;
-            min-height: 65px;
-        }
-        .note-chunk {
-            flex: 1;
-            padding: 8px 10px;
-        }
-        .note-chunk:first-child {
-            border-right: 1.5px solid #000;
-        }
-        .note-title {
-            font-weight: bold;
-            font-size: 14.5px;
-            margin-bottom: 5px;
-        }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 50px; }
+        .note-chunk { flex: 1; padding: 6px 8px; }
+        .note-chunk:first-child { border-right: 1.5px solid #000; }
+        .note-title { font-weight: bold; font-size: 13.5px; }
 
-        /* Sign Block */
-        .signature-area {
-            display: flex;
-            justify-content: flex-end;
-        }
+        .signature-area { display: flex; justify-content: flex-end; }
         .signature-box {
             width: 50%;
             border-left: 1.5px solid #000;
-            min-height: 140px;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
         }
-        .sig-company {
+        .sig-company { font-weight: bold; font-size: 13.5px; }
+        .sig-designation { text-align: center; font-size: 13.5px; }
+
+        /* History Section Styles */
+        .history-panel {
+            width: 100%;
+            max-width: 210mm;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 10px;
+        }
+        .history-title {
+            font-size: 16px;
             font-weight: bold;
-            font-size: 14.5px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #2ea44f;
+            padding-bottom: 5px;
         }
-        .sig-designation {
-            text-align: center;
-            font-size: 14.5px;
-            font-weight: 500;
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 13px;
+        }
+        .history-item:hover { background-color: #f7f9fa; }
+        .history-item .details { font-weight: 500; }
+        .history-item .date { color: #666; }
+
+        /* Responsive UI tweaks for Mobile Screens */
+        @media (max-width: 600px) {
+            body { padding: 10px 5px; }
+            .bill-page { padding: 15px 10px; margin: 10px 0; }
+            .brand-name { font-size: 16px; }
+            .brand-loc { font-size: 10px; }
+            .grid-contact { grid-template-columns: 1fr; gap: 5px; }
+            .main-title { font-size: 22px; }
         }
 
-        /* 100% Print Perfection CSS */
+        /* Print Media Controls */
         @media print {
-            body {
-                background-color: #fff;
-                padding: 0;
-            }
-            .action-bar {
-                display: none;
-            }
-            .bill-page {
-                box-shadow: none;
-                padding: 0;
-                width: 100%;
-            }
-            .fill-blank {
-                border-bottom: 1px solid #000 !important; /* लाइन को प्रिंट में बनाए रखने के लिए */
-            }
-            /* इनपुट बॉक्स का कोई भी डिफ़ॉल्ट ब्राउज़र स्टाइल हटाने के लिए */
-            input {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-            }
-            * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+            body { background-color: #fff; padding: 0; }
+            .action-bar, .history-panel { display: none; }
+            .bill-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
+            .fill-blank { border-bottom: 1px solid #000 !important; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
     <div class="action-bar">
-        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+        <button class="btn print-btn" onclick="saveAndPrint()">🖨️ Print / Save PDF & Save History</button>
+        <button class="btn whatsapp-btn" onclick="sendWhatsApp()">💬 Send Bill to WhatsApp</button>
     </div>
 
-    <div class="bill-page">
+    <!-- Bill Content Area -->
+    <div class="bill-page" id="billContents">
         <div class="main-title">Bill of<br>Supply</div>
         
         <div class="outer-matrix">
-            
-            <!-- Header -->
             <div class="header-block">
                 <div class="logo-placeholder">LOGO IMAGE</div>
-                
                 <div class="brand-details">
                     <h1 class="brand-name">PRAVAS TOUR AND TRAVELS</h1>
                     <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
@@ -308,11 +308,11 @@
                     <div style="max-width: 520px;">
                         <div class="field-row">
                             <span>DRIVER NAME:</span>
-                            <input type="text" class="fill-blank" value="Rajit Yadav">
+                            <input type="text" id="driver_name" class="fill-blank" value="Rajit Yadav">
                         </div>
                         <div class="field-row">
                             <span>CAR NO:</span>
-                            <input type="text" class="fill-blank" value="MH04LY5124">
+                            <input type="text" id="car_no" class="fill-blank" value="MH04LY5124">
                         </div>
                         
                         <div class="grid-contact">
@@ -337,59 +337,56 @@
                 </div>
             </div>
 
-            <!-- Client & Invoice Meta -->
             <div class="two-column-split">
                 <div class="col-box">
                     <div class="sect-header">Bill To:</div>
                     <div class="field-row">
                         <span>name</span>
-                        <input type="text" class="fill-blank">
+                        <input type="text" id="cust_name" class="fill-blank">
                     </div>
                     <div class="field-row">
                         <span>Contact No:</span>
-                        <input type="text" class="fill-blank">
+                        <input type="text" id="cust_phone" class="fill-blank">
                     </div>
                 </div>
                 <div class="col-box">
                     <div class="sect-header">Invoice Details:</div>
                     <div class="field-row">
                         <span>No:</span>
-                        <input type="text" class="fill-blank">
+                        <input type="text" id="invoice_no" class="fill-blank">
                     </div>
                     <div class="field-row">
                         <span>Date:</span>
-                        <input type="text" class="fill-blank">
+                        <input type="text" id="invoice_date" class="fill-blank">
                     </div>
                 </div>
             </div>
 
-            <!-- Table Items -->
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Trip Details</th>
-                        <th style="text-align: center;">Price/ Unit (₹)</th>
-                        <th style="text-align: center;">Amount(₹)</th>
+                        <th style="text-align: center; width:18%;">Price/ Unit (₹)</th>
+                        <th style="text-align: center; width:18%;">Amount(₹)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td><input type="text" class="cell-input"></td>
+                        <td style="text-align: center;">1</td>
+                        <td><input type="text" id="trip_1" class="cell-input"></td>
                         <td><input type="text" class="cell-input align-right"></td>
                         <td><input type="text" class="cell-input align-right"></td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td><input type="text" class="cell-input"></td>
+                        <td style="text-align: center;">2</td>
+                        <td><input type="text" id="trip_2" class="cell-input"></td>
                         <td><input type="text" class="cell-input align-right"></td>
                         <td><input type="text" class="cell-input align-right"></td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- Calculation Matrix -->
             <div class="billing-summary">
                 <div class="spacer-side"></div>
                 <div class="math-side">
@@ -399,7 +396,7 @@
                     </div>
                     <div class="math-row">
                         <div class="math-label">Total</div>
-                        <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                        <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right"></div>
                     </div>
                     
                     <div class="words-section">
@@ -418,7 +415,6 @@
                 </div>
             </div>
 
-            <!-- Terms and Desc -->
             <div class="footer-notes">
                 <div class="note-chunk">
                     <div class="note-title">Description:</div>
@@ -430,16 +426,129 @@
                 </div>
             </div>
 
-            <!-- Signature -->
             <div class="signature-area">
                 <div class="signature-box">
                     <div class="sig-company">For PRAVAS TOUR AND TRAVELS:</div>
                     <div class="sig-designation">Authorized Signatory</div>
                 </div>
             </div>
-
         </div>
     </div>
 
+    <!-- History View Logs Box -->
+    <div class="history-panel">
+        <div class="history-title">📜 Saved Bills History (Touch to Reload)</div>
+        <ul class="history-list" id="historyLogList">
+            <!-- Saved items will load here dynamic -->
+        </ul>
+    </div>
+
+    <script>
+        // Load initial logs on page ready
+        document.addEventListener("DOMContentLoaded", loadHistoryList);
+
+        function saveAndPrint() {
+            // Save data to localStorage first
+            const invoiceNo = document.getElementById('invoice_no').value || "TEMP-" + Date.now().toString().slice(-4);
+            const custName = document.getElementById('cust_name').value || "Unknown";
+            const totalAmt = document.getElementById('total_amount').value || "0";
+            const dateStr = document.getElementById('invoice_date').value || new Date().toLocaleDateString();
+
+            // Collect all inputs to save state
+            const inputs = document.querySelectorAll('input');
+            const stateData = {};
+            inputs.forEach((input, index) => {
+                stateData['input_' + index] = input.value;
+            });
+
+            const billRecord = {
+                id: invoiceNo,
+                custName: custName,
+                totalAmt: totalAmt,
+                date: dateStr,
+                formData: stateData
+            };
+
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            // Remove duplication if reloading the same invoice no
+            history = history.filter(item => item.id !== invoiceNo);
+            history.unshift(billRecord); // add to top
+            localStorage.setItem('billHistory', JSON.stringify(history));
+
+            loadHistoryList();
+            
+            // Trigger browser print
+            window.print();
+        }
+
+        function loadHistoryList() {
+            const listContainer = document.getElementById('historyLogList');
+            listContainer.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('billHistory')) || [];
+
+            if(history.length === 0) {
+                listContainer.innerHTML = '<li style="color:#888; padding: 10px; font-size:12px;">No bills saved yet. Click print to save history log.</li>';
+                return;
+            }
+
+            history.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                li.innerHTML = `
+                    <div class="details">Inv No: <b>${item.id}</b> | ${item.custName}</div>
+                    <div class="date">₹${item.totalAmt} (${item.date})</div>
+                `;
+                li.onclick = () => reloadBillFromHistory(item.id);
+                listContainer.appendChild(li);
+            });
+        }
+
+        function reloadBillFromHistory(id) {
+            const history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            const record = history.find(item => item.id === id);
+            if(record && record.formData) {
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach((input, index) => {
+                    if(record.formData['input_' + index] !== undefined) {
+                        input.value = record.formData['input_' + index];
+                    }
+                });
+                alert("Bill details for Invoice " + id + " loaded successfully!");
+            }
+        }
+
+        function sendWhatsApp() {
+            const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
+            const name = document.getElementById('cust_name').value;
+            const invoice = document.getElementById('invoice_no').value;
+            const amount = document.getElementById('total_amount').value;
+            const driver = document.getElementById('driver_name').value;
+            const car = document.getElementById('car_no').value;
+            const trip1 = document.getElementById('trip_1').value;
+
+            if(!phone) {
+                alert("Please enter a valid Contact No in the 'Bill To' section first!");
+                return;
+            }
+
+            // Build dynamic text string for whatsapp message format
+            let message = `*PRAVAS TOUR AND TRAVELS*%0A`;
+            message += `---------------------------%0A`;
+            if(invoice) message += `*Invoice No:* ${invoice}%0A`;
+            if(name) message += `*Customer Name:* ${name}%0A`;
+            if(trip1) message += `*Trip Details:* ${trip1}%0A`;
+            if(driver) message += `*Driver Name:* ${driver}%0A`;
+            if(car) message += `*Car No:* ${car}%0A`;
+            if(amount) message += `*Total Amount:* ₹${amount}%0A`;
+            message += `---------------------------%0A`;
+            message += `Thank you for traveling with us!`;
+
+            // Append India country code 91 if length is 10 digits without code
+            const finalPhone = phone.length === 10 ? '91' + phone : phone;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${finalPhone}&text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
