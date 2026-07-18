@@ -58,7 +58,7 @@
             width: 100%;
             max-width: 500px;
             background-color: #fff;
-            padding: 30px 20px;
+            padding: 20px 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
@@ -101,6 +101,7 @@
             display: flex;
             flex-direction: column;
             background: transparent;
+            overflow: hidden;
         }
 
         .header-block {
@@ -111,8 +112,8 @@
         }
         
         .logo-container {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             margin-right: 12px;
             display: flex;
             align-items: center;
@@ -127,15 +128,19 @@
         
         .brand-details {
             flex: 1;
+            min-width: 0; /* Prevents overflow */
         }
         .brand-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             margin: 0 0 2px 0;
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .brand-loc {
-            font-size: 9.5px;
+            font-size: 9px;
             margin: 0 0 8px 0;
             font-weight: 500;
             line-height: 1.2;
@@ -143,7 +148,7 @@
 
         .field-row {
             margin-bottom: 5px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
@@ -158,10 +163,11 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 1px 2px;
-            font-size: 11.5px;
+            font-size: 11px;
             flex: 1;
             font-weight: normal;
             background: transparent;
+            min-width: 0; /* Keeps input inside its parent flex container */
         }
         .locked-field {
             color: #222;
@@ -170,9 +176,9 @@
         }
         
         .grid-contact {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
             margin-top: 5px;
         }
 
@@ -180,12 +186,13 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
+            width: 100%;
         }
-        .col-box { padding: 10px; }
+        .col-box { padding: 8px; min-width: 0; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11.5px;
             margin-bottom: 6px;
         }
 
@@ -193,11 +200,13 @@
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 6px 8px;
-            font-size: 12px;
+            padding: 6px 6px;
+            font-size: 11.5px;
+            overflow: hidden;
         }
         .data-table th {
             font-weight: bold;
@@ -205,14 +214,16 @@
             text-align: left;
         }
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 8%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 54%; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 50%; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 21%; text-align: center; }
+        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 21%; text-align: center; }
         
         .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 12px;
+            font-size: 11.5px;
             padding: 1px 0;
         }
         
@@ -221,7 +232,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             cursor: pointer;
             padding: 1px 0;
@@ -233,9 +244,9 @@
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
-            min-height: 150px;
+            width: 100%;
         }
-        .spacer-side { flex: 1; }
+        .spacer-side { flex: 0.8; }
         .math-side {
             flex: 1.2;
             border-left: 1.5px solid #000;
@@ -245,11 +256,11 @@
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 12px;
+            font-size: 11.5px;
             align-items: center;
         }
         .math-label {
-            padding: 6px 8px;
+            padding: 6px 6px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
@@ -258,59 +269,58 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 6px 8px;
+            padding: 6px 6px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1.5px solid #000;
-            min-height: 50px;
-            padding: 6px 8px;
+            padding: 6px 6px;
         }
-        .words-title { font-weight: bold; font-size: 11.5px; margin-bottom: 3px; }
-        .words-output { font-size: 11px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 11px; margin-bottom: 3px; }
+        .words-output { font-size: 10.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 10.5px;
+            font-size: 9.5px;
             font-weight: normal;
             cursor: pointer;
             gap: 2px;
         }
         .chk-container input { cursor: pointer; margin: 0; }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 60px; }
-        .note-chunk { flex: 1; padding: 8px; }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; width: 100%; }
+        .note-chunk { flex: 1; padding: 6px; min-width: 0; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 12px; }
+        .note-title { font-weight: bold; font-size: 11.5px; }
 
         /* Dual Signature Layout Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
-            width: 55%;
-            min-height: 100px;
+            width: 50%;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             position: relative;
         }
         .sig-box-right {
-            width: 45%;
+            width: 50%;
             border-left: 1.5px solid #000;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 12px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 11.5px; width: 100%; text-align: left; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 55px;
+            height: 50px;
             margin-top: 4px;
         }
         .sig-canvas {
@@ -328,18 +338,18 @@
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 9px;
-            padding: 2px 6px;
+            font-size: 8px;
+            padding: 2px 4px;
             border-radius: 2px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 110px;
-            height: 50px;
+            width: 100px;
+            height: 45px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 12px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 11px; color: #333; font-weight: bold; width: 100%; }
 
         /* Log Panel Dashboard */
         .history-panel {
@@ -352,7 +362,7 @@
             margin-top: 15px;
         }
         .history-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             margin-bottom: 10px;
             border-bottom: 2px solid #4f46e5;
@@ -372,7 +382,7 @@
             padding: 8px;
             border-bottom: 1px solid #eee;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11.5px;
         }
         .history-item:hover { background-color: #f7f9fa; }
 
@@ -434,21 +444,17 @@
                             </div>
                             
                             <div class="grid-contact">
-                                <div>
-                                    <div class="field-row">
-                                        <span>Phone:</span>
-                                        <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
-                                    </div>
-                                    <div class="field-row">
-                                        <span>State:</span>
-                                        <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
-                                    </div>
+                                <div class="field-row">
+                                    <span>Phone:</span>
+                                    <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
                                 </div>
-                                <div>
-                                    <div class="field-row">
-                                        <span>Email:</span>
-                                        <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
-                                    </div>
+                                <div class="field-row">
+                                    <span>Email:</span>
+                                    <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
+                                </div>
+                                <div class="field-row">
+                                    <span>State:</span>
+                                    <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
                                 </div>
                             </div>
                         </div>
@@ -487,8 +493,8 @@
                         <tr>
                             <th>#</th>
                             <th>Trip Details</th>
-                            <th style="text-align: center; width:22%;">Price/ Unit (₹)</th>
-                            <th style="text-align: center; width:22%;">Amount(₹)</th>
+                            <th>Price/ Unit (₹)</th>
+                            <th>Amount(₹)</th>
                         </tr>
                     </thead>
                     <tbody>
