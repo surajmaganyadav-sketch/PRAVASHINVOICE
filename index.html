@@ -28,7 +28,7 @@
             display: flex;
             gap: 10px;
             justify-content: center;
-            width: 210mm;
+            width: 220mm; /* 5% Expanded dimension for controls safety */
             flex-wrap: wrap;
         }
         .btn {
@@ -50,17 +50,19 @@
         .whatsapp-btn:hover { background-color: #20ba5a; }
         .copy-btn { background-color: #0284c7; }
         .copy-btn:hover { background-color: #0369a1; }
+        .down-btn { background-color: #ea580c; } /* New Premium Orange Download Button */
+        .down-btn:hover { background-color: #c2410c; }
         .fresh-btn { background-color: #4f46e5; }
         .fresh-btn:hover { background-color: #4338ca; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; width: 180px; justify-content: center; }
         .add-row-btn:hover { background-color: #d97706; }
 
-        /* A4 Page Architecture with Embedded Car Watermark Structure */
+        /* A4 Page Architecture - Expanded by 5% to prevent cropping completely */
         .bill-wrapper {
-            width: 210mm;
-            min-height: 297mm;
+            width: 220mm; /* Increased from 210mm to create 5% extra layout safety matrix */
+            min-height: 310mm;
             background-color: #fff;
-            padding: 40px 35px;
+            padding: 45px 40px; /* 5% padding boost */
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
@@ -92,7 +94,7 @@
 
         .main-title {
             text-align: center;
-            font-size: 26px;
+            font-size: 28px;
             line-height: 1.2;
             margin: 0 0 25px 0;
             font-weight: 400;
@@ -115,11 +117,10 @@
             align-items: center;
         }
         
-        /* Rendered high-fidelity logo presentation area */
         .logo-container {
-            width: 110px;
-            height: 110px;
-            margin-right: 18px;
+            width: 115px;
+            height: 115px;
+            margin-right: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -135,20 +136,20 @@
             flex: 1;
         }
         .brand-name {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             margin: 0 0 4px 0;
             letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 11px;
+            font-size: 12px;
             margin: 0 0 10px 0;
             font-weight: 500;
         }
 
         .field-row {
             margin-bottom: 6px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
@@ -162,8 +163,8 @@
             border: none;
             border-bottom: 1px solid #000;
             outline: none;
-            padding: 0 2px;
-            font-size: 13px;
+            padding: 2px 4px;
+            font-size: 14px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -186,11 +187,11 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 10px; }
+        .col-box { padding: 12px; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             margin-bottom: 6px;
         }
 
@@ -201,8 +202,8 @@
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 7px 8px;
-            font-size: 13px;
+            padding: 8px 10px;
+            font-size: 14px;
         }
         .data-table th {
             font-weight: bold;
@@ -217,9 +218,25 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 13px;
-            padding: 0;
+            font-size: 14px;
+            padding: 2px 0;
         }
+        
+        /* Premium Anti-Cut Selection Styling for Driver Operations */
+        .select-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 2px 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
         .align-right { text-align: right; }
 
         /* Calculation block */
@@ -229,7 +246,7 @@
             flex: 1;
             min-height: 200px;
         }
-        .spacer-side { flex: 1.3; }
+        .spacer-side { flex: 1.2; }
         .math-side {
             flex: 1;
             border-left: 1.5px solid #000;
@@ -239,11 +256,11 @@
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 13px;
+            font-size: 14px;
             align-items: center;
         }
         .math-label {
-            padding: 6px 8px;
+            padding: 8px 10px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
@@ -252,60 +269,60 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 6px 8px;
+            padding: 8px 10px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1.5px solid #000;
             min-height: 60px;
-            padding: 6px 8px;
+            padding: 8px 10px;
         }
-        .words-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
-        .words-output { font-size: 13px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 14px; margin-bottom: 4px; }
+        .words-output { font-size: 13.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: normal;
             cursor: pointer;
             gap: 3px;
         }
         .chk-container input { cursor: pointer; margin: 0; }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 65px; }
-        .note-chunk { flex: 1; padding: 8px; }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 70px; }
+        .note-chunk { flex: 1; padding: 10px; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 13px; }
+        .note-title { font-weight: bold; font-size: 14px; }
 
         /* Dual Signature Layout Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 55%;
-            min-height: 120px;
+            min-height: 125px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 12px;
             position: relative;
         }
         .sig-box-right {
             width: 45%;
             border-left: 1.5px solid #000;
-            min-height: 120px;
+            min-height: 125px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 12px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 13px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 14px; width: 100%; text-align: left; }
         
         /* Interactive Digital Signature Board */
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 70px;
+            height: 75px;
             margin-top: 5px;
         }
         .sig-canvas {
@@ -323,22 +340,22 @@
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 9px;
+            font-size: 10px;
             padding: 2px 6px;
             border-radius: 3px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 130px;
-            height: 65px;
+            width: 135px;
+            height: 70px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 13px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 14px; color: #333; font-weight: bold; width: 100%; }
 
         /* Log Panel Dashboard */
         .history-panel {
-            width: 210mm;
+            width: 220mm;
             background: white;
             padding: 15px;
             border-radius: 6px;
@@ -376,6 +393,7 @@
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
             .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
+            .select-input { -webkit-appearance: none; appearance: none; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -385,6 +403,7 @@
     <div class="action-bar">
         <button class="btn print-btn" onclick="saveAndPrint()">🖨️ Print / Save Bill</button>
         <button class="btn copy-btn" onclick="copyBillAsImage()">📸 Copy Bill Image</button>
+        <button class="btn down-btn" onclick="downloadBillAsImage()">📥 Download Bill Image</button>
         <button class="btn whatsapp-btn" onclick="sendWhatsApp()">💬 Send via WhatsApp</button>
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
@@ -398,24 +417,18 @@
                 <!-- Header Identity Area -->
                 <div class="header-block">
                     <div class="logo-container">
-                        <!-- High Resolution Premium Travels Eagle Logo Representation Component -->
                         <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="100" cy="100" r="96" fill="none" stroke="#ba9447" stroke-width="3"/>
                             <circle cx="100" cy="100" r="90" fill="#0d233a"/>
-                            <!-- Inner Compass Design Config Elements -->
                             <circle cx="100" cy="100" r="60" fill="none" stroke="#ba9447" stroke-width="2" stroke-dasharray="4 2"/>
                             <path d="M100,25 L105,40 L95,40 Z M100,175 L105,160 L95,160 Z M175,100 L160,105 L160,95 Z M25,100 L40,105 L40,95 Z" fill="#ba9447"/>
-                            <!-- Direction Vectors Text Labels -->
                             <text x="96" y="20" fill="#ba9447" font-size="14" font-weight="bold">N</text>
                             <text x="96" y="192" fill="#ba9447" font-size="14" font-weight="bold">S</text>
                             <text x="182" y="105" fill="#ba9447" font-size="14" font-weight="bold">E</text>
                             <text x="6" y="105" fill="#ba9447" font-size="14" font-weight="bold">W</text>
-                            <!-- Eagle Graphic Core Layout Path -->
                             <path d="M70,85 Q90,55 125,70 Q110,80 100,82 Q125,82 135,92 Q115,95 102,94 Q120,100 125,112 Q105,104 90,115 Q75,125 82,100 Q60,98 70,85 Z" fill="#ba9447"/>
-                            <!-- Earth Silhouette Wave Structure base -->
                             <path d="M70,125 Q100,105 130,125 Q100,145 70,125 Z" fill="none" stroke="#ba9447" stroke-width="1.5"/>
                             <path d="M60,135 Q100,120 140,135 M50,142 Q100,128 150,142" fill="none" stroke="#ba9447" stroke-width="2"/>
-                            <!-- Decorative Aesthetic Bottom Leaves Structure -->
                             <path d="M45,165 Q70,185 100,185 Q130,185 155,165" fill="none" stroke="#ba9447" stroke-width="2"/>
                         </svg>
                     </div>
@@ -424,7 +437,6 @@
                         <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
                         
                         <div>
-                            <!-- Rigid Security Protocol: Fixed Locked Driver Parameters -->
                             <div class="field-row">
                                 <span>DRIVER NAME:</span>
                                 <input type="text" id="driver_name" class="fill-blank locked-field" value="Rajit Yadav" readonly>
@@ -495,7 +507,19 @@
                     <tbody>
                         <tr>
                             <td style="text-align: center;" class="row-num">1</td>
-                            <td><input type="text" class="cell-input text-target"></td>
+                            <td>
+                                <!-- Advanced Dropdown Matrix Menu Implemented to Stop Cutting -->
+                                <select class="select-input text-target selection-field">
+                                    <option value="">-- Select Trip Detail --</option>
+                                    <option value="One way trip">One way trip</option>
+                                    <option value="Two way trip">Two way trip</option>
+                                    <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                                    <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                                    <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                                    <option value="Mumbai darshan">Mumbai darshan</option>
+                                    <option value="Out station">Out station</option>
+                                </select>
+                            </td>
                             <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
                             <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                         </tr>
@@ -599,7 +623,6 @@
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
 
-            // Mobile Adaptive Touch Interactivity
             canvas.addEventListener('touchstart', (e) => {
                 isDrawing = true;
                 const m = getTouchPos(e);
@@ -616,7 +639,6 @@
             });
             canvas.addEventListener('touchend', () => { isDrawing = false; });
 
-            // Desktop Mouse Configurations
             canvas.addEventListener('mousedown', (e) => {
                 isDrawing = true;
                 ctx.beginPath();
@@ -652,20 +674,26 @@
             document.getElementById('invoice_no').value = "PTT-" + Math.floor(1000 + Math.random() * 9000);
         }
 
-        /* Fresh Blueprint Clean Restoration Action Logic */
         function triggerFreshBill() {
-            // Clear only editable variable texts, avoiding locked parameters
             const targets = document.querySelectorAll('.text-target');
-            targets.forEach(input => {
-                input.value = "";
-            });
+            targets.forEach(input => { input.value = ""; });
             
-            // Clean table rows back to entry element 1
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = `
                 <tr>
                     <td style="text-align: center;" class="row-num">1</td>
-                    <td><input type="text" class="cell-input text-target"></td>
+                    <td>
+                        <select class="select-input text-target selection-field">
+                            <option value="">-- Select Trip Detail --</option>
+                            <option value="One way trip">One way trip</option>
+                            <option value="Two way trip">Two way trip</option>
+                            <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                            <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                            <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                            <option value="Mumbai darshan">Mumbai darshan</option>
+                            <option value="Out station">Out station</option>
+                        </select>
+                    </td>
                     <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
                     <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                 </tr>
@@ -675,7 +703,7 @@
             clearCustomerSignature();
             autoGenerateMeta();
             calculateTotals();
-            alert("✨ फ्रेश बिल तैयार है! नई इनवॉइस आईडी जनरेट हो गई है।");
+            alert("✨ फ्रेश बिल तैयार है!");
         }
 
         function addNewRow() {
@@ -684,7 +712,18 @@
             const newRow = tableBody.insertRow();
             newRow.innerHTML = `
                 <td style="text-align: center;" class="row-num">${nextIndex}</td>
-                <td><input type="text" class="cell-input text-target"></td>
+                <td>
+                    <select class="select-input text-target selection-field">
+                        <option value="">-- Select Trip Detail --</option>
+                        <option value="One way trip">One way trip</option>
+                        <option value="Two way trip">Two way trip</option>
+                        <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                        <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                        <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                        <option value="Mumbai darshan">Mumbai darshan</option>
+                        <option value="Out station">Out station</option>
+                    </select>
+                </td>
                 <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
                 <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
             `;
@@ -757,12 +796,15 @@
             const stateData = [];
             allInputs.forEach(input => { stateData.push(input.value); });
             
+            const selectedTrips = [];
+            document.querySelectorAll('.selection-field').forEach(sel => { selectedTrips.push(sel.value); });
+            
             const isPaidChecked = document.getElementById('paid_full_chk').checked;
             const sigImgData = canvas.toDataURL();
 
             const billRecord = { 
                 id: invoiceNo, custName: custName, totalAmt: totalAmt, date: dateStr, 
-                rowCount: rowCount, formData: stateData, paidChecked: isPaidChecked, customerSignature: sigImgData
+                rowCount: rowCount, formData: stateData, selections: selectedTrips, paidChecked: isPaidChecked, customerSignature: sigImgData
             };
             
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
@@ -802,10 +844,28 @@
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
                         <td style="text-align: center;" class="row-num">${i+1}</td>
-                        <td><input type="text" class="cell-input text-target"></td>
+                        <td>
+                            <select class="select-input text-target selection-field">
+                                <option value="">-- Select Trip Detail --</option>
+                                <option value="One way trip">One way trip</option>
+                                <option value="Two way trip">Two way trip</option>
+                                <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                                <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                                <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                                <option value="Mumbai darshan">Mumbai darshan</option>
+                                <option value="Out station">Out station</option>
+                            </select>
+                        </td>
                         <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
                         <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                     `;
+                }
+
+                // Restore dynamic selections
+                if(record.selections) {
+                    document.querySelectorAll('.selection-field').forEach((sel, idx) => {
+                        if(record.selections[idx] !== undefined) sel.value = record.selections[idx];
+                    });
                 }
 
                 const allInputs = document.querySelectorAll('.bill-wrapper input[type="text"]');
@@ -828,34 +888,79 @@
             }
         }
 
-        /* Anti-Cropping High-Fidelity Rendering Core Engine */
-        function copyBillAsImage() {
-            const target = document.getElementById('billContents');
-            
-            // Temporary fix to safely replicate inner dynamically typed text attributes into DOM view before rendering
+        function preProcessDOMBeforeRender(target) {
+            // Fixes input text values missing inside generated html2canvas view matrices
             const editableInputs = target.querySelectorAll('input');
             editableInputs.forEach(input => {
                 input.setAttribute('value', input.value);
             });
+            
+            // Replaces dropdown native view values with clear static labels during capture phase
+            const selects = target.querySelectorAll('select');
+            selects.forEach(select => {
+                const textNode = document.createTextNode(select.value || " ");
+                const parent = select.parentNode;
+                const replacementSpan = document.createElement('span');
+                replacementSpan.className = 'temp-span-fix';
+                replacementSpan.style.fontSize = '14px';
+                replacementSpan.appendChild(textNode);
+                parent.appendChild(replacementSpan);
+                select.style.display = 'none';
+            });
+        }
+
+        function postProcessDOMAfterRender(target) {
+            // Restore native form features seamlessly
+            const tempSpans = target.querySelectorAll('.temp-span-fix');
+            tempSpans.forEach(span => span.remove());
+            const selects = target.querySelectorAll('select');
+            selects.forEach(select => select.style.display = 'block');
+        }
+
+        /* Anti-Cropping High-Fidelity Rendering Core Engine */
+        function copyBillAsImage() {
+            const target = document.getElementById('billContents');
+            preProcessDOMBeforeRender(target);
 
             html2canvas(target, { 
-                scale: 2, 
+                scale: 2.5, /* Increased resolution array */
                 useCORS: true,
                 logging: false,
-                scrollX: 0,
-                scrollY: 0,
-                width: target.offsetWidth,
-                height: target.offsetHeight
+                width: target.scrollWidth,
+                height: target.scrollHeight
             }).then(canvas => {
+                postProcessDOMAfterRender(target);
                 canvas.toBlob(blob => {
                     navigator.clipboard.write([
                         new ClipboardItem({ "image/png": blob })
                     ]).then(() => {
-                        alert("📸 परफेक्ट! कार वॉटरमार्क और नए लोगो के साथ पूरा बिल बिना कटे कॉपी हो गया है। WhatsApp चैट में पेस्ट करें।");
+                        alert("📸 परफेक्ट! बिल इमेज बिना कटे कॉपी हो गई है। WhatsApp चैट में पेस्ट करें।");
                     }).catch(() => {
-                        alert("इमेज कॉपी करने में विफल!");
+                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
                     });
                 }, "image/png");
+            });
+        }
+
+        /* Ultra Jugad Engine: Direct Photo File Downloader */
+        function downloadBillAsImage() {
+            const target = document.getElementById('billContents');
+            preProcessDOMBeforeRender(target);
+            const invoice = document.getElementById('invoice_no').value || "Bill";
+
+            html2canvas(target, { 
+                scale: 2.5,
+                useCORS: true,
+                logging: false,
+                width: target.scrollWidth,
+                height: target.scrollHeight
+            }).then(canvas => {
+                postProcessDOMAfterRender(target);
+                const link = document.createElement('a');
+                link.download = `${invoice}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                alert("📥 बिल सफलतापूर्वक डाउनलोड हो गया है! अब इसे गैलरी से किसी को भी शेयर कर सकते हैं।");
             });
         }
 
@@ -872,7 +977,6 @@
                 return;
             }
 
-            // Secure character optimization string assembly to avoid cuts during URI encoding
             let message = `*PRAVASH TOUR AND TRAVELS*%0A%0A`;
             message += `*Invoice No:* ${invoice ? invoice : 'N/A'}%0A`;
             message += `*Customer Name:* ${name ? name : 'Valued Customer'}%0A`;
