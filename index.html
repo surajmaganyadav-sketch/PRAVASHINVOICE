@@ -52,6 +52,8 @@
         .whatsapp-btn:hover { background-color: #20ba5a; }
         .copy-btn { background-color: #0284c7; }
         .copy-btn:hover { background-color: #0369a1; }
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; }
+        .add-row-btn:hover { background-color: #d97706; }
 
         /* Flexible Container Layout */
         .bill-page {
@@ -107,9 +109,6 @@
             font-size: 18px;
             font-weight: bold;
             margin: 0 0 3px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
         .brand-loc {
             font-size: 11px;
@@ -138,7 +137,7 @@
             flex: 1;
             font-weight: normal;
             background: transparent;
-            min-width: 0; /* Prevents input pushing container out */
+            min-width: 0;
         }
         
         .grid-contact {
@@ -286,13 +285,12 @@
             .grid-contact { grid-template-columns: 1fr; gap: 4px; }
             .two-column-split { grid-template-columns: 1fr; }
             .col-box:first-child { border-right: none; border-bottom: 1.5px solid #000; }
-            .brand-name { white-space: normal; }
         }
 
         /* Print Setup */
         @media print {
             body { background-color: #fff; padding: 0; }
-            .action-bar, .history-panel { display: none; }
+            .action-bar, .history-panel, .add-row-btn { display: none !important; }
             .bill-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
             .two-column-split { grid-template-columns: 1fr 1fr !important; }
             .col-box:first-child { border-right: 1.5px solid #000 !important; border-bottom: none !important; }
@@ -312,7 +310,7 @@
     </div>
 
     <!-- Capture Wrapper to ensure perfect aspect ratio in screenshot copy -->
-    <div style="width: 100%; max-width: 210mm; display: flex; justify-content: center;">
+    <div style="width: 100%; max-width: 210mm; display: flex; flex-direction: column; align-items: center;">
         <div class="bill-page" id="billContents">
             <div class="main-title">Bill of<br>Supply</div>
             
@@ -380,7 +378,7 @@
                     </div>
                 </div>
 
-                <table class="data-table">
+                <table class="data-table" id="itemsTable">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -391,16 +389,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="text-align: center;">1</td>
-                            <td><input type="text" id="trip_1" class="cell-input"></td>
-                            <td><input type="text" class="cell-input align-right"></td>
-                            <td><input type="text" class="cell-input align-right"></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">2</td>
-                            <td><input type="text" id="trip_2" class="cell-input"></td>
-                            <td><input type="text" class="cell-input align-right"></td>
-                            <td><input type="text" class="cell-input align-right"></td>
+                            <td style="text-align: center;" class="row-num">1</td>
+                            <td><input type="text" class="cell-input"></td>
+                            <td><input type="text" class="cell-input align-right price-input" oninput="calculateTotals()"></td>
+                            <td><input type="text" class="cell-input align-right amt-input" oninput="calculateTotals()"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -410,7 +402,7 @@
                     <div class="math-side">
                         <div class="math-row">
                             <div class="math-label">Sub Total</div>
-                            <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                            <div class="math-input-wrap"><input type="text" id="sub_total" class="cell-input align-right" readonly></div>
                         </div>
                         <div class="math-row">
                             <div class="math-label">Total</div>
@@ -424,11 +416,11 @@
                         
                         <div class="math-row">
                             <div class="math-label">Received</div>
-                            <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                            <div class="math-input-wrap"><input type="text" id="received_amt" class="cell-input align-right" oninput="calculateTotals()"></div>
                         </div>
                         <div class="math-row" style="border-bottom: none;">
                             <div class="math-label">Balance</div>
-                            <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                            <div class="math-input-wrap"><input type="text" id="balance_amt" class="cell-input align-right" readonly></div>
                         </div>
                     </div>
                 </div>
@@ -452,6 +444,8 @@
                 </div>
             </div>
         </div>
+
+        <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
     </div>
 
     <div class="history-panel">
@@ -460,19 +454,84 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", loadHistoryList);
+        document.addEventListener("DOMContentLoaded", () => {
+            loadHistoryList();
+            autoGenerateMeta();
+        });
+
+        // Generate Automatic Date and Invoice Number
+        function autoGenerateMeta() {
+            const today = new Date();
+            const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + 
+                                  (today.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                                  today.getFullYear();
+            document.getElementById('invoice_date').value = formattedDate;
+
+            // Generate auto invoice number format e.g., PTT-8492
+            const randNo = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('invoice_no').value = "PTT-" + randNo;
+        }
+
+        // Add dynamically new table row
+        function addNewRow() {
+            const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+            const nextIndex = tableBody.rows.length + 1;
+            
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+                <td style="text-align: center;" class="row-num">${nextIndex}</td>
+                <td><input type="text" class="cell-input"></td>
+                <td><input type="text" class="cell-input align-right price-input" oninput="calculateTotals()"></td>
+                <td><input type="text" class="cell-input align-right amt-input" oninput="calculateTotals()"></td>
+            `;
+        }
+
+        // Live + or - Math Calculations
+        function calculateTotals() {
+            let runningSubTotal = 0;
+            const amtInputs = document.querySelectorAll('.amt-input');
+            const priceInputs = document.querySelectorAll('.price-input');
+            
+            amtInputs.forEach((input, index) => {
+                let val = parseFloat(input.value) || 0;
+                // If amount is empty but price/unit is given, consider that
+                if (val === 0) {
+                    val = parseFloat(priceInputs[index].value) || 0;
+                }
+                runningSubTotal += val;
+            });
+
+            document.getElementById('sub_total').value = runningSubTotal.toFixed(2);
+            document.getElementById('total_amount').value = runningSubTotal.toFixed(2);
+
+            const received = parseFloat(document.getElementById('received_amt').value) || 0;
+            const balance = runningSubTotal - received;
+            document.getElementById('balance_amt').value = balance.toFixed(2);
+        }
 
         function saveAndPrint() {
             const invoiceNo = document.getElementById('invoice_no').value || "TEMP-" + Date.now().toString().slice(-4);
             const custName = document.getElementById('cust_name').value || "Unknown";
             const totalAmt = document.getElementById('total_amount').value || "0";
-            const dateStr = document.getElementById('invoice_date').value || new Date().toLocaleDateString();
+            const dateStr = document.getElementById('invoice_date').value;
 
-            const inputs = document.querySelectorAll('input');
-            const stateData = {};
-            inputs.forEach((input, index) => { stateData['input_' + index] = input.value; });
+            // Save row structure count and data values
+            const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+            const rowCount = tableBody.rows.length;
+            
+            const allInputs = document.querySelectorAll('.bill-page input');
+            const stateData = [];
+            allInputs.forEach(input => { stateData.push(input.value); });
 
-            const billRecord = { id: invoiceNo, custName: custName, totalAmt: totalAmt, date: dateStr, formData: stateData };
+            const billRecord = { 
+                id: invoiceNo, 
+                custName: custName, 
+                totalAmt: totalAmt, 
+                date: dateStr, 
+                rowCount: rowCount, 
+                formData: stateData 
+            };
+            
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
             history = history.filter(item => item.id !== invoiceNo);
             history.unshift(billRecord);
@@ -503,19 +562,30 @@
             const history = JSON.parse(localStorage.getItem('billHistory')) || [];
             const record = history.find(item => item.id === id);
             if(record && record.formData) {
-                const inputs = document.querySelectorAll('input');
-                inputs.forEach((input, index) => {
-                    if(record.formData['input_' + index] !== undefined) input.value = record.formData['input_' + index];
+                const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // reset rows
+                
+                // re-create exact row counts
+                for(let i=0; i < record.rowCount; i++) {
+                    const newRow = tableBody.insertRow();
+                    newRow.innerHTML = `
+                        <td style="text-align: center;" class="row-num">${i+1}</td>
+                        <td><input type="text" class="cell-input"></td>
+                        <td><input type="text" class="cell-input align-right price-input" oninput="calculateTotals()"></td>
+                        <td><input type="text" class="cell-input align-right amt-input" oninput="calculateTotals()"></td>
+                    `;
+                }
+
+                const allInputs = document.querySelectorAll('.bill-page input');
+                allInputs.forEach((input, index) => {
+                    if(record.formData[index] !== undefined) input.value = record.formData[index];
                 });
-                alert("Invoice " + id + " loaded! Ready to copy or print.");
+                alert("Invoice " + id + " loaded completely!");
             }
         }
 
-        // Feature: Convert HTML to actual Image and Copy to Clipboard
         function copyBillAsImage() {
             const target = document.getElementById('billContents');
-            
-            // Generate clean image snapshot
             html2canvas(target, { scale: 2, useCORS: true }).then(canvas => {
                 canvas.toBlob(blob => {
                     navigator.clipboard.write([
