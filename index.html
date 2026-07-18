@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Viewport adjusted to allow natural desktop rendering on mobile -->
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
     <title>Bill of Supply - Pravas Travels</title>
     <!-- html2canvas library for capturing bill image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -15,11 +16,10 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 15px 8px;
+            padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
         }
         
@@ -28,10 +28,8 @@
             margin-bottom: 15px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
             justify-content: center;
-            width: 100%;
-            max-width: 210mm;
+            width: 210mm;
         }
         .btn {
             color: white;
@@ -52,26 +50,27 @@
         .whatsapp-btn:hover { background-color: #20ba5a; }
         .copy-btn { background-color: #0284c7; }
         .copy-btn:hover { background-color: #0369a1; }
-        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; }
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; width: 180px; justify-content: center; }
         .add-row-btn:hover { background-color: #d97706; }
 
-        /* Flexible Container Layout */
-        .bill-page {
-            width: 100%;
-            max-width: 210mm;
+        /* FORCED A4 ARCHITECTURE (Exact replica for laptop & phone) */
+        .bill-wrapper {
+            width: 210mm;
+            min-height: 297mm; /* Standard A4 Height */
             background-color: #fff;
-            padding: 25px 20px;
+            padding: 40px 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-radius: 8px;
-            margin: 10px 0;
-            overflow: hidden;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .main-title {
             text-align: center;
             font-size: 26px;
             line-height: 1.2;
-            margin: 0 0 20px 0;
+            margin: 0 0 25px 0;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
@@ -79,20 +78,23 @@
         .outer-matrix {
             border: 1.5px solid #000;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
-        /* Header responsive layout */
+        /* Fixed Split Headers */
         .header-block {
             display: flex;
-            padding: 12px 10px;
+            padding: 15px 12px;
             border-bottom: 1.5px solid #000;
         }
         .logo-placeholder {
-            width: 80px;
-            height: 70px;
+            width: 90px;
+            height: 80px;
             border: 1px solid #777;
             border-radius: 4px;
-            margin-right: 12px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -103,19 +105,18 @@
         }
         .brand-details {
             flex: 1;
-            min-width: 0;
         }
         .brand-name {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: bold;
-            margin: 0 0 3px 0;
+            margin: 0 0 4px 0;
         }
         .brand-loc {
             font-size: 11px;
-            margin: 0 0 8px 0;
+            margin: 0 0 10px 0;
         }
 
-        /* Form Inputs */
+        /* Form Inputs Rules */
         .field-row {
             margin-bottom: 6px;
             font-size: 13px;
@@ -137,23 +138,22 @@
             flex: 1;
             font-weight: normal;
             background: transparent;
-            min-width: 0;
         }
         
         .grid-contact {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
             margin-top: 8px;
         }
 
-        /* Client info split section */
+        /* Dynamic Columns maintain look on all screens */
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 8px; min-width: 0; }
+        .col-box { padding: 10px; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
@@ -161,14 +161,14 @@
             margin-bottom: 6px;
         }
 
-        /* Table */
+        /* Table Architecture */
         .data-table {
             width: 100%;
             border-collapse: collapse;
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 5px 6px;
+            padding: 6px 8px;
             font-size: 13px;
         }
         .data-table th {
@@ -177,7 +177,7 @@
             text-align: left;
         }
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 54%; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 58%; }
         
         .cell-input {
             width: 100%;
@@ -189,69 +189,83 @@
         }
         .align-right { text-align: right; }
 
-        /* Calculation section */
+        /* Calculation block */
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
-            min-height: 160px;
+            flex: 1; /* Pushes the layout vertically exactly like a canvas */
+            min-height: 220px;
         }
-        .spacer-side { flex: 1.2; }
+        .spacer-side { flex: 1.3; }
         .math-side {
             flex: 1;
             border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
-            min-width: 0;
         }
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
             font-size: 13px;
+            align-items: center;
         }
         .math-label {
-            padding: 5px 6px;
+            padding: 6px 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 5px 6px;
+            padding: 6px 8px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1.5px solid #000;
-            min-height: 50px;
-            padding: 5px 6px;
+            min-height: 60px;
+            padding: 6px 8px;
         }
         .words-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
+        .words-output { font-size: 13px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 50px; }
-        .note-chunk { flex: 1; padding: 6px 8px; min-width: 0; }
+        .chk-container {
+            display: inline-flex;
+            align-items: center;
+            font-size: 10px;
+            font-weight: normal;
+            cursor: pointer;
+            gap: 3px;
+        }
+        .chk-container input { cursor: pointer; margin: 0; }
+
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 65px; }
+        .note-chunk { flex: 1; padding: 8px; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
         .note-title { font-weight: bold; font-size: 13px; }
 
         .signature-area { display: flex; justify-content: flex-end; }
         .signature-box {
-            width: 50%;
+            width: 45%;
             border-left: 1.5px solid #000;
-            min-height: 100px;
+            min-height: 110px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 10px;
         }
         .sig-company { font-weight: bold; font-size: 13px; }
-        .sig-designation { text-align: center; font-size: 13px; }
+        .sig-designation { text-align: center; font-size: 13px; color: #555; }
 
-        /* History log styling */
+        /* Log Panel */
         .history-panel {
-            width: 100%;
-            max-width: 210mm;
+            width: 210mm;
             background: white;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 10px;
+            margin-top: 15px;
         }
         .history-title {
             font-size: 15px;
@@ -278,25 +292,11 @@
         }
         .history-item:hover { background-color: #f7f9fa; }
 
-        /* Mobile Adjustments to avoid overflow */
-        @media (max-width: 600px) {
-            .header-block { flex-direction: column; align-items: center; text-align: center; }
-            .logo-placeholder { margin-right: 0; margin-bottom: 8px; }
-            .grid-contact { grid-template-columns: 1fr; gap: 4px; }
-            .two-column-split { grid-template-columns: 1fr; }
-            .col-box:first-child { border-right: none; border-bottom: 1.5px solid #000; }
-        }
-
-        /* Print Setup */
+        /* Print Override */
         @media print {
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn { display: none !important; }
-            .bill-page { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
-            .two-column-split { grid-template-columns: 1fr 1fr !important; }
-            .col-box:first-child { border-right: 1.5px solid #000 !important; border-bottom: none !important; }
-            .header-block { flex-direction: row !important; text-align: left !important; }
-            .logo-placeholder { margin-right: 12px !important; margin-bottom: 0 !important; }
-            .fill-blank { border-bottom: 1px solid #000 !important; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -309,12 +309,13 @@
         <button class="btn whatsapp-btn" onclick="sendWhatsApp()">💬 Send Details via WP</button>
     </div>
 
-    <!-- Capture Wrapper to ensure perfect aspect ratio in screenshot copy -->
-    <div style="width: 100%; max-width: 210mm; display: flex; flex-direction: column; align-items: center;">
-        <div class="bill-page" id="billContents">
+    <!-- Main A4 Wrapper Frame -->
+    <div class="bill-wrapper" id="billContents">
+        <div>
             <div class="main-title">Bill of<br>Supply</div>
             
             <div class="outer-matrix">
+                <!-- Top Identity Block -->
                 <div class="header-block">
                     <div class="logo-placeholder">LOGO IMAGE</div>
                     <div class="brand-details">
@@ -353,6 +354,7 @@
                     </div>
                 </div>
 
+                <!-- Meta/Client info Block -->
                 <div class="two-column-split">
                     <div class="col-box">
                         <div class="sect-header">Bill To:</div>
@@ -378,6 +380,7 @@
                     </div>
                 </div>
 
+                <!-- Core Items Grid -->
                 <table class="data-table" id="itemsTable">
                     <thead>
                         <tr>
@@ -397,6 +400,7 @@
                     </tbody>
                 </table>
 
+                <!-- Bottom Calculated Segment -->
                 <div class="billing-summary">
                     <div class="spacer-side"></div>
                     <div class="math-side">
@@ -406,16 +410,21 @@
                         </div>
                         <div class="math-row">
                             <div class="math-label">Total</div>
-                            <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right"></div>
+                            <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right" readonly></div>
                         </div>
                         
                         <div class="words-section">
                             <div class="words-title">Invoice Amount In Words :</div>
-                            <input type="text" class="cell-input">
+                            <div id="amount_in_words" class="words-output">Zero Rupees Only</div>
                         </div>
                         
                         <div class="math-row">
-                            <div class="math-label">Received</div>
+                            <div class="math-label">
+                                <span>Received</span>
+                                <label class="chk-container">
+                                    <input type="checkbox" id="paid_full_chk" onchange="togglePaidFull()"> Paid Full
+                                </label>
+                            </div>
                             <div class="math-input-wrap"><input type="text" id="received_amt" class="cell-input align-right" oninput="calculateTotals()"></div>
                         </div>
                         <div class="math-row" style="border-bottom: none;">
@@ -425,6 +434,7 @@
                     </div>
                 </div>
 
+                <!-- Metadata/TnC Chunk -->
                 <div class="footer-notes">
                     <div class="note-chunk">
                         <div class="note-title">Description:</div>
@@ -436,6 +446,7 @@
                     </div>
                 </div>
 
+                <!-- Sign Box -->
                 <div class="signature-area">
                     <div class="signature-box">
                         <div class="sig-company">For PRAVAS TOUR AND TRAVELS:</div>
@@ -444,10 +455,12 @@
                 </div>
             </div>
         </div>
-
-        <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
     </div>
 
+    <!-- Dynamic Actions Controls -->
+    <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
+
+    <!-- App Logs Dashboard -->
     <div class="history-panel">
         <div class="history-title">📜 Saved Bills History (Touch to Reload)</div>
         <ul class="history-list" id="historyLogList"></ul>
@@ -459,7 +472,6 @@
             autoGenerateMeta();
         });
 
-        // Generate Automatic Date and Invoice Number
         function autoGenerateMeta() {
             const today = new Date();
             const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + 
@@ -467,12 +479,10 @@
                                   today.getFullYear();
             document.getElementById('invoice_date').value = formattedDate;
 
-            // Generate auto invoice number format e.g., PTT-8492
             const randNo = Math.floor(1000 + Math.random() * 9000);
             document.getElementById('invoice_no').value = "PTT-" + randNo;
         }
 
-        // Add dynamically new table row
         function addNewRow() {
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             const nextIndex = tableBody.rows.length + 1;
@@ -486,7 +496,21 @@
             `;
         }
 
-        // Live + or - Math Calculations
+        // Toggle Full Payment Feature via Checkbox
+        function togglePaidFull() {
+            const isChecked = document.getElementById('paid_full_chk').checked;
+            const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
+            const receivedField = document.getElementById('received_amt');
+
+            if (isChecked) {
+                receivedField.value = subTotal.toFixed(2);
+            } else {
+                receivedField.value = "";
+            }
+            calculateTotals();
+        }
+
+        // Math Logic Engines
         function calculateTotals() {
             let runningSubTotal = 0;
             const amtInputs = document.querySelectorAll('.amt-input');
@@ -494,7 +518,6 @@
             
             amtInputs.forEach((input, index) => {
                 let val = parseFloat(input.value) || 0;
-                // If amount is empty but price/unit is given, consider that
                 if (val === 0) {
                     val = parseFloat(priceInputs[index].value) || 0;
                 }
@@ -507,6 +530,43 @@
             const received = parseFloat(document.getElementById('received_amt').value) || 0;
             const balance = runningSubTotal - received;
             document.getElementById('balance_amt').value = balance.toFixed(2);
+
+            // Dynamically translate mathematical figures to localized words
+            document.getElementById('amount_in_words').innerText = numberToWords(Math.round(runningSubTotal)) + " Rupees Only";
+        }
+
+        // Numbers to Words Engine Algorithm
+        function numberToWords(num) {
+            if (num === 0) return 'Zero';
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            
+            function g(n) {
+                if (n < 20) return a[n];
+                const digit = n % 10;
+                return b[Math.floor(n / 10)] + (digit ? ' ' + a[digit] : '');
+            }
+            function h(n) {
+                if (n === 0) return '';
+                if (n < 100) return g(n);
+                return a[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + g(n % 100) : '');
+            }
+
+            let str = '', chunks = [
+                {amt: 10000000, label: 'Crore'},
+                {amt: 100000, label: 'Lakh'},
+                {amt: 1000, label: 'Thousand'},
+                {amt: 1, label: ''}
+            ];
+
+            for (let i = 0; i < chunks.length; i++) {
+                let cnt = Math.floor(num / chunks[i].amt);
+                num %= chunks[i].amt;
+                if (cnt > 0) {
+                    str += (str ? ' ' : '') + h(cnt) + (chunks[i].label ? ' ' + chunks[i].label : '');
+                }
+            }
+            return str;
         }
 
         function saveAndPrint() {
@@ -515,13 +575,14 @@
             const totalAmt = document.getElementById('total_amount').value || "0";
             const dateStr = document.getElementById('invoice_date').value;
 
-            // Save row structure count and data values
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             const rowCount = tableBody.rows.length;
             
-            const allInputs = document.querySelectorAll('.bill-page input');
+            const allInputs = document.querySelectorAll('.bill-wrapper input[type="text"]');
             const stateData = [];
             allInputs.forEach(input => { stateData.push(input.value); });
+            
+            const isPaidChecked = document.getElementById('paid_full_chk').checked;
 
             const billRecord = { 
                 id: invoiceNo, 
@@ -529,7 +590,8 @@
                 totalAmt: totalAmt, 
                 date: dateStr, 
                 rowCount: rowCount, 
-                formData: stateData 
+                formData: stateData,
+                paidChecked: isPaidChecked
             };
             
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
@@ -563,9 +625,8 @@
             const record = history.find(item => item.id === id);
             if(record && record.formData) {
                 const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
-                tableBody.innerHTML = ''; // reset rows
+                tableBody.innerHTML = ''; 
                 
-                // re-create exact row counts
                 for(let i=0; i < record.rowCount; i++) {
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
@@ -576,10 +637,13 @@
                     `;
                 }
 
-                const allInputs = document.querySelectorAll('.bill-page input');
+                const allInputs = document.querySelectorAll('.bill-wrapper input[type="text"]');
                 allInputs.forEach((input, index) => {
                     if(record.formData[index] !== undefined) input.value = record.formData[index];
                 });
+
+                document.getElementById('paid_full_chk').checked = record.paidChecked || false;
+                calculateTotals();
                 alert("Invoice " + id + " loaded completely!");
             }
         }
