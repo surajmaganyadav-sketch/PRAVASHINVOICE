@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta Viewport adjusted to allow natural desktop rendering on mobile -->
     <meta name="viewport" content="width=1024, initial-scale=1.0">
     <title>Bill of Supply - Pravas Travels</title>
     <!-- html2canvas library for capturing bill image -->
@@ -53,12 +52,12 @@
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; width: 180px; justify-content: center; }
         .add-row-btn:hover { background-color: #d97706; }
 
-        /* FORCED A4 ARCHITECTURE (Exact replica for laptop & phone) */
+        /* A4 Wrapper Architecture with explicit boundaries to prevent cropping */
         .bill-wrapper {
             width: 210mm;
-            min-height: 297mm; /* Standard A4 Height */
+            min-height: 297mm;
             background-color: #fff;
-            padding: 40px 30px;
+            padding: 40px 35px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
@@ -83,7 +82,6 @@
             flex: 1;
         }
 
-        /* Fixed Split Headers */
         .header-block {
             display: flex;
             padding: 15px 12px;
@@ -116,7 +114,6 @@
             margin: 0 0 10px 0;
         }
 
-        /* Form Inputs Rules */
         .field-row {
             margin-bottom: 6px;
             font-size: 13px;
@@ -147,7 +144,6 @@
             margin-top: 8px;
         }
 
-        /* Dynamic Columns maintain look on all screens */
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -193,7 +189,7 @@
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
-            flex: 1; /* Pushes the layout vertically exactly like a canvas */
+            flex: 1;
             min-height: 220px;
         }
         .spacer-side { flex: 1.3; }
@@ -245,18 +241,65 @@
         .note-chunk:first-child { border-right: 1.5px solid #000; }
         .note-title { font-weight: bold; font-size: 13px; }
 
-        .signature-area { display: flex; justify-content: flex-end; }
-        .signature-box {
-            width: 45%;
-            border-left: 1.5px solid #000;
-            min-height: 110px;
+        /* Dual Signature Layout Area */
+        .signature-area { display: flex; width: 100%; }
+        .sig-box-left {
+            width: 55%;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 10px;
+            position: relative;
         }
-        .sig-company { font-weight: bold; font-size: 13px; }
-        .sig-designation { text-align: center; font-size: 13px; color: #555; }
+        .sig-box-right {
+            width: 45%;
+            border-left: 1.5px solid #000;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            align-items: center;
+        }
+        .sig-title { font-weight: bold; font-size: 13px; width: 100%; text-align: left; }
+        
+        /* Interactive Digital Signature Board */
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 70px;
+            margin-top: 5px;
+        }
+        .sig-canvas {
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            width: 100%;
+            height: 100%;
+            background-color: #fafafa;
+            cursor: crosshair;
+        }
+        .clear-sig-btn {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            background: #e11d48;
+            color: white;
+            border: none;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        /* Driver Digital Vector Art Signature Container */
+        .driver-sig-svg {
+            width: 130px;
+            height: 65px;
+            margin: auto;
+        }
+
+        .sig-designation { text-align: center; font-size: 13px; color: #333; font-weight: bold; width: 100%; }
 
         /* Log Panel */
         .history-panel {
@@ -295,7 +338,8 @@
         /* Print Override */
         @media print {
             body { background-color: #fff; padding: 0; }
-            .action-bar, .history-panel, .add-row-btn { display: none !important; }
+            .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
+            .sig-canvas { border: none !important; background: transparent !important; }
             .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
@@ -434,22 +478,39 @@
                     </div>
                 </div>
 
-                <!-- Metadata/TnC Chunk -->
+                <!-- Premium Look Vision Section -->
                 <div class="footer-notes">
                     <div class="note-chunk">
                         <div class="note-title">Description:</div>
                         <input type="text" class="cell-input">
                     </div>
                     <div class="note-chunk">
-                        <div class="note-title">Terms And Conditions:</div>
-                        <input type="text" class="cell-input">
+                        <div class="note-title">Vision:</div>
+                        <input type="text" class="cell-input" placeholder="Providing seamless and elite travel experiences...">
                     </div>
                 </div>
 
-                <!-- Sign Box -->
+                <!-- Dual Signature Area Components -->
                 <div class="signature-area">
-                    <div class="signature-box">
-                        <div class="sig-company">For PRAVAS TOUR AND TRAVELS:</div>
+                    <!-- Left Dynamic Draw Customer Board -->
+                    <div class="sig-box-left">
+                        <div class="sig-title">Customer Signature:</div>
+                        <div class="canvas-container">
+                            <canvas id="customerSigCanvas" class="sig-canvas"></canvas>
+                            <button type="button" class="clear-sig-btn" onclick="clearCustomerSignature()">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Embedded Driver Authentication Vector Graphic -->
+                    <div class="sig-box-right">
+                        <div class="sig-title">For PRAVAS TOUR AND TRAVELS:</div>
+                        <div class="driver-sig-svg">
+                            <!-- Clean SVG trace vector replication from user photo -->
+                            <svg viewBox="0 0 100 50" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M 15 32 C 12 36, 13 22, 18 16 C 23 8, 27 10, 24 23 C 21 37, 12 43, 20 28 C 24 22, 27 24, 27 27 C 28 31, 33 32, 34 29 C 36 24, 39 21, 41 26 C 43 31, 44 24, 46 17 C 48 9, 50 14, 49 21 C 47 27, 43 27, 51 26 C 60 25, 75 22, 85 18" 
+                                      fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
                         <div class="sig-designation">Authorized Signatory</div>
                     </div>
                 </div>
@@ -467,10 +528,69 @@
     </div>
 
     <script>
+        // Interactive Drawing Canvas Logic Engine
+        const canvas = document.getElementById('customerSigCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
         document.addEventListener("DOMContentLoaded", () => {
             loadHistoryList();
             autoGenerateMeta();
+            initializeSignatureCanvas();
         });
+
+        function initializeSignatureCanvas() {
+            // Internal coordinate configuration matching physical dimension width
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+
+            // Touch device events configuration
+            canvas.addEventListener('touchstart', (e) => {
+                isDrawing = true;
+                const m = getTouchPos(e);
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                e.preventDefault();
+            });
+            canvas.addEventListener('touchmove', (e) => {
+                if (!isDrawing) return;
+                const m = getTouchPos(e);
+                ctx.lineTo(m.x, m.y);
+                ctx.stroke();
+                e.preventDefault();
+            });
+            canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+            // Desktop Mouse structural configuration
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDrawing) {
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                }
+            });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+        }
+
+        function getTouchPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.touches[0].clientX - rect.left,
+                y: e.touches[0].clientY - rect.top
+            };
+        }
+
+        function clearCustomerSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
         function autoGenerateMeta() {
             const today = new Date();
@@ -496,7 +616,6 @@
             `;
         }
 
-        // Toggle Full Payment Feature via Checkbox
         function togglePaidFull() {
             const isChecked = document.getElementById('paid_full_chk').checked;
             const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
@@ -510,7 +629,6 @@
             calculateTotals();
         }
 
-        // Math Logic Engines
         function calculateTotals() {
             let runningSubTotal = 0;
             const amtInputs = document.querySelectorAll('.amt-input');
@@ -531,11 +649,9 @@
             const balance = runningSubTotal - received;
             document.getElementById('balance_amt').value = balance.toFixed(2);
 
-            // Dynamically translate mathematical figures to localized words
             document.getElementById('amount_in_words').innerText = numberToWords(Math.round(runningSubTotal)) + " Rupees Only";
         }
 
-        // Numbers to Words Engine Algorithm
         function numberToWords(num) {
             if (num === 0) return 'Zero';
             const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
@@ -583,6 +699,7 @@
             allInputs.forEach(input => { stateData.push(input.value); });
             
             const isPaidChecked = document.getElementById('paid_full_chk').checked;
+            const sigImgData = canvas.toDataURL(); // Save signature matrix status
 
             const billRecord = { 
                 id: invoiceNo, 
@@ -591,7 +708,8 @@
                 date: dateStr, 
                 rowCount: rowCount, 
                 formData: stateData,
-                paidChecked: isPaidChecked
+                paidChecked: isPaidChecked,
+                customerSignature: sigImgData
             };
             
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
@@ -644,18 +762,34 @@
 
                 document.getElementById('paid_full_chk').checked = record.paidChecked || false;
                 calculateTotals();
+
+                if (record.customerSignature) {
+                    const img = new Image();
+                    img.src = record.customerSignature;
+                    img.onload = () => {
+                        clearCustomerSignature();
+                        ctx.drawImage(img, 0, 0);
+                    };
+                }
                 alert("Invoice " + id + " loaded completely!");
             }
         }
 
         function copyBillAsImage() {
             const target = document.getElementById('billContents');
-            html2canvas(target, { scale: 2, useCORS: true }).then(canvas => {
+            // Enhanced layout configs to block edge-border cuts completely
+            html2canvas(target, { 
+                scale: 2, 
+                useCORS: true,
+                logging: false,
+                width: target.offsetWidth,
+                height: target.offsetHeight
+            }).then(canvas => {
                 canvas.toBlob(blob => {
                     navigator.clipboard.write([
                         new ClipboardItem({ "image/png": blob })
                     ]).then(() => {
-                        alert("📸 परफेक्ट! पूरा बिल फोटो के रूप में कॉपी हो गया है। अब WhatsApp खोलकर सीधे पेस्ट (Paste) कर दीजिए।");
+                        alert("📸 परफेक्ट! पूरा बिल बिना किसी क्रॉप के फोटो के रूप में कॉपी हो गया है। WhatsApp पर पेस्ट करें।");
                     }).catch(err => {
                         alert("इमेज कॉपी करने में विफल: ब्राउज़र अनुमति की आवश्यकता है।");
                     });
