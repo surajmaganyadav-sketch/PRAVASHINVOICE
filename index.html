@@ -36,7 +36,7 @@
         .bill-box {
             border: 1px solid #000000;
             background: #ffffff;
-            padding: 0; /* No initial padding to match outer border exactly */
+            padding: 0;
             width: 100%;
             position: relative;
         }
@@ -69,7 +69,6 @@
             margin-bottom: 8px;
         }
         
-        /* Driver Info Layout */
         .info-table {
             width: 100%;
             border-collapse: collapse;
@@ -91,7 +90,6 @@
             color: #000;
         }
         
-        /* Sections Layout split */
         .section-table {
             width: 100%;
             border-collapse: collapse;
@@ -124,7 +122,6 @@
             white-space: nowrap;
         }
 
-        /* Items Table */
         .items-table {
             width: 100%;
             border-collapse: collapse;
@@ -151,7 +148,6 @@
         .center { text-align: center; }
         .right { text-align: right; }
         
-        /* Toggle Dropdown selector styling */
         .trip-type-btn {
             background: #e7e7e7;
             border: 1px solid #666;
@@ -182,7 +178,6 @@
             background-color: #f0f0f0;
         }
 
-        /* Calculation Layout */
         .bottom-grid {
             width: 100%;
             border-collapse: collapse;
@@ -206,7 +201,6 @@
             border-bottom: none;
         }
         
-        /* Description & Terms Table */
         .desc-terms-table {
             width: 100%;
             border-collapse: collapse;
@@ -233,7 +227,6 @@
             height: 45px;
         }
 
-        /* Signature Space format */
         .sig-table {
             width: 100%;
             border-collapse: collapse;
@@ -272,7 +265,6 @@
             padding: 1px 4px;
         }
 
-        /* Controls buttons buttons */
         .actions-box {
             margin-top: 15px;
             display: flex;
@@ -282,7 +274,7 @@
         }
         .btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 14px;
             font-weight: bold;
             border: none;
@@ -292,9 +284,8 @@
             color: white;
         }
         .btn-save { background-color: #28a745; }
-        .btn-whatsapp { background-color: #25d366; }
+        .btn-whatsapp { background-color: #007bff; }
         
-        /* Dashboard logger */
         .history-box {
             margin-top: 20px;
             border-top: 2px solid #ddd;
@@ -319,7 +310,8 @@
             align-items: center;
         }
     </style>
-    <!-- Dynamic pdf rendering support -->
+    <!-- लाइब्रेरीज़: html2canvas इमेज कॉपी के लिए और html2pdf पीडीएफ के लिए -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
@@ -327,9 +319,7 @@
 <div class="app-container">
     <h2 class="title">Bill of Supply Portal</h2>
     
-    <!-- MAIN EXACT SAME-TO-SAME BILL TEMPLATE -->
     <div class="bill-box" id="bill-invoice-capture">
-        
         <div class="bill-header-title">Bill of Supply</div>
         
         <div class="company-header-box">
@@ -360,7 +350,6 @@
             </table>
         </div>
         
-        <!-- Customer & Invoice layout grid split -->
         <table class="section-table">
             <tr>
                 <td>
@@ -388,7 +377,6 @@
             </tr>
         </table>
         
-        <!-- Interactive Category Panel -->
         <div style="position: relative;">
             <button class="trip-type-btn" type="button" onclick="toggleTripOptions()">🔽 Select Trip Plan Type (Click to Hide/Show)</button>
             <div class="trip-options" id="trip-dropdown-options">
@@ -400,7 +388,6 @@
             </div>
         </div>
 
-        <!-- Custom Row Fields -->
         <table class="items-table">
             <thead>
                 <tr>
@@ -438,7 +425,6 @@
             </tbody>
         </table>
         
-        <!-- Totals aligned exactly to the structure -->
         <table class="bottom-grid">
             <tr>
                 <td style="width: 50%; border-right: 1px solid #000; padding: 6px;">
@@ -474,7 +460,6 @@
             </tr>
         </table>
         
-        <!-- Notes box description split -->
         <table class="desc-terms-table">
             <tr>
                 <td>
@@ -492,7 +477,6 @@
             </tr>
         </table>
         
-        <!-- Live Signature pad logic -->
         <table class="sig-table">
             <tr>
                 <td>
@@ -513,13 +497,11 @@
         </table>
     </div>
     
-    <!-- Utility CTA controls -->
     <div class="actions-box">
+        <button class="btn btn-whatsapp" onclick="copyBillAsImageAndOpenWhatsApp()">📸 Copy Bill Image & Open WhatsApp</button>
         <button class="btn btn-save" onclick="saveAndDownloadBill()">💾 Save & Download Bill PDF</button>
-        <button class="btn btn-whatsapp" onclick="sendViaWhatsApp()">💬 Send via WhatsApp</button>
     </div>
     
-    <!-- Logs Section dashboard -->
     <div class="history-box">
         <div class="history-title">🕒 Past Invoices History logs (Click to auto-restore)</div>
         <div id="history-list-container">
@@ -766,27 +748,43 @@
             filename:     currentInvoiceNo + '_' + document.getElementById('cust-name').value + '.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            jsPDF:  { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().from(element).save();
     }
 
-    function sendViaWhatsApp() {
+    // नया फीचर: बिल का फोटो क्लिपबोर्ड में कॉपी करके व्हाट्सएप खोलेगा
+    function copyBillAsImageAndOpenWhatsApp() {
         saveBillDataState();
+        const element = document.getElementById('bill-invoice-capture');
         const phone = document.getElementById('cust-phone').value;
-        const name = document.getElementById('cust-name').value;
-        const totalAmt = document.getElementById('lbl-total').innerText;
         
-        const messageText = `नमस्ते ${name},\nPRAVAS TOUR AND TRAVELS द्वारा आपका बिल जनरेट कर दिया गया है।\n\nइन्वॉइस नंबर: ${currentInvoiceNo}\nकुल राशि: ₹${totalAmt}\n\nधन्यवाद!`;
-        
-        const encodedText = encodeURIComponent(messageText);
-        let whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
-        if(phone) {
-            let cleanPhone = phone.replace(/[^0-9]/g, "");
-            if(cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
-            whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedText}`;
-        }
-        window.open(whatsappUrl, '_blank');
+        // स्क्रीन को कैप्चर करके इमेज (Blob) बनाएगा
+        html2canvas(element, { scale: 2, useCORS: true }).then(canvasObj => {
+            canvasObj.toBlob(blob => {
+                try {
+                    // इमेज को सीधे फोन के क्लिपबोर्ड पर कॉपी करना
+                    const item = new ClipboardItem({ "image/png": blob });
+                    navigator.clipboard.write([item]).then(() => {
+                        alert("📸 बिल की फोटो कॉपी हो गई है! अब व्हाट्सएप खुलेगा, वहां बस पेस्ट (Paste) कर दें।");
+                        
+                        // व्हाट्सएप चैट खोलने का लिंक
+                        let whatsappUrl = `https://api.whatsapp.com/send`;
+                        if(phone) {
+                            let cleanPhone = phone.replace(/[^0-9]/g, "");
+                            if(cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
+                            whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}`;
+                        }
+                        window.open(whatsappUrl, '_blank');
+                    }).catch(err => {
+                        console.error("Clipboard Error: ", err);
+                        alert("आपके ब्राउज़र में डायरेक्ट कॉपी ब्लॉक है। कृपया स्क्रीनशॉट लें या PDF डाउनलोड करें।");
+                    });
+                } catch (e) {
+                    alert("इस डिवाइस में क्लिपबोर्ड इमेज सपोर्ट नहीं है। आप PDF शेयर कर सकते हैं।");
+                }
+            }, 'image/png');
+        });
     }
 
     window.onload = function() {
