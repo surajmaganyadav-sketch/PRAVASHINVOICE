@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill of Supply - Pravash Travels</title>
     <!-- html2canvas library for capturing bill image securely -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -15,19 +15,18 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 10px 0;
+            padding: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
         
         /* Control Panel Actions */
         .action-bar {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
-            gap: 6px;
+            gap: 8px;
             justify-content: center;
             width: 100%;
             max-width: 500px;
@@ -37,8 +36,8 @@
         .btn {
             color: white;
             border: none;
-            padding: 8px 12px;
-            font-size: 11px;
+            padding: 8px 14px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             border-radius: 4px;
@@ -54,26 +53,18 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 160px; justify-content: center; }
 
-        /* Locked Layout Size to perfectly replicate User's Screenshot constraints */
+        /* Stable Layout Size */
         .bill-wrapper {
             width: 100%;
-            max-width: 480px; /* Locked size according to your mobile screenshot */
+            max-width: 500px;
             background-color: #fff;
-            padding: 20px 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 30px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             position: relative;
             z-index: 1;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Auto-Zoom Focus Mechanism when driving or entering text data */
-        .bill-wrapper:focus-within {
-            transform: scale(1.04);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            z-index: 10;
         }
 
         /* Blurred Background Car Graphic Element */
@@ -97,15 +88,15 @@
 
         .main-title {
             text-align: center;
-            font-size: 22px;
+            font-size: 24px;
             line-height: 1.2;
-            margin: 0 0 15px 0;
+            margin: 0 0 20px 0;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
 
         .outer-matrix {
-            border: 1.2px solid #000;
+            border: 1.5px solid #000;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -114,15 +105,15 @@
 
         .header-block {
             display: flex;
-            padding: 10px 8px;
-            border-bottom: 1.2px solid #000;
+            padding: 12px 10px;
+            border-bottom: 1.5px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 75px;
-            height: 75px;
-            margin-right: 10px;
+            width: 80px;
+            height: 80px;
+            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,64 +129,64 @@
             flex: 1;
         }
         .brand-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             margin: 0 0 2px 0;
             letter-spacing: 0.3px;
         }
         .brand-loc {
-            font-size: 9px;
-            margin: 0 0 6px 0;
+            font-size: 9.5px;
+            margin: 0 0 8px 0;
             font-weight: 500;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .field-row {
-            margin-bottom: 4px;
-            font-size: 11px;
+            margin-bottom: 5px;
+            font-size: 11.5px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
             width: 100%;
         }
         .field-row span {
-            margin-right: 4px;
+            margin-right: 5px;
             white-space: nowrap;
         }
         .fill-blank {
             border: none;
-            border-bottom: 0.8px solid #000;
+            border-bottom: 1px solid #000;
             outline: none;
             padding: 1px 2px;
-            font-size: 11px;
+            font-size: 11.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
         }
         .locked-field {
             color: #222;
-            border-bottom: 0.8px dashed #777;
+            border-bottom: 1px dashed #777;
             font-weight: 500;
         }
         
         .grid-contact {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 4px;
+            gap: 12px;
+            margin-top: 5px;
         }
 
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border-bottom: 1.2px solid #000;
+            border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 8px; }
-        .col-box:first-child { border-right: 1.2px solid #000; }
+        .col-box { padding: 10px; }
+        .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 11px;
-            margin-bottom: 4px;
+            font-size: 12px;
+            margin-bottom: 6px;
         }
 
         /* Core Grid Data Table */
@@ -204,9 +195,9 @@
             border-collapse: collapse;
         }
         .data-table th, .data-table td {
-            border: 1.2px solid #000;
-            padding: 5px 6px;
-            font-size: 11px;
+            border: 1.5px solid #000;
+            padding: 6px 8px;
+            font-size: 12px;
         }
         .data-table th {
             font-weight: bold;
@@ -221,7 +212,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
+            font-size: 12px;
             padding: 1px 0;
         }
         
@@ -230,7 +221,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
             cursor: pointer;
             padding: 1px 0;
@@ -241,86 +232,86 @@
         /* Calculation block */
         .billing-summary {
             display: flex;
-            border-bottom: 1.2px solid #000;
-            min-height: 140px;
+            border-bottom: 1.5px solid #000;
+            min-height: 150px;
         }
         .spacer-side { flex: 1; }
         .math-side {
             flex: 1.2;
-            border-left: 1.2px solid #000;
+            border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
         }
         .math-row {
             display: flex;
-            border-bottom: 1.2px solid #000;
-            font-size: 11px;
+            border-bottom: 1.5px solid #000;
+            font-size: 12px;
             align-items: center;
         }
         .math-label {
-            padding: 5px 6px;
+            padding: 6px 8px;
             font-weight: bold;
             width: 55%;
-            border-right: 1.2px solid #000;
+            border-right: 1.5px solid #000;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 5px 6px;
+            padding: 6px 8px;
             width: 45%;
         }
         .words-section {
-            border-bottom: 1.2px solid #000;
-            min-height: 45px;
-            padding: 5px 6px;
+            border-bottom: 1.5px solid #000;
+            min-height: 50px;
+            padding: 6px 8px;
         }
-        .words-title { font-weight: bold; font-size: 11px; margin-bottom: 2px; }
-        .words-output { font-size: 10.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 11.5px; margin-bottom: 3px; }
+        .words-output { font-size: 11px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 10px;
+            font-size: 10.5px;
             font-weight: normal;
             cursor: pointer;
             gap: 2px;
         }
         .chk-container input { cursor: pointer; margin: 0; }
 
-        .footer-notes { display: flex; border-bottom: 1.2px solid #000; min-height: 50px; }
-        .note-chunk { flex: 1; padding: 6px; }
-        .note-chunk:first-child { border-right: 1.2px solid #000; }
-        .note-title { font-weight: bold; font-size: 11px; }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 60px; }
+        .note-chunk { flex: 1; padding: 8px; }
+        .note-chunk:first-child { border-right: 1.5px solid #000; }
+        .note-title { font-weight: bold; font-size: 12px; }
 
         /* Dual Signature Layout Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 55%;
-            min-height: 90px;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 10px;
             position: relative;
         }
         .sig-box-right {
             width: 45%;
-            border-left: 1.2px solid #000;
-            min-height: 90px;
+            border-left: 1.5px solid #000;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 10px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 11px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 12px; width: 100%; text-align: left; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 50px;
-            margin-top: 3px;
+            height: 55px;
+            margin-top: 4px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
@@ -332,56 +323,56 @@
         }
         .clear-sig-btn {
             position: absolute;
-            right: 3px;
-            bottom: 3px;
+            right: 4px;
+            bottom: 4px;
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 8px;
-            padding: 1px 4px;
+            font-size: 9px;
+            padding: 2px 6px;
             border-radius: 2px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 100px;
-            height: 45px;
+            width: 110px;
+            height: 50px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 11px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 12px; color: #333; font-weight: bold; width: 100%; }
 
         /* Log Panel Dashboard */
         .history-panel {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             background: white;
-            padding: 12px;
+            padding: 15px;
             border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-top: 15px;
         }
         .history-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             border-bottom: 2px solid #4f46e5;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
         }
         .history-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            max-height: 140px;
+            max-height: 150px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px;
+            padding: 8px;
             border-bottom: 1px solid #eee;
             cursor: pointer;
-            font-size: 11.5px;
+            font-size: 12px;
         }
         .history-item:hover { background-color: #f7f9fa; }
 
@@ -390,7 +381,7 @@
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; max-width: 100%; transform: none !important; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; max-width: 100%; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -405,7 +396,6 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Fresh Bill</button>
     </div>
 
-    <!-- Main Invoice Layout Locked inside Screen-Fit Spec -->
     <div class="bill-wrapper" id="billContents">
         <div>
             <div class="main-title">Bill of<br>Supply</div>
@@ -505,7 +495,6 @@
                         <tr>
                             <td style="text-align: center;" class="row-num">1</td>
                             <td>
-                                <!-- Row 1 contains dropdown selections exclusively as requested -->
                                 <select class="select-input text-target selection-field">
                                     <option value="">-- Select Trip Detail --</option>
                                     <option value="One way trip">One way trip</option>
@@ -703,14 +692,24 @@
             alert("✨ फ्रेश बिल तैयार है!");
         }
 
-        /* Subsequent rows are added dynamically as regular text input blocks */
         function addNewRow() {
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             const nextIndex = tableBody.rows.length + 1;
             const newRow = tableBody.insertRow();
             newRow.innerHTML = `
                 <td style="text-align: center;" class="row-num">${nextIndex}</td>
-                <td><input type="text" class="cell-input text-target dynamic-text-input"></td>
+                <td>
+                    <select class="select-input text-target selection-field">
+                        <option value="">-- Select Trip Detail --</option>
+                        <option value="One way trip">One way trip</option>
+                        <option value="Two way trip">Two way trip</option>
+                        <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                        <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                        <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                        <option value="Mumbai darshan">Mumbai darshan</option>
+                        <option value="Out station">Out station</option>
+                    </select>
+                </td>
                 <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
                 <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
             `;
@@ -786,16 +785,13 @@
             const selectedTrips = [];
             document.querySelectorAll('.selection-field').forEach(sel => { selectedTrips.push(sel.value); });
             
-            const dynamicTexts = [];
-            document.querySelectorAll('.dynamic-text-input').forEach(inp => { dynamicTexts.push(inp.value); });
-            
             const isPaidChecked = document.getElementById('paid_full_chk').checked;
             const sigImgData = canvas.toDataURL();
 
             const billRecord = { 
                 id: invoiceNo, custName: custName, totalAmt: totalAmt, date: dateStr, 
                 rowCount: rowCount, formData: stateData, selections: selectedTrips, 
-                dynTexts: dynamicTexts, paidChecked: isPaidChecked, customerSignature: sigImgData
+                paidChecked: isPaidChecked, customerSignature: sigImgData
             };
             
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
@@ -831,35 +827,25 @@
                 const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
                 tableBody.innerHTML = ''; 
                 
-                let textIdx = 0;
                 for(let i=0; i < record.rowCount; i++) {
                     const newRow = tableBody.insertRow();
-                    if(i === 0) {
-                        newRow.innerHTML = `
-                            <td style="text-align: center;" class="row-num">1</td>
-                            <td>
-                                <select class="select-input text-target selection-field">
-                                    <option value="">-- Select Trip Detail --</option>
-                                    <option value="One way trip">One way trip</option>
-                                    <option value="Two way trip">Two way trip</option>
-                                    <option value="Rental (8h.80km)">Rental (8h.80km)</option>
-                                    <option value="Rental (6h.60km)">Rental (6h.60km)</option>
-                                    <option value="Rental (4h.40km)">Rental (4h.40km)</option>
-                                    <option value="Mumbai darshan">Mumbai darshan</option>
-                                    <option value="Out station">Out station</option>
-                                </select>
-                            </td>
-                            <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
-                        `;
-                    } else {
-                        newRow.innerHTML = `
-                            <td style="text-align: center;" class="row-num">${i+1}</td>
-                            <td><input type="text" class="cell-input text-target dynamic-text-input"></td>
-                            <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
-                        `;
-                    }
+                    newRow.innerHTML = `
+                        <td style="text-align: center;" class="row-num">${i+1}</td>
+                        <td>
+                            <select class="select-input text-target selection-field">
+                                <option value="">-- Select Trip Detail --</option>
+                                <option value="One way trip">One way trip</option>
+                                <option value="Two way trip">Two way trip</option>
+                                <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                                <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                                <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                                <option value="Mumbai darshan">Mumbai darshan</option>
+                                <option value="Out station">Out station</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                        <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                    `;
                 }
 
                 if(record.selections) {
@@ -868,12 +854,6 @@
                     });
                 }
                 
-                if(record.dynTexts) {
-                    document.querySelectorAll('.dynamic-text-input').forEach((inp, idx) => {
-                        if(record.dynTexts[idx] !== undefined) inp.value = record.dynTexts[idx];
-                    });
-                }
-
                 const allInputs = document.querySelectorAll('.bill-wrapper input[type="text"]');
                 allInputs.forEach((input, index) => {
                     if(record.formData[index] !== undefined) input.value = record.formData[index];
@@ -906,7 +886,7 @@
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
                 replacementSpan.className = 'temp-span-fix';
-                replacementSpan.style.fontSize = '11px';
+                replacementSpan.style.fontSize = '12px';
                 replacementSpan.appendChild(textNode);
                 parent.appendChild(replacementSpan);
                 select.style.display = 'none';
