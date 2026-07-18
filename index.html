@@ -29,7 +29,7 @@
             gap: 8px;
             justify-content: center;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             flex-wrap: wrap;
             padding: 0 10px;
         }
@@ -53,46 +53,54 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 160px; justify-content: center; }
 
-        /* Stable Layout Size */
-        .bill-wrapper {
+        /* Responsive Container: Prevents breaking on smaller mobile screens */
+        .bill-scroll-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 640px;
+            overflow-x: auto;
+            padding: 0 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fixed Layout Structure - Just like the reference image */
+        .bill-wrapper {
+            width: 600px; /* Locked width to perfectly match image proportions */
             background-color: #fff;
-            padding: 20px 15px;
+            padding: 30px 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             position: relative;
             z-index: 1;
+            margin: 0 auto;
         }
 
-        /* Blurred Background Car Graphic Element */
+        /* Background Car Graphic */
         .bill-wrapper::before {
             content: "";
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 85%;
+            width: 80%;
             height: 40%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.6" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.5" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.5"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.5"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.06;
-            filter: blur(0.5px);
+            opacity: 0.05;
             z-index: -1;
             pointer-events: none;
         }
 
         .main-title {
             text-align: center;
-            font-size: 24px;
-            line-height: 1.2;
-            margin: 0 0 20px 0;
+            font-size: 26px;
+            line-height: 1.3;
+            margin: 0 0 25px 0;
             font-weight: 400;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .outer-matrix {
@@ -101,20 +109,19 @@
             display: flex;
             flex-direction: column;
             background: transparent;
-            overflow: hidden;
         }
 
         .header-block {
             display: flex;
-            padding: 12px 10px;
+            padding: 15px 12px;
             border-bottom: 1.5px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 70px;
-            height: 70px;
-            margin-right: 12px;
+            width: 85px;
+            height: 85px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -128,27 +135,25 @@
         
         .brand-details {
             flex: 1;
-            min-width: 0; /* Prevents overflow */
         }
         .brand-name {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: bold;
-            margin: 0 0 2px 0;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin: 0 0 3px 0;
+            letter-spacing: 0.5px;
+            color: #0d233a;
         }
         .brand-loc {
-            font-size: 9px;
-            margin: 0 0 8px 0;
+            font-size: 9.5px;
+            margin: 0 0 10px 0;
             font-weight: 500;
             line-height: 1.2;
+            text-transform: uppercase;
         }
 
         .field-row {
-            margin-bottom: 5px;
-            font-size: 11px;
+            margin-bottom: 6px;
+            font-size: 11.5px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
@@ -160,40 +165,44 @@
         }
         .fill-blank {
             border: none;
-            border-bottom: 1px solid #000;
+            border-bottom: 1px dotted #000;
             outline: none;
             padding: 1px 2px;
-            font-size: 11px;
+            font-size: 11.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
-            min-width: 0; /* Keeps input inside its parent flex container */
         }
         .locked-field {
-            color: #222;
-            border-bottom: 1px dashed #777;
-            font-weight: 500;
+            color: #000;
+            font-weight: normal;
         }
         
         .grid-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 0 15px;
             margin-top: 5px;
+        }
+        .grid-contact .field-row:last-child {
+            grid-column: span 2;
         }
 
         .two-column-split {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.1fr 0.9fr;
             border-bottom: 1.5px solid #000;
             width: 100%;
         }
-        .col-box { padding: 8px; min-width: 0; }
+        .col-box { padding: 10px; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 11.5px;
-            margin-bottom: 6px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .two-column-split .fill-blank {
+            border-bottom: 1px solid #000;
         }
 
         /* Core Grid Data Table */
@@ -204,26 +213,25 @@
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 6px 6px;
-            font-size: 11.5px;
-            overflow: hidden;
+            padding: 8px 8px;
+            font-size: 12px;
         }
         .data-table th {
             font-weight: bold;
             background-color: #e6e6e6;
             text-align: left;
         }
-        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 8%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 50%; }
-        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 21%; text-align: center; }
-        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 21%; text-align: center; }
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 7%; text-align: center; border-left: none; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 55%; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 18%; text-align: center; }
+        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 20%; text-align: right; border-right: none; }
         
         .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11.5px;
+            font-size: 12px;
             padding: 1px 0;
         }
         
@@ -232,10 +240,10 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 12px;
             cursor: pointer;
             padding: 1px 0;
+            font-weight: normal;
         }
         
         .align-right { text-align: right; }
@@ -246,21 +254,22 @@
             border-bottom: 1.5px solid #000;
             width: 100%;
         }
-        .spacer-side { flex: 0.8; }
+        .spacer-side { flex: 1; }
         .math-side {
-            flex: 1.2;
+            width: 270px;
             border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
         }
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 11.5px;
+            font-size: 12px;
             align-items: center;
         }
         .math-label {
-            padding: 6px 6px;
+            padding: 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
@@ -269,58 +278,58 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 6px 6px;
+            padding: 8px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1.5px solid #000;
-            padding: 6px 6px;
+            padding: 8px;
         }
-        .words-title { font-weight: bold; font-size: 11px; margin-bottom: 3px; }
-        .words-output { font-size: 10.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 11.5px; margin-bottom: 4px; }
+        .words-output { font-size: 11px; font-weight: normal; color: #222; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: normal;
             cursor: pointer;
-            gap: 2px;
+            gap: 3px;
         }
         .chk-container input { cursor: pointer; margin: 0; }
 
         .footer-notes { display: flex; border-bottom: 1.5px solid #000; width: 100%; }
-        .note-chunk { flex: 1; padding: 6px; min-width: 0; }
+        .note-chunk { flex: 1; padding: 8px; min-width: 0; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 11.5px; }
+        .note-title { font-weight: bold; font-size: 12px; margin-bottom: 4px; }
 
-        /* Dual Signature Layout Area */
+        /* Signature Layout Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 90px;
+            min-height: 95px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 10px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
             border-left: 1.5px solid #000;
-            min-height: 90px;
+            min-height: 95px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 10px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 11.5px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 12px; width: 100%; text-align: left; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 50px;
+            height: 55px;
             margin-top: 4px;
         }
         .sig-canvas {
@@ -338,31 +347,31 @@
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 8px;
-            padding: 2px 4px;
+            font-size: 9px;
+            padding: 2px 5px;
             border-radius: 2px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 100px;
-            height: 45px;
+            width: 110px;
+            height: 48px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 11px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 11.5px; color: #000; font-weight: bold; width: 100%; }
 
         /* Log Panel Dashboard */
         .history-panel {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             background: white;
             padding: 15px;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-top: 15px;
+            margin-top: 20px;
         }
         .history-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 10px;
             border-bottom: 2px solid #4f46e5;
@@ -382,7 +391,7 @@
             padding: 8px;
             border-bottom: 1px solid #eee;
             cursor: pointer;
-            font-size: 11.5px;
+            font-size: 12px;
         }
         .history-item:hover { background-color: #f7f9fa; }
 
@@ -391,7 +400,8 @@
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; max-width: 100%; }
+            .bill-scroll-container { overflow-x: visible; padding: 0; width: 100%; max-width: 100%; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -406,183 +416,186 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Fresh Bill</button>
     </div>
 
-    <div class="bill-wrapper" id="billContents">
-        <div>
-            <div class="main-title">Bill of<br>Supply</div>
-            
-            <div class="outer-matrix">
-                <!-- Header Identity Area -->
-                <div class="header-block">
-                    <div class="logo-container">
-                        <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="100" cy="100" r="96" fill="none" stroke="#ba9447" stroke-width="3"/>
-                            <circle cx="100" cy="100" r="90" fill="#0d233a"/>
-                            <circle cx="100" cy="100" r="60" fill="none" stroke="#ba9447" stroke-width="2" stroke-dasharray="4 2"/>
-                            <path d="M100,25 L105,40 L95,40 Z M100,175 L105,160 L95,160 Z M175,100 L160,105 L160,95 Z M25,100 L40,105 L40,95 Z" fill="#ba9447"/>
-                            <text x="96" y="20" fill="#ba9447" font-size="14" font-weight="bold">N</text>
-                            <text x="96" y="192" fill="#ba9447" font-size="14" font-weight="bold">S</text>
-                            <text x="182" y="105" fill="#ba9447" font-size="14" font-weight="bold">E</text>
-                            <text x="6" y="105" fill="#ba9447" font-size="14" font-weight="bold">W</text>
-                            <path d="M70,85 Q90,55 125,70 Q110,80 100,82 Q125,82 135,92 Q115,95 102,94 Q120,100 125,112 Q105,104 90,115 Q75,125 82,100 Q60,98 70,85 Z" fill="#ba9447"/>
-                            <path d="M70,125 Q100,105 130,125 Q100,145 70,125 Z" fill="none" stroke="#ba9447" stroke-width="1.5"/>
-                            <path d="M60,135 Q100,120 140,135 M50,142 Q100,128 150,142" fill="none" stroke="#ba9447" stroke-width="2"/>
-                            <path d="M45,165 Q70,185 100,185 Q130,185 155,165" fill="none" stroke="#ba9447" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <div class="brand-details">
-                        <h1 class="brand-name" style="color: #0d233a;">PRAVASH TOUR AND TRAVELS</h1>
-                        <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
-                        
-                        <div>
-                            <div class="field-row">
-                                <span>DRIVER NAME:</span>
-                                <input type="text" id="driver_name" class="fill-blank locked-field" value="Rajit Yadav" readonly>
-                            </div>
-                            <div class="field-row">
-                                <span>CAR NO:</span>
-                                <input type="text" id="car_no" class="fill-blank locked-field" value="MH04LY5124" readonly>
-                            </div>
-                            
-                            <div class="grid-contact">
-                                <div class="field-row">
-                                    <span>Phone:</span>
-                                    <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
-                                </div>
-                                <div class="field-row">
-                                    <span>Email:</span>
-                                    <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
-                                </div>
-                                <div class="field-row">
-                                    <span>State:</span>
-                                    <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Client Billing Metadata Split -->
-                <div class="two-column-split">
-                    <div class="col-box">
-                        <div class="sect-header">Bill To:</div>
-                        <div class="field-row">
-                            <span>name</span>
-                            <input type="text" id="cust_name" class="fill-blank text-target">
-                        </div>
-                        <div class="field-row">
-                            <span>Contact No:</span>
-                            <input type="text" id="cust_phone" class="fill-blank text-target">
-                        </div>
-                    </div>
-                    <div class="col-box">
-                        <div class="sect-header">Invoice Details:</div>
-                        <div class="field-row">
-                            <span>No:</span>
-                            <input type="text" id="invoice_no" class="fill-blank text-target">
-                        </div>
-                        <div class="field-row">
-                            <span>Date:</span>
-                            <input type="text" id="invoice_date" class="fill-blank text-target">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Core Ledger Grid Table -->
-                <table class="data-table" id="itemsTable">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Trip Details</th>
-                            <th>Price/ Unit (₹)</th>
-                            <th>Amount(₹)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center;" class="row-num">1</td>
-                            <td>
-                                <select class="select-input text-target selection-field">
-                                    <option value="">-- Select Trip Detail --</option>
-                                    <option value="One way trip">One way trip</option>
-                                    <option value="Two way trip">Two way trip</option>
-                                    <option value="Rental (8h.80km)">Rental (8h.80km)</option>
-                                    <option value="Rental (6h.60km)">Rental (6h.60km)</option>
-                                    <option value="Rental (4h.40km)">Rental (4h.40km)</option>
-                                    <option value="Mumbai darshan">Mumbai darshan</option>
-                                    <option value="Out station">Out station</option>
-                                </select>
-                            </td>
-                            <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Financial Calculation Matrix -->
-                <div class="billing-summary">
-                    <div class="spacer-side"></div>
-                    <div class="math-side">
-                        <div class="math-row">
-                            <div class="math-label">Sub Total</div>
-                            <div class="math-input-wrap"><input type="text" id="sub_total" class="cell-input align-right text-target" readonly></div>
-                        </div>
-                        <div class="math-row">
-                            <div class="math-label">Total</div>
-                            <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right text-target" readonly></div>
-                        </div>
-                        
-                        <div class="words-section">
-                            <div class="words-title">Invoice Amount In Words :</div>
-                            <div id="amount_in_words" class="words-output">Zero Rupees Only</div>
-                        </div>
-                        
-                        <div class="math-row">
-                            <div class="math-label">
-                                <span>Received</span>
-                                <label class="chk-container">
-                                    <input type="checkbox" id="paid_full_chk" onchange="togglePaidFull()"> Paid Full
-                                </label>
-                            </div>
-                            <div class="math-input-wrap"><input type="text" id="received_amt" class="cell-input align-right text-target" oninput="calculateTotals()"></div>
-                        </div>
-                        <div class="math-row" style="border-bottom: none;">
-                            <div class="math-label">Balance</div>
-                            <div class="math-input-wrap"><input type="text" id="balance_amt" class="cell-input align-right text-target" readonly></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Vision Segment -->
-                <div class="footer-notes">
-                    <div class="note-chunk">
-                        <div class="note-title">Description:</div>
-                        <input type="text" class="cell-input text-target">
-                    </div>
-                    <div class="note-chunk">
-                        <div class="note-title">Vision:</div>
-                        <input type="text" class="cell-input text-target" placeholder="Providing seamless and elite travel experiences...">
-                    </div>
-                </div>
-
-                <!-- Authorization & Client Verification Signatures Layout -->
-                <div class="signature-area">
-                    <div class="sig-box-left">
-                        <div class="sig-title">Customer Signature:</div>
-                        <div class="canvas-container">
-                            <canvas id="customerSigCanvas" class="sig-canvas"></canvas>
-                            <button type="button" class="clear-sig-btn" onclick="clearCustomerSignature()">Clear</button>
-                        </div>
-                    </div>
-                    
-                    <div class="sig-box-right">
-                        <div class="sig-title">For PRAVAS TOUR AND TRAVELS:</div>
-                        <div class="driver-sig-svg">
-                            <svg viewBox="0 0 100 50" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M 15 32 C 12 36, 13 22, 18 16 C 23 8, 27 10, 24 23 C 21 37, 12 43, 20 28 C 24 22, 27 24, 27 27 C 28 31, 33 32, 34 29 C 36 24, 39 21, 41 26 C 43 31, 44 24, 46 17 C 48 9, 50 14, 49 21 C 47 27, 43 27, 51 26 C 60 25, 75 22, 85 18" 
-                                      fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Scroll container blocks responsiveness layout bugs on standard mobile screens -->
+    <div class="bill-scroll-container">
+        <div class="bill-wrapper" id="billContents">
+            <div>
+                <div class="main-title">Bill of<br>Supply</div>
+                
+                <div class="outer-matrix">
+                    <!-- Header Identity Area -->
+                    <div class="header-block">
+                        <div class="logo-container">
+                            <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="96" fill="none" stroke="#ba9447" stroke-width="3"/>
+                                <circle cx="100" cy="100" r="90" fill="#0d233a"/>
+                                <circle cx="100" cy="100" r="60" fill="none" stroke="#ba9447" stroke-width="2" stroke-dasharray="4 2"/>
+                                <path d="M100,25 L105,40 L95,40 Z M100,175 L105,160 L95,160 Z M175,100 L160,105 L160,95 Z M25,100 L40,105 L40,95 Z" fill="#ba9447"/>
+                                <text x="96" y="20" fill="#ba9447" font-size="14" font-weight="bold">N</text>
+                                <text x="96" y="192" fill="#ba9447" font-size="14" font-weight="bold">S</text>
+                                <text x="182" y="105" fill="#ba9447" font-size="14" font-weight="bold">E</text>
+                                <text x="6" y="105" fill="#ba9447" font-size="14" font-weight="bold">W</text>
+                                <path d="M70,85 Q90,55 125,70 Q110,80 100,82 Q125,82 135,92 Q115,95 102,94 Q120,100 125,112 Q105,104 90,115 Q75,125 82,100 Q60,98 70,85 Z" fill="#ba9447"/>
+                                <path d="M70,125 Q100,105 130,125 Q100,145 70,125 Z" fill="none" stroke="#ba9447" stroke-width="1.5"/>
+                                <path d="M60,135 Q100,120 140,135 M50,142 Q100,128 150,142" fill="none" stroke="#ba9447" stroke-width="2"/>
+                                <path d="M45,165 Q70,185 100,185 Q130,185 155,165" fill="none" stroke="#ba9447" stroke-width="2"/>
                             </svg>
                         </div>
-                        <div class="sig-designation">Authorized Signatory</div>
+                        <div class="brand-details">
+                            <h1 class="brand-name">PRAVASH TOUR AND TRAVELS</h1>
+                            <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
+                            
+                            <div>
+                                <div class="field-row">
+                                    <span>DRIVER NAME:</span>
+                                    <input type="text" id="driver_name" class="fill-blank locked-field" value="Rajit Yadav" readonly>
+                                </div>
+                                <div class="field-row">
+                                    <span>CAR NO:</span>
+                                    <input type="text" id="car_no" class="fill-blank locked-field" value="MH04LY5124" readonly>
+                                </div>
+                                
+                                <div class="grid-contact">
+                                    <div class="field-row">
+                                        <span>Phone:</span>
+                                        <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
+                                    </div>
+                                    <div class="field-row">
+                                        <span>Email:</span>
+                                        <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
+                                    </div>
+                                    <div class="field-row">
+                                        <span>State:</span>
+                                        <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client Billing Metadata Split -->
+                    <div class="two-column-split">
+                        <div class="col-box">
+                            <div class="sect-header">Bill To:</div>
+                            <div class="field-row">
+                                <span>name</span>
+                                <input type="text" id="cust_name" class="fill-blank text-target">
+                            </div>
+                            <div class="field-row">
+                                <span>Contact No:</span>
+                                <input type="text" id="cust_phone" class="fill-blank text-target">
+                            </div>
+                        </div>
+                        <div class="col-box">
+                            <div class="sect-header">Invoice Details:</div>
+                            <div class="field-row">
+                                <span>No:</span>
+                                <input type="text" id="invoice_no" class="fill-blank text-target">
+                            </div>
+                            <div class="field-row">
+                                <span>Date:</span>
+                                <input type="text" id="invoice_date" class="fill-blank text-target">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Ledger Grid Table -->
+                    <table class="data-table" id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th style="border-left: none;">#</th>
+                                <th>Trip Details</th>
+                                <th>Price/ Unit (₹)</th>
+                                <th style="border-right: none; text-align: right;">Amount(₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center; border-left: none;" class="row-num">1</td>
+                                <td>
+                                    <select class="select-input text-target selection-field">
+                                        <option value="">-- Select Trip Detail --</option>
+                                        <option value="One way trip">One way trip</option>
+                                        <option value="Two way trip">Two way trip</option>
+                                        <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                                        <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                                        <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                                        <option value="Mumbai darshan">Mumbai darshan</option>
+                                        <option value="Out station">Out station</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                                <td style="border-right: none;"><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Financial Calculation Matrix -->
+                    <div class="billing-summary">
+                        <div class="spacer-side"></div>
+                        <div class="math-side">
+                            <div class="math-row">
+                                <div class="math-label">Sub Total</div>
+                                <div class="math-input-wrap"><input type="text" id="sub_total" class="cell-input align-right text-target" readonly></div>
+                            </div>
+                            <div class="math-row">
+                                <div class="math-label">Total</div>
+                                <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right text-target" readonly></div>
+                            </div>
+                            
+                            <div class="words-section">
+                                <div class="words-title">Invoice Amount In Words :</div>
+                                <div id="amount_in_words" class="words-output">Zero Rupees Only</div>
+                            </div>
+                            
+                            <div class="math-row">
+                                <div class="math-label">
+                                    <span>Received</span>
+                                    <label class="chk-container">
+                                        <input type="checkbox" id="paid_full_chk" onchange="togglePaidFull()"> Paid Full
+                                    </label>
+                                </div>
+                                <div class="math-input-wrap"><input type="text" id="received_amt" class="cell-input align-right text-target" oninput="calculateTotals()"></div>
+                            </div>
+                            <div class="math-row" style="border-bottom: none;">
+                                <div class="math-label">Balance</div>
+                                <div class="math-input-wrap"><input type="text" id="balance_amt" class="cell-input align-right text-target" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Notes Segment -->
+                    <div class="footer-notes">
+                        <div class="note-chunk" style="border-left: none;">
+                            <div class="note-title">Description:</div>
+                            <input type="text" class="cell-input text-target">
+                        </div>
+                        <div class="note-chunk" style="border-right: none;">
+                            <div class="note-title">Vision:</div>
+                            <input type="text" class="cell-input text-target" placeholder="Providing seamless and elite travel experiences...">
+                        </div>
+                    </div>
+
+                    <!-- Signature Layout Area -->
+                    <div class="signature-area">
+                        <div class="sig-box-left">
+                            <div class="sig-title">Customer Signature:</div>
+                            <div class="canvas-container">
+                                <canvas id="customerSigCanvas" class="sig-canvas"></canvas>
+                                <button type="button" class="clear-sig-btn" onclick="clearCustomerSignature()">Clear</button>
+                            </div>
+                        </div>
+                        
+                        <div class="sig-box-right">
+                            <div class="sig-title">For PRAVAS TOUR AND TRAVELS:</div>
+                            <div class="driver-sig-svg">
+                                <svg viewBox="0 0 100 50" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 32 C 12 36, 13 22, 18 16 C 23 8, 27 10, 24 23 C 21 37, 12 43, 20 28 C 24 22, 27 24, 27 27 C 28 31, 33 32, 34 29 C 36 24, 39 21, 41 26 C 43 31, 44 24, 46 17 C 48 9, 50 14, 49 21 C 47 27, 43 27, 51 26 C 60 25, 75 22, 85 18" 
+                                          fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="sig-designation">Authorized Signatory</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -591,7 +604,7 @@
 
     <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
 
-    <!-- History Logs Dashboard Panel -->
+    <!-- History Logs Panel -->
     <div class="history-panel">
         <div class="history-title">📜 Saved Bills History (Click to Reload)</div>
         <ul class="history-list" id="historyLogList"></ul>
@@ -673,7 +686,7 @@
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = `
                 <tr>
-                    <td style="text-align: center;" class="row-num">1</td>
+                    <td style="text-align: center; border-left: none;" class="row-num">1</td>
                     <td>
                         <select class="select-input text-target selection-field">
                             <option value="">-- Select Trip Detail --</option>
@@ -687,7 +700,7 @@
                         </select>
                     </td>
                     <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                    <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                    <td style="border-right: none;"><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                 </tr>
             `;
             
@@ -703,7 +716,7 @@
             const nextIndex = tableBody.rows.length + 1;
             const newRow = tableBody.insertRow();
             newRow.innerHTML = `
-                <td style="text-align: center;" class="row-num">${nextIndex}</td>
+                <td style="text-align: center; border-left: none;" class="row-num">${nextIndex}</td>
                 <td>
                     <select class="select-input text-target selection-field">
                         <option value="">-- Select Trip Detail --</option>
@@ -717,7 +730,7 @@
                     </select>
                 </td>
                 <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                <td style="border-right: none;"><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
             `;
         }
 
@@ -814,7 +827,7 @@
             listContainer.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('billHistory')) || [];
             if(history.length === 0) {
-                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:11px;">No records found.</li>';
+                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:12px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
@@ -836,7 +849,7 @@
                 for(let i=0; i < record.rowCount; i++) {
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                        <td style="text-align: center;" class="row-num">${i+1}</td>
+                        <td style="text-align: center; border-left: none;" class="row-num">${i+1}</td>
                         <td>
                             <select class="select-input text-target selection-field">
                                 <option value="">-- Select Trip Detail --</option>
@@ -850,7 +863,7 @@
                             </select>
                         </td>
                         <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                        <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                        <td style="border-right: none;"><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                     `;
                 }
 
