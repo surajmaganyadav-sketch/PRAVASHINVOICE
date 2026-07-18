@@ -12,27 +12,28 @@
         body {
             background-color: #f4f4f7;
             margin: 0;
-            padding: 10px;
+            padding: 20px 10px; /* ऊपर और नीचे 20px की जगह छोड़ी है ताकि स्क्रीन पर स्पेस दिखे */
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
         .app-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px; /* चौड़ाई थोड़ी कम की ताकि मोबाइल में प्रॉपर दिखे */
             background: #ffffff;
-            padding: 10px;
+            padding: 8px;
             border-radius: 5px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         h2.title {
             text-align: center;
-            margin: 5px 0 10px 0;
+            margin: 2px 0 8px 0;
             color: #444;
-            font-size: 18px;
+            font-size: 16px;
         }
         
-        /* EXACT BILL BOX FORMAT */
+        /* COMPACT EXACT BILL BOX FORMAT */
         .bill-box {
             border: 1px solid #000000;
             background: #ffffff;
@@ -43,30 +44,30 @@
         
         .bill-header-title {
             text-align: center;
-            font-size: 26px;
+            font-size: 22px; /* हाइट कम करने के लिए साइज थोड़ा छोटा किया */
             font-weight: normal;
-            margin: 10px 0;
+            margin: 6px 0;
             color: #000;
         }
 
         .company-header-box {
             border: 1px solid #000000;
-            margin: 8px;
-            padding: 8px;
+            margin: 5px;
+            padding: 6px;
             background-color: #ffffff;
         }
         
         .main-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             color: #000;
             margin-bottom: 2px;
         }
         .subtitle {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             color: #000;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         
         .info-table {
@@ -74,8 +75,8 @@
             border-collapse: collapse;
         }
         .info-table td {
-            padding: 3px 0;
-            font-size: 12px;
+            padding: 2px 0;
+            font-size: 11px;
             color: #000;
             vertical-align: top;
         }
@@ -83,7 +84,7 @@
             border: none;
             border-bottom: 1px solid #000;
             width: 100%;
-            font-size: 12px;
+            font-size: 11px;
             padding: 1px 0;
             outline: none;
             background: transparent;
@@ -99,8 +100,8 @@
         .section-table td {
             border-right: 1px solid #000;
             width: 50%;
-            padding: 6px;
-            font-size: 12px;
+            padding: 4px 5px;
+            font-size: 11px;
             vertical-align: top;
             color: #000;
         }
@@ -109,15 +110,15 @@
         }
         .section-title {
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .row-flex {
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .row-flex label {
-            font-size: 11px;
+            font-size: 10px;
             margin-right: 4px;
             white-space: nowrap;
         }
@@ -130,8 +131,8 @@
         .items-table th, .items-table td {
             border-right: 1px solid #000;
             border-bottom: 1px solid #000;
-            padding: 5px;
-            font-size: 12px;
+            padding: 4px 5px;
+            font-size: 11px;
             color: #000;
         }
         .items-table th {
@@ -151,11 +152,11 @@
         .trip-type-btn {
             background: #e7e7e7;
             border: 1px solid #666;
-            padding: 6px;
-            font-size: 11px;
+            padding: 5px;
+            font-size: 10px;
             cursor: pointer;
-            width: calc(100% - 16px);
-            margin: 4px 8px;
+            width: calc(100% - 10px);
+            margin: 3px 5px;
             text-align: left;
             font-weight: bold;
         }
@@ -165,17 +166,14 @@
             background: white;
             position: absolute;
             z-index: 100;
-            width: calc(100% - 16px);
-            left: 8px;
+            width: calc(100% - 10px);
+            left: 5px;
         }
         .trip-options div {
-            padding: 8px;
+            padding: 6px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             border-bottom: 1px solid #eee;
-        }
-        .trip-options div:hover {
-            background-color: #f0f0f0;
         }
 
         .bottom-grid {
@@ -193,8 +191,8 @@
         }
         .calc-table td {
             border-bottom: 1px solid #000;
-            padding: 4px 6px;
-            font-size: 12px;
+            padding: 3px 5px;
+            font-size: 11px;
             color: #000;
         }
         .calc-table tr:last-child td {
@@ -209,8 +207,8 @@
         .desc-terms-table td {
             border-right: 1px solid #000;
             width: 50%;
-            padding: 6px;
-            font-size: 12px;
+            padding: 5px;
+            font-size: 11px;
             vertical-align: top;
             color: #000;
         }
@@ -221,10 +219,10 @@
             width: 100%;
             border: none;
             resize: none;
-            font-size: 11px;
+            font-size: 10px;
             outline: none;
             background: transparent;
-            height: 45px;
+            height: 35px; /* डिस्क्रिप्शन बॉक्स की हाइट थोड़ी छोटी की */
         }
 
         .sig-table {
@@ -234,8 +232,8 @@
         .sig-table td {
             border-right: 1px solid #000;
             width: 50%;
-            padding: 6px;
-            font-size: 12px;
+            padding: 5px;
+            font-size: 11px;
             vertical-align: top;
             color: #000;
         }
@@ -246,15 +244,15 @@
             border: 1px dashed #999;
             background: #fafafa;
             position: relative;
-            margin-top: 5px;
+            margin-top: 3px;
         }
         canvas {
             width: 100%;
-            height: 55px;
+            height: 45px; /* पैड की हाइट कम की ताकि स्क्रीन पर फिट बैठे */
             display: block;
         }
         .clear-btn {
-            font-size: 9px;
+            font-size: 8px;
             position: absolute;
             right: 2px;
             top: 2px;
@@ -262,20 +260,20 @@
             color: white;
             border: none;
             cursor: pointer;
-            padding: 1px 4px;
+            padding: 1px 3px;
         }
 
         .actions-box {
-            margin-top: 15px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
         }
         .btn {
             width: 100%;
-            padding: 12px;
-            font-size: 14px;
+            padding: 10px;
+            font-size: 13px;
             font-weight: bold;
             border: none;
             border-radius: 4px;
@@ -287,30 +285,29 @@
         .btn-whatsapp { background-color: #007bff; }
         
         .history-box {
-            margin-top: 20px;
+            margin-top: 15px;
             border-top: 2px solid #ddd;
-            padding-top: 10px;
+            padding-top: 8px;
             width: 100%;
         }
         .history-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #333;
         }
         .history-item {
             background: #f9f9f9;
             border: 1px solid #ccc;
-            padding: 6px 10px;
-            margin-bottom: 5px;
+            padding: 5px 8px;
+            margin-bottom: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
     </style>
-    <!-- लाइब्रेरीज़: html2canvas इमेज कॉपी के लिए और html2pdf पीडीएफ के लिए -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -331,15 +328,15 @@
                     <td style="width: 70%;">
                         <strong>DRIVER NAME:</strong> Rajit Yadav<br>
                         <strong>CAR NO:</strong> MH04LY5124
-                        <div style="border-bottom: 1px solid #000; height: 12px; width: 85%;"></div>
+                        <div style="border-bottom: 1px solid #000; height: 8px; width: 85%;"></div>
                     </td>
                     <td style="width: 30%; text-align: right;">
-                        <div style="border: 1px solid #000; width: 65px; height: 42px; display: inline-block; text-align: center; font-size: 9px; padding-top: 14px; font-weight: bold; background: #fff;">PRAVAS</div>
+                        <div style="border: 1px solid #000; width: 55px; height: 35px; display: inline-block; text-align: center; font-size: 8px; padding-top: 11px; font-weight: bold; background: #fff;">PRAVAS</div>
                     </td>
                 </tr>
             </table>
             
-            <table class="info-table" style="margin-top: 5px;">
+            <table class="info-table" style="margin-top: 3px;">
                 <tr>
                     <td style="width: 50%;">Phone: 9327477072</td>
                     <td style="width: 50%;">Email: Rajit.syadav@gmail.com</td>
@@ -400,25 +397,25 @@
             <tbody>
                 <tr>
                     <td class="center">1</td>
-                    <td><strong>Pick Up:</strong> <input type="text" id="detail-pickup" class="input-line" style="width:72%; display:inline-block;"></td>
+                    <td><strong>Pick Up:</strong> <input type="text" id="detail-pickup" class="input-line" style="width:70%; display:inline-block;"></td>
                     <td><input type="number" id="price-pickup" class="input-line right" oninput="calculateTotals()"></td>
                     <td style="border-right: none;"><input type="number" id="amt-pickup" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">2</td>
-                    <td><strong>Drop:</strong> <input type="text" id="detail-drop" class="input-line" style="width:75%; display:inline-block;"></td>
+                    <td><strong>Drop:</strong> <input type="text" id="detail-drop" class="input-line" style="width:73%; display:inline-block;"></td>
                     <td><input type="number" id="price-drop" class="input-line right" oninput="calculateTotals()"></td>
                     <td style="border-right: none;"><input type="number" id="amt-drop" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">3</td>
-                    <td><strong>Toll:</strong> <input type="text" id="detail-toll" class="input-line" style="width:75%; display:inline-block;" placeholder="Toll Name"></td>
+                    <td><strong>Toll:</strong> <input type="text" id="detail-toll" class="input-line" style="width:73%; display:inline-block;"></td>
                     <td><input type="number" id="price-toll" class="input-line right" oninput="calculateTotals()"></td>
                     <td style="border-right: none;"><input type="number" id="amt-toll" class="input-line right" readonly></td>
                 </tr>
                 <tr>
                     <td class="center">4</td>
-                    <td><strong>Parking:</strong> <input type="text" id="detail-parking" class="input-line" style="width:70%; display:inline-block;" placeholder="Parking Name"></td>
+                    <td><strong>Parking:</strong> <input type="text" id="detail-parking" class="input-line" style="width:68%; display:inline-block;"></td>
                     <td><input type="number" id="price-parking" class="input-line right" oninput="calculateTotals()"></td>
                     <td style="border-right: none;"><input type="number" id="amt-parking" class="input-line right" readonly></td>
                 </tr>
@@ -427,9 +424,9 @@
         
         <table class="bottom-grid">
             <tr>
-                <td style="width: 50%; border-right: 1px solid #000; padding: 6px;">
-                    <div style="font-weight: bold; color: #444; margin-bottom: 4px; font-size: 11px;">Selected Category:</div>
-                    <div id="selected-plan-label" style="font-weight: bold; font-size: 12px; color: #000;">One Way</div>
+                <td style="width: 50%; border-right: 1px solid #000; padding: 5px;">
+                    <div style="font-weight: bold; color: #444; margin-bottom: 2px; font-size: 10px;">Selected Category:</div>
+                    <div id="selected-plan-label" style="font-weight: bold; font-size: 11px; color: #000;">One Way</div>
                 </td>
                 <td style="width: 50%;">
                     <table class="calc-table">
@@ -442,14 +439,14 @@
                             <td class="right"><strong>:</strong> <span id="lbl-total">0.00</span></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="padding: 3px 6px;">
-                                <div style="font-size: 9px; font-weight: bold;">Invoice Amount In Words :</div>
-                                <div id="lbl-words" style="font-size: 10px; font-style: italic; min-height:14px; margin-top: 2px;">Zero Rupees Only</div>
+                            <td colspan="2" style="padding: 2px 5px;">
+                                <div style="font-size: 8px; font-weight: bold;">Invoice Amount In Words :</div>
+                                <div id="lbl-words" style="font-size: 9px; font-style: italic; min-height:12px; margin-top: 1px;">Zero Rupees Only</div>
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Received</strong></td>
-                            <td class="right"><strong>:</strong> <input type="number" id="val-received" class="input-line right" style="width: 70%; display:inline-block;" value="0" oninput="calculateTotals()"></td>
+                            <td class="right"><strong>:</strong> <input type="number" id="val-received" class="input-line right" style="width: 65%; display:inline-block;" value="0" oninput="calculateTotals()"></td>
                         </tr>
                         <tr>
                             <td><strong>Balance</strong></td>
@@ -468,10 +465,10 @@
                 </td>
                 <td style="border-right: none;">
                     <div class="section-title">Terms And Conditions:</div>
-                    <div style="font-size: 8px; line-height: 1.2; height: 45px; overflow-y: auto;">
-                        1. Toll and Parking fees are charged extra at actuals.<br>
-                        2. Waiting charges applicable after 15 minutes.<br>
-                        3. Running limits calculated garage to garage.
+                    <div style="font-size: 8px; line-height: 1.1; height: 35px; overflow-y: auto;">
+                        1. Toll & Parking fees are extra at actuals.<br>
+                        2. Waiting charges applicable after 15 mins.<br>
+                        3. Running limits garage to garage.
                     </div>
                 </td>
             </tr>
@@ -488,10 +485,10 @@
                 </td>
                 <td style="text-align: center; border-right: none; position: relative;">
                     <div class="section-title" style="text-align: left;">For PRAVAS TOUR AND TRAVELS:</div>
-                    <div style="font-family: 'Courier New', cursive; font-size: 14px; color: blue; margin-top: 18px; font-weight: bold; transform: rotate(-3deg); display: inline-block;">
+                    <div style="font-family: 'Courier New', cursive; font-size: 13px; color: blue; margin-top: 12px; font-weight: bold; transform: rotate(-3deg); display: inline-block;">
                         Rajit Yadav
                     </div>
-                    <div style="font-size: 10px; margin-top: 10px; border-top: 1px solid #ddd; padding-top: 2px;">Authorized Signatory</div>
+                    <div style="font-size: 9px; margin-top: 6px; border-top: 1px solid #ddd; padding-top: 1px;">Authorized Signatory</div>
                 </td>
             </tr>
         </table>
@@ -503,9 +500,9 @@
     </div>
     
     <div class="history-box">
-        <div class="history-title">🕒 Past Invoices History logs (Click to auto-restore)</div>
+        <div class="history-title">🕒 Past Invoices History logs (Click to restore)</div>
         <div id="history-list-container">
-            <p style="font-size: 11px; color: #888; font-style: italic;">No bills generated yet.</p>
+            <p style="font-size: 10px; color: #888; font-style: italic;">No bills generated yet.</p>
         </div>
     </div>
 </div>
@@ -520,7 +517,7 @@
 
     function resizeCanvas() {
         canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = 55;
+        canvas.height = 45;
         ctx.strokeStyle = "#0000ff";
         ctx.lineWidth = 1.8;
     }
@@ -726,14 +723,14 @@
     function renderHistory() {
         const container = document.getElementById('history-list-container');
         if(savedBills.length === 0) {
-            container.innerHTML = '<p style="font-size: 11px; color: #888; font-style: italic;">No bills generated yet.</p>';
+            container.innerHTML = '<p style="font-size: 10px; color: #888; font-style: italic;">No bills generated yet.</p>';
             return;
         }
         container.innerHTML = savedBills.map(b => `
             <div class="history-item" onclick="loadInvoiceRecord('${b.invoiceNo}')">
                 <div>
                     <strong>${b.invoiceNo}</strong> - ${b.customerName || 'No Name'}<br>
-                    <span style="font-size:10px; color:#666;">Date: ${b.date}</span>
+                    <span style="font-size:9px; color:#666;">Date: ${b.date}</span>
                 </div>
                 <div style="font-weight:bold; color:#28a745;">₹${parseFloat(b.pPickup||0)+parseFloat(b.pDrop||0)+parseFloat(b.pToll||0)+parseFloat(b.pParking||0)}</div>
             </div>
@@ -748,27 +745,23 @@
             filename:     currentInvoiceNo + '_' + document.getElementById('cust-name').value + '.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
-            jsPDF:  { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().from(element).save();
     }
 
-    // नया फीचर: बिल का फोटो क्लिपबोर्ड में कॉपी करके व्हाट्सएप खोलेगा
     function copyBillAsImageAndOpenWhatsApp() {
         saveBillDataState();
         const element = document.getElementById('bill-invoice-capture');
         const phone = document.getElementById('cust-phone').value;
         
-        // स्क्रीन को कैप्चर करके इमेज (Blob) बनाएगा
         html2canvas(element, { scale: 2, useCORS: true }).then(canvasObj => {
             canvasObj.toBlob(blob => {
                 try {
-                    // इमेज को सीधे फोन के क्लिपबोर्ड पर कॉपी करना
                     const item = new ClipboardItem({ "image/png": blob });
                     navigator.clipboard.write([item]).then(() => {
-                        alert("📸 बिल की फोटो कॉपी हो गई है! अब व्हाट्सएप खुलेगा, वहां बस पेस्ट (Paste) कर दें।");
+                        alert("📸 बिल की फोटो कॉपी हो गई है! व्हाट्सएप पर जाकर बस पेस्ट (Paste) कर दें।");
                         
-                        // व्हाट्सएप चैट खोलने का लिंक
                         let whatsappUrl = `https://api.whatsapp.com/send`;
                         if(phone) {
                             let cleanPhone = phone.replace(/[^0-9]/g, "");
