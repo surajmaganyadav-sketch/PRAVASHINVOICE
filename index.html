@@ -1,790 +1,445 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pravas Tour and Travels Bill Generator</title>
+    <title>Bill of Supply</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #000;
         }
         body {
-            background-color: #f4f4f7;
+            background-color: #f0f0f0;
             margin: 0;
-            padding: 20px 10px; /* ऊपर और नीचे 20px की जगह छोड़ी है ताकि स्क्रीन पर स्पेस दिखे */
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
-        .app-container {
-            width: 100%;
-            max-width: 480px; /* चौड़ाई थोड़ी कम की ताकि मोबाइल में प्रॉपर दिखे */
-            background: #ffffff;
-            padding: 8px;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        .action-bar {
+            margin-bottom: 25px;
         }
-        h2.title {
-            text-align: center;
-            margin: 2px 0 8px 0;
-            color: #444;
+        .print-btn {
+            background-color: #2ea44f;
+            color: white;
+            border: 1px solid rgba(27, 31, 35, 0.15);
+            padding: 12px 24px;
             font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
         }
-        
-        /* COMPACT EXACT BILL BOX FORMAT */
-        .bill-box {
-            border: 1px solid #000000;
-            background: #ffffff;
-            padding: 0;
-            width: 100%;
+        .print-btn:hover { background-color: #2c974b; }
+
+        /* A4 Page Setup */
+        .bill-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: #fff;
+            padding: 40px 35px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             position: relative;
         }
-        
-        .bill-header-title {
+
+        .main-title {
             text-align: center;
-            font-size: 22px; /* हाइट कम करने के लिए साइज थोड़ा छोटा किया */
-            font-weight: normal;
-            margin: 6px 0;
-            color: #000;
+            font-size: 32px;
+            line-height: 1.2;
+            margin: 0 0 25px 0;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
-        .company-header-box {
-            border: 1px solid #000000;
-            margin: 5px;
-            padding: 6px;
-            background-color: #ffffff;
-        }
-        
-        .main-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #000;
-            margin-bottom: 2px;
-        }
-        .subtitle {
-            font-size: 10px;
-            font-weight: bold;
-            color: #000;
-            margin-bottom: 5px;
-        }
-        
-        .info-table {
+        /* Outer Border Box */
+        .outer-matrix {
+            border: 1.5px solid #000;
             width: 100%;
-            border-collapse: collapse;
         }
-        .info-table td {
-            padding: 2px 0;
-            font-size: 11px;
-            color: #000;
-            vertical-align: top;
+
+        /* Top Header */
+        .header-block {
+            display: flex;
+            padding: 20px 15px;
+            border-bottom: 1.5px solid #000;
         }
-        .input-line {
-            border: none;
-            border-bottom: 1px solid #000;
-            width: 100%;
-            font-size: 11px;
-            padding: 1px 0;
-            outline: none;
-            background: transparent;
-            color: #000;
-        }
-        
-        .section-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #000;
-        }
-        .section-table td {
-            border-right: 1px solid #000;
-            width: 50%;
-            padding: 4px 5px;
-            font-size: 11px;
-            vertical-align: top;
-            color: #000;
-        }
-        .section-table td:last-child {
-            border-right: none;
-        }
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .row-flex {
+        .logo-placeholder {
+            width: 110px;
+            height: 75px;
+            border: 1px solid #777;
+            border-radius: 4px;
+            margin-right: 20px;
             display: flex;
             align-items: center;
-            margin-bottom: 3px;
+            justify-content: center;
+            font-size: 11px;
+            color: #555;
+            background: #fafafa;
         }
-        .row-flex label {
-            font-size: 10px;
-            margin-right: 4px;
+        .brand-details {
+            flex: 1;
+        }
+        .brand-name {
+            font-size: 25px;
+            font-weight: 500;
+            margin: 0 0 4px 0;
+            letter-spacing: 0.5px;
+        }
+        .brand-loc {
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0 0 15px 0;
+        }
+
+        /* Inline Form Inputs */
+        .field-row {
+            margin-bottom: 8px;
+            font-size: 14.5px;
+            font-weight: bold;
+            display: flex;
+            align-items: baseline;
+        }
+        .field-row span {
+            margin-right: 5px;
             white-space: nowrap;
         }
-
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
+        .fill-blank {
+            border: none;
             border-bottom: 1px solid #000;
-        }
-        .items-table th, .items-table td {
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
-            padding: 4px 5px;
-            font-size: 11px;
-            color: #000;
-        }
-        .items-table th {
-            font-weight: bold;
-            text-align: left;
-            background-color: #f5f5f5;
-        }
-        .items-table th:last-child, .items-table td:last-child {
-            border-right: none;
-        }
-        .items-table tr:last-child td {
-            border-bottom: none;
-        }
-        .center { text-align: center; }
-        .right { text-align: right; }
-        
-        .trip-type-btn {
-            background: #e7e7e7;
-            border: 1px solid #666;
-            padding: 5px;
-            font-size: 10px;
-            cursor: pointer;
-            width: calc(100% - 10px);
-            margin: 3px 5px;
-            text-align: left;
-            font-weight: bold;
-        }
-        .trip-options {
-            display: none;
-            border: 1px solid #000;
-            background: white;
-            position: absolute;
-            z-index: 100;
-            width: calc(100% - 10px);
-            left: 5px;
-        }
-        .trip-options div {
-            padding: 6px;
-            cursor: pointer;
-            font-size: 11px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .bottom-grid {
-            width: 100%;
-            border-collapse: collapse;
-            border-bottom: 1px solid #000;
-        }
-        .bottom-grid td {
-            padding: 0;
-            vertical-align: top;
-        }
-        .calc-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .calc-table td {
-            border-bottom: 1px solid #000;
-            padding: 3px 5px;
-            font-size: 11px;
-            color: #000;
-        }
-        .calc-table tr:last-child td {
-            border-bottom: none;
+            outline: none;
+            padding: 0 4px;
+            font-size: 14.5px;
+            flex: 1;
+            font-weight: normal;
+            background: transparent;
         }
         
-        .desc-terms-table {
+        .grid-contact {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            margin-top: 12px;
+        }
+
+        /* Sections Split */
+        .two-column-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 1.5px solid #000;
+        }
+        .col-box {
+            padding: 10px;
+        }
+        .col-box:first-child {
+            border-right: 1.5px solid #000;
+        }
+        .sect-header {
+            font-weight: bold;
+            font-size: 14.5px;
+            margin-bottom: 10px;
+        }
+
+        /* Items Table */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            border-bottom: 1px solid #000;
         }
-        .desc-terms-table td {
-            border-right: 1px solid #000;
-            width: 50%;
-            padding: 5px;
-            font-size: 11px;
-            vertical-align: top;
-            color: #000;
+        .data-table th, .data-table td {
+            border: 1.5px solid #000;
+            padding: 8px 10px;
+            font-size: 14.5px;
+            text-align: left;
         }
-        .desc-terms-table td:last-child {
-            border-right: none;
+        .data-table th {
+            font-weight: bold;
+            background-color: #e6e6e6;
         }
-        .textarea-line {
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 59%; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 17%; text-align: right; }
+        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 18%; text-align: right; }
+        
+        .cell-input {
             width: 100%;
             border: none;
-            resize: none;
-            font-size: 10px;
             outline: none;
             background: transparent;
-            height: 35px; /* डिस्क्रिप्शन बॉक्स की हाइट थोड़ी छोटी की */
+            font-size: 14.5px;
+            padding: 0;
         }
+        .align-right { text-align: right; }
 
-        .sig-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Calculation Area */
+        .billing-summary {
+            display: flex;
+            border-bottom: 1.5px solid #000;
+            min-height: 240px;
         }
-        .sig-table td {
-            border-right: 1px solid #000;
-            width: 50%;
-            padding: 5px;
-            font-size: 11px;
-            vertical-align: top;
-            color: #000;
+        .spacer-side {
+            flex: 1.35;
         }
-        .sig-table td:last-child {
-            border-right: none;
-        }
-        .sig-canvas-box {
-            border: 1px dashed #999;
-            background: #fafafa;
-            position: relative;
-            margin-top: 3px;
-        }
-        canvas {
-            width: 100%;
-            height: 45px; /* पैड की हाइट कम की ताकि स्क्रीन पर फिट बैठे */
-            display: block;
-        }
-        .clear-btn {
-            font-size: 8px;
-            position: absolute;
-            right: 2px;
-            top: 2px;
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 1px 3px;
-        }
-
-        .actions-box {
-            margin-top: 10px;
+        .math-side {
+            flex: 1;
+            border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            width: 100%;
         }
-        .btn {
-            width: 100%;
-            padding: 10px;
-            font-size: 13px;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            color: white;
-        }
-        .btn-save { background-color: #28a745; }
-        .btn-whatsapp { background-color: #007bff; }
-        
-        .history-box {
-            margin-top: 15px;
-            border-top: 2px solid #ddd;
-            padding-top: 8px;
-            width: 100%;
-        }
-        .history-title {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .history-item {
-            background: #f9f9f9;
-            border: 1px solid #ccc;
-            padding: 5px 8px;
-            margin-bottom: 4px;
-            cursor: pointer;
-            font-size: 11px;
+        .math-row {
             display: flex;
+            border-bottom: 1.5px solid #000;
+            font-size: 14.5px;
+        }
+        .math-label {
+            padding: 8px 10px;
+            font-weight: bold;
+            width: 55%;
+            border-right: 1.5px solid #000;
+        }
+        .math-input-wrap {
+            padding: 8px 10px;
+            width: 45%;
+        }
+        
+        .words-section {
+            border-bottom: 1.5px solid #000;
+            min-height: 70px;
+            padding: 8px 10px;
+        }
+        .words-title {
+            font-weight: bold;
+            font-size: 14.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Bottom Details */
+        .footer-notes {
+            display: flex;
+            border-bottom: 1.5px solid #000;
+            min-height: 65px;
+        }
+        .note-chunk {
+            flex: 1;
+            padding: 8px 10px;
+        }
+        .note-chunk:first-child {
+            border-right: 1.5px solid #000;
+        }
+        .note-title {
+            font-weight: bold;
+            font-size: 14.5px;
+            margin-bottom: 5px;
+        }
+
+        /* Sign Block */
+        .signature-area {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .signature-box {
+            width: 50%;
+            border-left: 1.5px solid #000;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            padding: 10px;
+        }
+        .sig-company {
+            font-weight: bold;
+            font-size: 14.5px;
+        }
+        .sig-designation {
+            text-align: center;
+            font-size: 14.5px;
+            font-weight: 500;
+        }
+
+        /* 100% Print Perfection CSS */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .action-bar {
+                display: none;
+            }
+            .bill-page {
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+            }
+            .fill-blank {
+                border-bottom: 1px solid #000 !important; /* लाइन को प्रिंट में बनाए रखने के लिए */
+            }
+            /* इनपुट बॉक्स का कोई भी डिफ़ॉल्ट ब्राउज़र स्टाइल हटाने के लिए */
+            input {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
-<div class="app-container">
-    <h2 class="title">Bill of Supply Portal</h2>
-    
-    <div class="bill-box" id="bill-invoice-capture">
-        <div class="bill-header-title">Bill of Supply</div>
+    <div class="action-bar">
+        <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    </div>
+
+    <div class="bill-page">
+        <div class="main-title">Bill of<br>Supply</div>
         
-        <div class="company-header-box">
-            <div class="main-title">PRAVAS TOUR AND TRAVELS</div>
-            <div class="subtitle">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
+        <div class="outer-matrix">
             
-            <table class="info-table">
-                <tr>
-                    <td style="width: 70%;">
-                        <strong>DRIVER NAME:</strong> Rajit Yadav<br>
-                        <strong>CAR NO:</strong> MH04LY5124
-                        <div style="border-bottom: 1px solid #000; height: 8px; width: 85%;"></div>
-                    </td>
-                    <td style="width: 30%; text-align: right;">
-                        <div style="border: 1px solid #000; width: 55px; height: 35px; display: inline-block; text-align: center; font-size: 8px; padding-top: 11px; font-weight: bold; background: #fff;">PRAVAS</div>
-                    </td>
-                </tr>
-            </table>
-            
-            <table class="info-table" style="margin-top: 3px;">
-                <tr>
-                    <td style="width: 50%;">Phone: 9327477072</td>
-                    <td style="width: 50%;">Email: Rajit.syadav@gmail.com</td>
-                </tr>
-                <tr>
-                    <td colspan="2">State: Maharashtra</td>
-                </tr>
-            </table>
-        </div>
-        
-        <table class="section-table">
-            <tr>
-                <td>
-                    <div class="section-title">Bill To:</div>
-                    <div class="row-flex">
-                        <label>name</label>
-                        <input type="text" id="cust-name" class="input-line">
-                    </div>
-                    <div class="row-flex">
-                        <label>Contact No:</label>
-                        <input type="text" id="cust-phone" class="input-line">
-                    </div>
-                </td>
-                <td style="border-right: none;">
-                    <div class="section-title">Invoice Details:</div>
-                    <div class="row-flex">
-                        <label>No:</label>
-                        <input type="text" id="inv-no" class="input-line" readonly>
-                    </div>
-                    <div class="row-flex">
-                        <label>Date:</label>
-                        <input type="text" id="inv-date" class="input-line" readonly>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        
-        <div style="position: relative;">
-            <button class="trip-type-btn" type="button" onclick="toggleTripOptions()">🔽 Select Trip Plan Type (Click to Hide/Show)</button>
-            <div class="trip-options" id="trip-dropdown-options">
-                <div onclick="selectTripPlan('One Way')">Trip One Way</div>
-                <div onclick="selectTripPlan('Two Way')">Trip Two Way</div>
-                <div onclick="selectTripPlan('Rental 880 (8 Hours / 80 Kms)')">Rental 880 (8 Hours 80 Kms)</div>
-                <div onclick="selectTripPlan('Rental 660 (6 Hours / 60 Kms)')">Rental 660 (6 Hours 60 Kms)</div>
-                <div onclick="selectTripPlan('Rental 440 (4 Hours / 40 Kms)')">Rental 440 (4 Hours 40 Kms)</div>
-            </div>
-        </div>
-
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th style="width: 8%;" class="center">#</th>
-                    <th style="width: 52%;">Trip Details</th>
-                    <th style="width: 20%;" class="right">Price/ Unit (₹)</th>
-                    <th style="width: 20%;" class="right" style="border-right: none;">Amount(₹)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="center">1</td>
-                    <td><strong>Pick Up:</strong> <input type="text" id="detail-pickup" class="input-line" style="width:70%; display:inline-block;"></td>
-                    <td><input type="number" id="price-pickup" class="input-line right" oninput="calculateTotals()"></td>
-                    <td style="border-right: none;"><input type="number" id="amt-pickup" class="input-line right" readonly></td>
-                </tr>
-                <tr>
-                    <td class="center">2</td>
-                    <td><strong>Drop:</strong> <input type="text" id="detail-drop" class="input-line" style="width:73%; display:inline-block;"></td>
-                    <td><input type="number" id="price-drop" class="input-line right" oninput="calculateTotals()"></td>
-                    <td style="border-right: none;"><input type="number" id="amt-drop" class="input-line right" readonly></td>
-                </tr>
-                <tr>
-                    <td class="center">3</td>
-                    <td><strong>Toll:</strong> <input type="text" id="detail-toll" class="input-line" style="width:73%; display:inline-block;"></td>
-                    <td><input type="number" id="price-toll" class="input-line right" oninput="calculateTotals()"></td>
-                    <td style="border-right: none;"><input type="number" id="amt-toll" class="input-line right" readonly></td>
-                </tr>
-                <tr>
-                    <td class="center">4</td>
-                    <td><strong>Parking:</strong> <input type="text" id="detail-parking" class="input-line" style="width:68%; display:inline-block;"></td>
-                    <td><input type="number" id="price-parking" class="input-line right" oninput="calculateTotals()"></td>
-                    <td style="border-right: none;"><input type="number" id="amt-parking" class="input-line right" readonly></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <table class="bottom-grid">
-            <tr>
-                <td style="width: 50%; border-right: 1px solid #000; padding: 5px;">
-                    <div style="font-weight: bold; color: #444; margin-bottom: 2px; font-size: 10px;">Selected Category:</div>
-                    <div id="selected-plan-label" style="font-weight: bold; font-size: 11px; color: #000;">One Way</div>
-                </td>
-                <td style="width: 50%;">
-                    <table class="calc-table">
-                        <tr>
-                            <td style="width: 50%;"><strong>Sub Total</strong></td>
-                            <td class="right"><strong>:</strong> <span id="lbl-subtotal">0.00</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total</strong></td>
-                            <td class="right"><strong>:</strong> <span id="lbl-total">0.00</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 2px 5px;">
-                                <div style="font-size: 8px; font-weight: bold;">Invoice Amount In Words :</div>
-                                <div id="lbl-words" style="font-size: 9px; font-style: italic; min-height:12px; margin-top: 1px;">Zero Rupees Only</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Received</strong></td>
-                            <td class="right"><strong>:</strong> <input type="number" id="val-received" class="input-line right" style="width: 65%; display:inline-block;" value="0" oninput="calculateTotals()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Balance</strong></td>
-                            <td class="right"><strong>:</strong> <span id="lbl-balance">0.00</span></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        
-        <table class="desc-terms-table">
-            <tr>
-                <td>
-                    <div class="section-title">Description:</div>
-                    <textarea id="desc-box" class="textarea-line" placeholder="Write remarks here..."></textarea>
-                </td>
-                <td style="border-right: none;">
-                    <div class="section-title">Terms And Conditions:</div>
-                    <div style="font-size: 8px; line-height: 1.1; height: 35px; overflow-y: auto;">
-                        1. Toll & Parking fees are extra at actuals.<br>
-                        2. Waiting charges applicable after 15 mins.<br>
-                        3. Running limits garage to garage.
-                    </div>
-                </td>
-            </tr>
-        </table>
-        
-        <table class="sig-table">
-            <tr>
-                <td>
-                    <div class="section-title">Customer Digital Sign Pad:</div>
-                    <div class="sig-canvas-box">
-                        <button type="button" class="clear-btn" onclick="clearCustomerSignature()">Clear</button>
-                        <canvas id="customer-sig-canvas"></canvas>
-                    </div>
-                </td>
-                <td style="text-align: center; border-right: none; position: relative;">
-                    <div class="section-title" style="text-align: left;">For PRAVAS TOUR AND TRAVELS:</div>
-                    <div style="font-family: 'Courier New', cursive; font-size: 13px; color: blue; margin-top: 12px; font-weight: bold; transform: rotate(-3deg); display: inline-block;">
-                        Rajit Yadav
-                    </div>
-                    <div style="font-size: 9px; margin-top: 6px; border-top: 1px solid #ddd; padding-top: 1px;">Authorized Signatory</div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    
-    <div class="actions-box">
-        <button class="btn btn-whatsapp" onclick="copyBillAsImageAndOpenWhatsApp()">📸 Copy Bill Image & Open WhatsApp</button>
-        <button class="btn btn-save" onclick="saveAndDownloadBill()">💾 Save & Download Bill PDF</button>
-    </div>
-    
-    <div class="history-box">
-        <div class="history-title">🕒 Past Invoices History logs (Click to restore)</div>
-        <div id="history-list-container">
-            <p style="font-size: 10px; color: #888; font-style: italic;">No bills generated yet.</p>
-        </div>
-    </div>
-</div>
-
-<script>
-    let currentInvoiceNo = "";
-    let savedBills = JSON.parse(localStorage.getItem('pravas_bills_history') || '[]');
-
-    const canvas = document.getElementById('customer-sig-canvas');
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
-
-    function resizeCanvas() {
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = 45;
-        ctx.strokeStyle = "#0000ff";
-        ctx.lineWidth = 1.8;
-    }
-
-    function getTouchPos(canvasDom, touchEvent) {
-        var rect = canvasDom.getBoundingClientRect();
-        return {
-            x: touchEvent.touches[0].clientX - rect.left,
-            y: touchEvent.touches[0].clientY - rect.top
-        };
-    }
-
-    canvas.addEventListener('mousedown', (e) => {
-        drawing = true;
-        ctx.beginPath();
-        ctx.moveTo(e.offsetX, e.offsetY);
-    });
-    canvas.addEventListener('mousemove', (e) => {
-        if(drawing) {
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-        }
-    });
-    window.addEventListener('mouseup', () => drawing = false);
-
-    canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        drawing = true;
-        const pos = getTouchPos(canvas, e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-    }, { passive: false });
-    
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        if(drawing) {
-            const pos = getTouchPos(canvas, e);
-            ctx.lineTo(pos.x, pos.y);
-            ctx.stroke();
-        }
-    }, { passive: false });
-
-    function clearCustomerSignature() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function toggleTripOptions() {
-        const panel = document.getElementById('trip-dropdown-options');
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function selectTripPlan(planName) {
-        document.getElementById('selected-plan-label').innerText = planName;
-        toggleTripOptions();
-    }
-
-    function calculateTotals() {
-        const pPickup = parseFloat(document.getElementById('price-pickup').value) || 0;
-        const pDrop = parseFloat(document.getElementById('price-drop').value) || 0;
-        const pToll = parseFloat(document.getElementById('price-toll').value) || 0;
-        const pParking = parseFloat(document.getElementById('price-parking').value) || 0;
-
-        document.getElementById('amt-pickup').value = pPickup ? pPickup.toFixed(2) : "";
-        document.getElementById('amt-drop').value = pDrop ? pDrop.toFixed(2) : "";
-        document.getElementById('amt-toll').value = pToll ? pToll.toFixed(2) : "";
-        document.getElementById('amt-parking').value = pParking ? pParking.toFixed(2) : "";
-
-        const subtotal = pPickup + pDrop + pToll + pParking;
-        
-        document.getElementById('lbl-subtotal').innerText = subtotal.toFixed(2);
-        document.getElementById('lbl-total').innerText = subtotal.toFixed(2);
-
-        const received = parseFloat(document.getElementById('val-received').value) || 0;
-        const balance = subtotal - received;
-        document.getElementById('lbl-balance').innerText = balance.toFixed(2);
-        document.getElementById('lbl-words').innerText = numberToWords(Math.round(subtotal)) + " Rupees Only";
-    }
-
-    function numberToWords(num) {
-        if (num === 0) return 'Zero';
-        const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-        const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-        
-        function g(n) {
-            if (n < 20) return a[n];
-            let digit = n % 10;
-            return b[Math.floor(n / 10)] + (digit ? ' ' + a[digit] : '');
-        }
-        function c(n) {
-            if (n < 100) return g(n);
-            return a[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' and ' + g(n % 100) : '');
-        }
-        
-        let str = '';
-        if (Math.floor(num / 100000) > 0) {
-            str += c(Math.floor(num / 100000)) + ' Lakh ';
-            num %= 100000;
-        }
-        if (Math.floor(num / 1000) > 0) {
-            str += c(Math.floor(num / 1000)) + ' Thousand ';
-            num %= 1000;
-        }
-        if (num > 0) {
-            str += c(num);
-        }
-        return str.trim();
-    }
-
-    function initNewInvoice() {
-        currentInvoiceNo = "PTT-" + Math.floor(Date.now() / 1000).toString().substring(4);
-        document.getElementById('inv-no').value = currentInvoiceNo;
-
-        const now = new Date();
-        const dateStr = now.getDate().toString().padStart(2, '0') + '/' + 
-                        (now.getMonth() + 1).toString().padStart(2, '0') + '/' + 
-                        now.getFullYear();
-        document.getElementById('inv-date').value = dateStr;
-
-        document.getElementById('cust-name').value = "";
-        document.getElementById('cust-phone').value = "";
-        document.getElementById('detail-pickup').value = "";
-        document.getElementById('detail-drop').value = "";
-        document.getElementById('detail-toll').value = "";
-        document.getElementById('detail-parking').value = "";
-        
-        document.getElementById('price-pickup').value = "";
-        document.getElementById('price-drop').value = "";
-        document.getElementById('price-toll').value = "";
-        document.getElementById('price-parking').value = "";
-        
-        document.getElementById('val-received').value = "0";
-        document.getElementById('desc-box').value = "";
-        document.getElementById('selected-plan-label').innerText = "One Way";
-        
-        clearCustomerSignature();
-        calculateTotals();
-        renderHistory();
-    }
-
-    function saveBillDataState() {
-        const record = {
-            invoiceNo: currentInvoiceNo,
-            date: document.getElementById('inv-date').value,
-            customerName: document.getElementById('cust-name').value,
-            customerPhone: document.getElementById('cust-phone').value,
-            pickup: document.getElementById('detail-pickup').value,
-            drop: document.getElementById('detail-drop').value,
-            tollName: document.getElementById('detail-toll').value,
-            parkingName: document.getElementById('detail-parking').value,
-            pPickup: document.getElementById('price-pickup').value,
-            pDrop: document.getElementById('price-drop').value,
-            pToll: document.getElementById('price-toll').value,
-            pParking: document.getElementById('price-parking').value,
-            received: document.getElementById('val-received').value,
-            planName: document.getElementById('selected-plan-label').innerText,
-            desc: document.getElementById('desc-box').value,
-            sigData: canvas.toDataURL()
-        };
-
-        const idx = savedBills.findIndex(b => b.invoiceNo === currentInvoiceNo);
-        if(idx > -1) {
-            savedBills[idx] = record;
-        } else {
-            savedBills.unshift(record);
-        }
-        localStorage.setItem('pravas_bills_history', JSON.stringify(savedBills));
-        renderHistory();
-    }
-
-    function loadInvoiceRecord(invoiceNo) {
-        const item = savedBills.find(b => b.invoiceNo === invoiceNo);
-        if(!item) return;
-
-        currentInvoiceNo = item.invoiceNo;
-        document.getElementById('inv-no').value = item.invoiceNo;
-        document.getElementById('inv-date').value = item.date;
-        document.getElementById('cust-name').value = item.customerName;
-        document.getElementById('cust-phone').value = item.customerPhone;
-        
-        document.getElementById('detail-pickup').value = item.pickup || "";
-        document.getElementById('detail-drop').value = item.drop || "";
-        document.getElementById('detail-toll').value = item.tollName || "";
-        document.getElementById('detail-parking').value = item.parkingName || "";
-
-        document.getElementById('price-pickup').value = item.pPickup || "";
-        document.getElementById('price-drop').value = item.pDrop || "";
-        document.getElementById('price-toll').value = item.pToll || "";
-        document.getElementById('price-parking').value = item.pParking || "";
-        
-        document.getElementById('val-received').value = item.received || "0";
-        document.getElementById('selected-plan-label').innerText = item.planName || "One Way";
-        document.getElementById('desc-box').value = item.desc || "";
-
-        clearCustomerSignature();
-        if (item.sigData) {
-            const img = new Image();
-            img.src = item.sigData;
-            img.onload = function() { ctx.drawImage(img, 0, 0); }
-        }
-        calculateTotals();
-    }
-
-    function renderHistory() {
-        const container = document.getElementById('history-list-container');
-        if(savedBills.length === 0) {
-            container.innerHTML = '<p style="font-size: 10px; color: #888; font-style: italic;">No bills generated yet.</p>';
-            return;
-        }
-        container.innerHTML = savedBills.map(b => `
-            <div class="history-item" onclick="loadInvoiceRecord('${b.invoiceNo}')">
-                <div>
-                    <strong>${b.invoiceNo}</strong> - ${b.customerName || 'No Name'}<br>
-                    <span style="font-size:9px; color:#666;">Date: ${b.date}</span>
-                </div>
-                <div style="font-weight:bold; color:#28a745;">₹${parseFloat(b.pPickup||0)+parseFloat(b.pDrop||0)+parseFloat(b.pToll||0)+parseFloat(b.pParking||0)}</div>
-            </div>
-        `).join('');
-    }
-
-    function saveAndDownloadBill() {
-        saveBillDataState();
-        const element = document.getElementById('bill-invoice-capture');
-        const opt = {
-            margin:       4,
-            filename:     currentInvoiceNo + '_' + document.getElementById('cust-name').value + '.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().from(element).save();
-    }
-
-    function copyBillAsImageAndOpenWhatsApp() {
-        saveBillDataState();
-        const element = document.getElementById('bill-invoice-capture');
-        const phone = document.getElementById('cust-phone').value;
-        
-        html2canvas(element, { scale: 2, useCORS: true }).then(canvasObj => {
-            canvasObj.toBlob(blob => {
-                try {
-                    const item = new ClipboardItem({ "image/png": blob });
-                    navigator.clipboard.write([item]).then(() => {
-                        alert("📸 बिल की फोटो कॉपी हो गई है! व्हाट्सएप पर जाकर बस पेस्ट (Paste) कर दें।");
+            <!-- Header -->
+            <div class="header-block">
+                <div class="logo-placeholder">LOGO IMAGE</div>
+                
+                <div class="brand-details">
+                    <h1 class="brand-name">PRAVAS TOUR AND TRAVELS</h1>
+                    <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
+                    
+                    <div style="max-width: 520px;">
+                        <div class="field-row">
+                            <span>DRIVER NAME:</span>
+                            <input type="text" class="fill-blank" value="Rajit Yadav">
+                        </div>
+                        <div class="field-row">
+                            <span>CAR NO:</span>
+                            <input type="text" class="fill-blank" value="MH04LY5124">
+                        </div>
                         
-                        let whatsappUrl = `https://api.whatsapp.com/send`;
-                        if(phone) {
-                            let cleanPhone = phone.replace(/[^0-9]/g, "");
-                            if(cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
-                            whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}`;
-                        }
-                        window.open(whatsappUrl, '_blank');
-                    }).catch(err => {
-                        console.error("Clipboard Error: ", err);
-                        alert("आपके ब्राउज़र में डायरेक्ट कॉपी ब्लॉक है। कृपया स्क्रीनशॉट लें या PDF डाउनलोड करें।");
-                    });
-                } catch (e) {
-                    alert("इस डिवाइस में क्लिपबोर्ड इमेज सपोर्ट नहीं है। आप PDF शेयर कर सकते हैं।");
-                }
-            }, 'image/png');
-        });
-    }
+                        <div class="grid-contact">
+                            <div>
+                                <div class="field-row">
+                                    <span>Phone:</span>
+                                    <input type="text" class="fill-blank" value="9327477072">
+                                </div>
+                                <div class="field-row">
+                                    <span>State:</span>
+                                    <input type="text" class="fill-blank" value="Maharashtra">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="field-row">
+                                    <span>Email:</span>
+                                    <input type="text" class="fill-blank" value="Rajit.syadav@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    window.onload = function() {
-        resizeCanvas();
-        initNewInvoice();
-    };
-</script>
+            <!-- Client & Invoice Meta -->
+            <div class="two-column-split">
+                <div class="col-box">
+                    <div class="sect-header">Bill To:</div>
+                    <div class="field-row">
+                        <span>name</span>
+                        <input type="text" class="fill-blank">
+                    </div>
+                    <div class="field-row">
+                        <span>Contact No:</span>
+                        <input type="text" class="fill-blank">
+                    </div>
+                </div>
+                <div class="col-box">
+                    <div class="sect-header">Invoice Details:</div>
+                    <div class="field-row">
+                        <span>No:</span>
+                        <input type="text" class="fill-blank">
+                    </div>
+                    <div class="field-row">
+                        <span>Date:</span>
+                        <input type="text" class="fill-blank">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Items -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Trip Details</th>
+                        <th style="text-align: center;">Price/ Unit (₹)</th>
+                        <th style="text-align: center;">Amount(₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" class="cell-input"></td>
+                        <td><input type="text" class="cell-input align-right"></td>
+                        <td><input type="text" class="cell-input align-right"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><input type="text" class="cell-input"></td>
+                        <td><input type="text" class="cell-input align-right"></td>
+                        <td><input type="text" class="cell-input align-right"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Calculation Matrix -->
+            <div class="billing-summary">
+                <div class="spacer-side"></div>
+                <div class="math-side">
+                    <div class="math-row">
+                        <div class="math-label">Sub Total</div>
+                        <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                    </div>
+                    <div class="math-row">
+                        <div class="math-label">Total</div>
+                        <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                    </div>
+                    
+                    <div class="words-section">
+                        <div class="words-title">Invoice Amount In Words :</div>
+                        <input type="text" class="cell-input">
+                    </div>
+                    
+                    <div class="math-row">
+                        <div class="math-label">Received</div>
+                        <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                    </div>
+                    <div class="math-row" style="border-bottom: none;">
+                        <div class="math-label">Balance</div>
+                        <div class="math-input-wrap"><input type="text" class="cell-input align-right"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms and Desc -->
+            <div class="footer-notes">
+                <div class="note-chunk">
+                    <div class="note-title">Description:</div>
+                    <input type="text" class="cell-input">
+                </div>
+                <div class="note-chunk">
+                    <div class="note-title">Terms And Conditions:</div>
+                    <input type="text" class="cell-input">
+                </div>
+            </div>
+
+            <!-- Signature -->
+            <div class="signature-area">
+                <div class="signature-box">
+                    <div class="sig-company">For PRAVAS TOUR AND TRAVELS:</div>
+                    <div class="sig-designation">Authorized Signatory</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>
