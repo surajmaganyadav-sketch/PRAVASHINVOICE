@@ -2,458 +2,861 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Screen size lock aur auto-fit ke liye perfect viewport definition -->
+    <!-- Kisi bhi mobile screen par auto-fit aur scale lock karne ke liye updated viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>Bill of Supply - Pravash Tour and Travels</title>
+    <title>Bill of Supply - Pravash Tour & Travels</title>
+    <!-- html2canvas library for capturing bill image securely -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* Base Reset & Screen Lock Settings */
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #000;
         }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 10px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
             width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
         }
-
-        /* Auto-scaling container jo har mobile screen par fit baithega */
-        .main-wrapper {
-            width: 100%;
-            max-width: 480px; /* Standard premium mobile view width */
-            padding: 10px;
-            margin: 0 auto;
-        }
-
-        .button-group {
+        
+        /* Control Panel Actions - Mobile optimization adaptive */
+        .action-bar {
+            margin-bottom: 12px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            flex: 1 1 30%;
-            font-size: 10px;
-            padding: 6px 4px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-        }
-        .btn-print { background-color: #28a745; }
-        .btn-copy { background-color: #17a2b8; }
-        .btn-download { background-color: #fd7e14; }
-        .btn-whatsapp { background-color: #20c997; }
-        .btn-fresh { background-color: #6f42c1; }
-
-        .bill-title {
-            text-align: center;
-            font-size: 20px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            color: #444;
-        }
-
-        /* Invoice Container Box */
-        .invoice-box {
-            background: #fff;
-            border: 1px solid #222;
-            padding: 12px;
+            gap: 6px;
+            justify-content: center;
             width: 100%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 450px;
+            padding: 0 8px;
+            flex-wrap: wrap;
         }
-
-        /* Header Styling with Premium CSS Logo */
-        .invoice-header {
+        .btn {
+            color: white;
+            border: none;
+            padding: 8px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            gap: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1 1 auto;
+            justify-content: center;
         }
+        .print-btn { background-color: #2ea44f; }
+        .whatsapp-btn { background-color: #25D366; }
+        .copy-btn { background-color: #0284c7; }
+        .down-btn { background-color: #ea580c; }
+        .fresh-btn { background-color: #4f46e5; }
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 12px auto; width: 160px; justify-content: center; display: flex;}
 
-        /* Modern Premium Logo Built with CSS */
-        .premium-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            border: 2px solid #d4af37; /* Gold Border */
+        /* Mobile Absolute Screen Lock Box Matrix */
+        .bill-wrapper {
+            width: 96%;
+            max-width: 450px;
+            background-color: #fff;
+            padding: 15px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-right: 12px;
-            box-shadow: inset 0 0 8px rgba(212, 175, 55, 0.5);
             position: relative;
-        }
-        .premium-logo::before {
-            content: 'P';
-            font-size: 28px;
-            font-weight: bold;
-            color: #d4af37;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-            line-height: 1;
-        }
-        .premium-logo::after {
-            content: 'TRAVELS';
-            font-size: 7px;
-            color: #fff;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-            font-weight: 600;
+            z-index: 1;
         }
 
-        .company-details {
+        /* Blurred Background Car Graphic Element */
+        .bill-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 40%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.8" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.8"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.8"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.05;
+            filter: blur(0.5px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.2;
+            margin: 0 0 15px 0;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .outer-matrix {
+            border: 1.5px solid #000;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+        }
+
+        .header-block {
+            display: flex;
+            padding: 10px 8px;
+            border-bottom: 1.5px solid #000;
+            align-items: center;
+        }
+        
+        .logo-container {
+            width: 75px;
+            height: 75px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .brand-details {
             flex: 1;
         }
-        .company-name {
-            font-size: 15px;
+        .brand-name {
+            font-size: 14px;
             font-weight: bold;
-            color: #0f2027;
-            letter-spacing: 0.5px;
+            margin: 0 0 2px 0;
+            letter-spacing: 0.3px;
         }
-        .company-info {
+        .brand-loc {
             font-size: 9px;
-            color: #555;
-            line-height: 1.3;
+            margin: 0 0 6px 0;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .field-row {
+            margin-bottom: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: baseline;
+            width: 100%;
+        }
+        .field-row span {
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+        .fill-blank {
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            padding: 1px 2px;
+            font-size: 11px;
+            flex: 1;
+            font-weight: normal;
+            background: transparent;
+        }
+        .locked-field {
+            color: #222;
+            border-bottom: 1px dashed #777;
+            font-weight: 500;
+        }
+        
+        .grid-contact {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
             margin-top: 2px;
         }
 
-        /* Info Grid (Bill To / Invoice Details) */
-        .info-grid {
+        .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border: 1px solid #222;
-            margin-bottom: 10px;
+            border-bottom: 1.5px solid #000;
         }
-        .info-col {
-            padding: 6px;
-        }
-        .info-col:first-child {
-            border-right: 1px solid #222;
-        }
-        .info-title {
-            font-size: 10px;
+        .col-box { padding: 6px; }
+        .col-box:first-child { border-right: 1.5px solid #000; }
+        .sect-header {
             font-weight: bold;
+            font-size: 11px;
             margin-bottom: 4px;
         }
-        .info-row {
-            font-size: 10px;
-            margin-bottom: 3px;
-            display: flex;
-        }
-        .info-row label {
-            font-weight: 500;
-            width: 65px;
-        }
-        .info-row input {
-            border: none;
-            border-bottom: 1px solid #ccc;
-            width: 100%;
-            font-size: 10px;
-            outline: none;
-            padding-left: 2px;
-        }
 
-        /* Table Styling for Products/Items */
-        .items-table {
+        /* Core Grid Data Table */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
         }
-        .items-table th, .items-table td {
-            border: 1px solid #222;
-            padding: 6px 4px;
-            text-align: left;
-            font-size: 10px;
+        .data-table th, .data-table td {
+            border: 1.5px solid #000;
+            padding: 5px 4px;
+            font-size: 11px;
         }
-        .items-table th {
-            background-color: #f2f2f2;
+        .data-table th {
             font-weight: bold;
+            background-color: #e6e6e6;
+            text-align: left;
         }
-        .items-table td input, .items-table td select {
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 8%; text-align: center; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 52%; }
+        
+        .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 10px;
+            font-size: 11px;
+            padding: 1px 0;
         }
+        
+        .select-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 1px 0;
+        }
+        
+        .align-right { text-align: right; }
 
-        /* Summary and Totals Section */
-        .summary-wrapper {
+        /* Calculation block */
+        .billing-summary {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+            flex-direction: column;
+            border-bottom: 1.5px solid #000;
         }
-        .summary-table {
-            width: 60%;
-            border-collapse: collapse;
-        }
-        .summary-table td {
-            border: 1px solid #222;
-            padding: 5px;
-            font-size: 10px;
-        }
-        .summary-table td input {
+        .math-side {
             width: 100%;
-            border: none;
-            outline: none;
-            text-align: right;
-            font-size: 10px;
+            display: flex;
+            flex-direction: column;
         }
-
-        /* Location and Vision Section (Swapped Description with Location) */
-        .notes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid #222;
-            margin-bottom: 10px;
+        .math-row {
+            display: flex;
+            border-bottom: 1.5px solid #000;
+            font-size: 11px;
+            align-items: center;
         }
-        .notes-box {
+        .math-label {
+            padding: 5px 6px;
+            font-weight: bold;
+            width: 55%;
+            border-right: 1.5px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .math-input-wrap {
+            padding: 5px 6px;
+            width: 45%;
+        }
+        .words-section {
+            border-bottom: 1.5px solid #000;
+            min-height: 45px;
             padding: 6px;
-            font-size: 10px;
         }
-        .notes-box:first-child {
-            border-right: 1px solid #222;
-        }
-        .notes-box textarea {
-            width: 100%;
-            height: 35px;
-            border: none;
-            resize: none;
-            outline: none;
-            font-size: 10px;
-            margin-top: 4px;
-        }
+        .words-title { font-weight: bold; font-size: 11px; margin-bottom: 2px; }
+        .words-output { font-size: 10.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
-        /* Signatures Section */
-        .sig-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid #222;
+        .chk-container {
+            display: inline-flex;
+            align-items: center;
+            font-size: 9px;
+            font-weight: normal;
+            cursor: pointer;
+            gap: 2px;
         }
-        .sig-box {
-            padding: 6px;
-            font-size: 10px;
-            min-height: 65px;
+        .chk-container input { cursor: pointer; margin: 0; }
+
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 55px; }
+        .note-chunk { flex: 1; padding: 6px; }
+        .note-chunk:first-child { border-right: 1.5px solid #000; }
+        .note-title { font-weight: bold; font-size: 11px; }
+
+        /* Signature Layout Area */
+        .signature-area { display: flex; width: 100%; background: #fff; }
+        .sig-box-left {
+            width: 50%;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 6px;
+            position: relative;
         }
-        .sig-box:first-child {
-            border-right: 1px solid #222;
+        .sig-box-right {
+            width: 50%;
+            border-left: 1.5px solid #000;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 6px;
+            align-items: center;
         }
-        .sig-area {
-            text-align: center;
-            font-style: italic;
-            margin-top: 15px;
+        .sig-title { font-weight: bold; font-size: 11px; width: 100%; text-align: left; }
+        
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin-top: 3px;
         }
-
-        .add-row-container {
-            text-align: center;
-            margin: 15px 0;
+        .sig-canvas {
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            width: 100%;
+            height: 100%;
+            background-color: #fafafa;
+            cursor: crosshair;
         }
-        .btn-add-row {
-            background-color: #ff9f00;
+        .clear-sig-btn {
+            position: absolute;
+            right: 3px;
+            bottom: 3px;
+            background: #e11d48;
             color: white;
             border: none;
-            padding: 8px 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            font-size: 11px;
+            font-size: 8px;
+            padding: 1px 4px;
+            border-radius: 2px;
             cursor: pointer;
         }
+        
+        .driver-sig-svg {
+            width: 90px;
+            height: 45px;
+            margin: auto;
+        }
+        .sig-designation { text-align: center; font-size: 11px; color: #333; font-weight: bold; width: 100%; }
 
-        /* History Log section */
-        .history-section {
+        /* Log Panel Dashboard */
+        .history-panel {
+            width: 96%;
+            max-width: 450px;
             background: white;
-            border-top: 2px solid #6f42c1;
             padding: 10px;
-            margin-top: 10px;
-            width: 100%;
-            font-size: 10px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 12px;
         }
         .history-title {
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #4f46e5;
+            padding-bottom: 4px;
+        }
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 140px;
+            overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 6px;
             border-bottom: 1px solid #eee;
-            padding: 4px 0;
-            color: #555;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .history-item:hover { background-color: #f7f9fa; }
+
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
+            .sig-canvas { border: none !important; background: transparent !important; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-
-    <!-- Top Action Buttons -->
-    <div class="button-group">
-        <button class="btn btn-print">🖨️ Print / Save Bill</button>
-        <button class="btn btn-copy">📋 Copy Bill Image</button>
-        <button class="btn btn-download">📥 Download Bill Image</button>
-        <button class="btn btn-whatsapp">💬 Send via WhatsApp</button>
-        <button class="btn btn-fresh">➕ Add Fresh Bill</button>
+    <div class="action-bar">
+        <button class="btn print-btn" onclick="saveAndPrint()">🖨️ Print / Save Bill</button>
+        <button class="btn copy-btn" onclick="copyBillAsImage()">📸 Copy Bill Image</button>
+        <button class="btn down-btn" onclick="downloadBillAsImage()">📥 Download Bill Image</button>
+        <button class="btn whatsapp-btn" onclick="sendWhatsApp()">💬 Send via WhatsApp</button>
+        <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <div class="bill-title">Bill of Supply</div>
+    <!-- Main Invoice Layout Locked for Perfect Mobile Scaling -->
+    <div class="bill-wrapper" id="billContents">
+        <div>
+            <div class="main-title">Bill of Supply</div>
+            
+            <div class="outer-matrix">
+                <!-- Premium Dynamic Tour & Travels Logo Header Area -->
+                <div class="header-block">
+                    <div class="logo-container">
+                        <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="96" fill="none" stroke="#ba9447" stroke-width="3"/>
+                            <circle cx="100" cy="100" r="90" fill="#0d233a"/>
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#ba9447" stroke-width="2" stroke-dasharray="4 2"/>
+                            <path d="M100,25 L105,40 L95,40 Z M100,175 L105,160 L95,160 Z M175,100 L160,105 L160,95 Z M25,100 L40,105 L40,95 Z" fill="#ba9447"/>
+                            <text x="96" y="20" fill="#ba9447" font-size="14" font-weight="bold">N</text>
+                            <text x="96" y="192" fill="#ba9447" font-size="14" font-weight="bold">S</text>
+                            <text x="182" y="105" fill="#ba9447" font-size="14" font-weight="bold">E</text>
+                            <text x="6" y="105" fill="#ba9447" font-size="14" font-weight="bold">W</text>
+                            <path d="M70,85 Q90,55 125,70 Q110,80 100,82 Q125,82 135,92 Q115,95 102,94 Q120,100 125,112 Q105,104 90,115 Q75,125 82,100 Q60,98 70,85 Z" fill="#ba9447"/>
+                            <path d="M70,125 Q100,105 130,125 Q100,145 70,125 Z" fill="none" stroke="#ba9447" stroke-width="1.5"/>
+                            <path d="M60,135 Q100,120 140,135 M50,142 Q100,128 150,142" fill="none" stroke="#ba9447" stroke-width="2"/>
+                            <path d="M45,165 Q70,185 100,185 Q130,185 155,165" fill="none" stroke="#ba9447" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="brand-details">
+                        <h1 class="brand-name" style="color: #0d233a;">PRAVASH TOUR AND TRAVELS</h1>
+                        <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
+                        
+                        <div>
+                            <div class="field-row">
+                                <span>DRIVER NAME:</span>
+                                <input type="text" id="driver_name" class="fill-blank locked-field" value="Rajit Yadav" readonly>
+                            </div>
+                            <div class="field-row">
+                                <span>CAR NO:</span>
+                                <input type="text" id="car_no" class="fill-blank locked-field" value="MH04LY5124" readonly>
+                            </div>
+                            
+                            <div class="grid-contact">
+                                <div class="field-row">
+                                    <span>Phone:</span>
+                                    <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
+                                </div>
+                                <div class="field-row">
+                                    <span>Email:</span>
+                                    <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
+                                </div>
+                                <div class="field-row">
+                                    <span>State:</span>
+                                    <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Main Invoice Box -->
-    <div class="invoice-box">
-        
-        <!-- Header with Premium CSS Built-in Logo -->
-        <div class="invoice-header">
-            <div class="premium-logo"></div>
-            <div class="company-details">
-                <div class="company-name">PRAVASH TOUR AND TRAVELS</div>
-                <div class="company-info">
-                    R MALL MANPADA Thane West MUMBAI MAHARASHTRA<br>
-                    <strong>DRIVER NAME:</strong> Rajit Yadav<br>
-                    <strong>CAR NO:</strong> MH04LY5124<br>
-                    <strong>Phone:</strong> 9327477072 &nbsp;|&nbsp; <strong>Email:</strong> Rajit.syadav@gmail.com<br>
-                    <strong>State:</strong> Maharashtra
+                <!-- Client Billing Metadata Split -->
+                <div class="two-column-split">
+                    <div class="col-box">
+                        <div class="sect-header">Bill To:</div>
+                        <div class="field-row">
+                            <span>name</span>
+                            <input type="text" id="cust_name" class="fill-blank text-target" value="suraj yadav">
+                        </div>
+                        <div class="field-row">
+                            <span>Contact No:</span>
+                            <input type="text" id="cust_phone" class="fill-blank text-target" value="8976902990">
+                        </div>
+                    </div>
+                    <div class="col-box">
+                        <div class="sect-header">Invoice Details:</div>
+                        <div class="field-row">
+                            <span>No:</span>
+                            <input type="text" id="invoice_no" class="fill-blank text-target">
+                        </div>
+                        <div class="field-row">
+                            <span>Date:</span>
+                            <input type="text" id="invoice_date" class="fill-blank text-target">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Ledger Grid Table -->
+                <table class="data-table" id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Trip Details</th>
+                            <th style="text-align: center; width:22%;">Price (₹)</th>
+                            <th style="text-align: center; width:22%;">Amount(₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Column 1: Standard Dropdown Row Matrix -->
+                        <tr>
+                            <td style="text-align: center;" class="row-num">1</td>
+                            <td>
+                                <select class="select-input text-target selection-field">
+                                    <option value="">-- Select Trip Detail --</option>
+                                    <option value="One way trip">One way trip</option>
+                                    <option value="Two way trip" selected>Two way trip</option>
+                                    <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                                    <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                                    <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                                    <option value="Mumbai darshan">Mumbai darshan</option>
+                                    <option value="Out station">Out station</option>
+                                </select>
+                            </td>
+                            <td><input type="text" class="cell-input align-right price-input text-target" value="1200" oninput="calculateTotals()"></td>
+                            <td><input type="text" class="cell-input align-right amt-input text-target" value="1200" oninput="calculateTotals()"></td>
+                        </tr>
+                        <!-- Column 2: Normal Editable Input Field for flexible writing -->
+                        <tr>
+                            <td style="text-align: center;" class="row-num">2</td>
+                            <td>
+                                <input type="text" class="cell-input text-target dynamic-text-field" placeholder="-- Select Trip Detail --">
+                            </td>
+                            <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Financial Calculation Matrix -->
+                <div class="billing-summary">
+                    <div class="math-side">
+                        <div class="math-row">
+                            <div class="math-label">Sub Total</div>
+                            <div class="math-input-wrap"><input type="text" id="sub_total" class="cell-input align-right text-target" readonly></div>
+                        </div>
+                        <div class="math-row">
+                            <div class="math-label">Total</div>
+                            <div class="math-input-wrap"><input type="text" id="total_amount" class="cell-input align-right text-target" readonly></div>
+                        </div>
+                        
+                        <div class="words-section">
+                            <div class="words-title">Invoice Amount In Words :</div>
+                            <div id="amount_in_words" class="words-output">Zero Rupees Only</div>
+                        </div>
+                        
+                        <div class="math-row">
+                            <div class="math-label">
+                                <span>Received</span>
+                                <label class="chk-container">
+                                    <input type="checkbox" id="paid_full_chk" onchange="togglePaidFull()"> Paid Full
+                                </label>
+                            </div>
+                            <div class="math-input-wrap"><input type="text" id="received_amt" class="cell-input align-right text-target" oninput="calculateTotals()"></div>
+                        </div>
+                        <div class="math-row" style="border-bottom: none;">
+                            <div class="math-label">Balance</div>
+                            <div class="math-input-wrap"><input type="text" id="balance_amt" class="cell-input align-right text-target" readonly></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location & Vision Segment (Swapped Description with Location) -->
+                <div class="footer-notes">
+                    <div class="note-chunk">
+                        <div class="note-title">Location:</div>
+                        <input type="text" class="cell-input text-target" placeholder="Enter tour locations...">
+                    </div>
+                    <div class="note-chunk">
+                        <div class="note-title">Vision:</div>
+                        <input type="text" class="cell-input text-target" value="Providing seamless and elite travel experiences...">
+                    </div>
+                </div>
+
+                <!-- Authorization & Client Verification Signatures Layout -->
+                <div class="signature-area">
+                    <div class="sig-box-left">
+                        <div class="sig-title">Customer Signature:</div>
+                        <div class="canvas-container">
+                            <canvas id="customerSigCanvas" class="sig-canvas"></canvas>
+                            <button type="button" class="clear-sig-btn" onclick="clearCustomerSignature()">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <div class="sig-box-right">
+                        <div class="sig-title">For PRAVAS TOUR AND TRAVELS:</div>
+                        <div class="driver-sig-svg">
+                            <svg viewBox="0 0 100 50" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M 15 32 C 12 36, 13 22, 18 16 C 23 8, 27 10, 24 23 C 21 37, 12 43, 20 28 C 24 22, 27 24, 27 27 C 28 31, 33 32, 34 29 C 36 24, 39 21, 41 26 C 43 31, 44 24, 46 17 C 48 9, 50 14, 49 21 C 47 27, 43 27, 51 26 C 60 25, 75 22, 85 18" 
+                                      fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="sig-designation">Authorized Signatory</div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Billing & Invoice Info Grid -->
-        <div class="info-grid">
-            <div class="info-col">
-                <div class="info-title">Bill To:</div>
-                <div class="info-row"><label>name</label>:<input type="text" value="suraj yadav"></div>
-                <div class="info-row"><label>Contact No</label>:<input type="text" value="8976902990"></div>
-            </div>
-            <div class="info-col">
-                <div class="info-title">Invoice Details:</div>
-                <div class="info-row"><label>No:</label><input type="text" value="PTT-6498"></div>
-                <div class="info-row"><label>Date:</label><input type="text" value="19/07/2026"></div>
-            </div>
-        </div>
+    <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
 
-        <!-- Dynamic Items Table -->
-        <table class="items-table">
-            <thead>
+    <!-- History Logs Dashboard Panel -->
+    <div class="history-panel">
+        <div class="history-title">📜 Saved Bills History (Click to Reload)</div>
+        <ul class="history-list" id="historyLogList"></ul>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('customerSigCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadHistoryList();
+            autoGenerateMeta();
+            initializeSignatureCanvas();
+            calculateTotals();
+        });
+
+        function initializeSignatureCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+
+            canvas.addEventListener('touchstart', (e) => {
+                isDrawing = true;
+                const m = getTouchPos(e);
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                e.preventDefault();
+            });
+            canvas.addEventListener('touchmove', (e) => {
+                if (!isDrawing) return;
+                const m = getTouchPos(e);
+                ctx.lineTo(m.x, m.y);
+                ctx.stroke();
+                e.preventDefault();
+            });
+            canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDrawing) {
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+                }
+            });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+        }
+
+        function getTouchPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.touches[0].clientX - rect.left,
+                y: e.touches[0].clientY - rect.top
+            };
+        }
+
+        function clearCustomerSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function autoGenerateMeta() {
+            const today = new Date();
+            const formattedDate = today.getDate().toString().padStart(2, '0') + '/' + 
+                                  (today.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                                  today.getFullYear();
+            document.getElementById('invoice_date').value = formattedDate;
+            document.getElementById('invoice_no').value = "PTT-" + Math.floor(1000 + Math.random() * 9000);
+        }
+
+        function triggerFreshBill() {
+            const targets = document.querySelectorAll('.text-target');
+            targets.forEach(input => { input.value = ""; });
+            
+            const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = `
                 <tr>
-                    <th style="width: 8%;">#</th>
-                    <th style="width: 47%;">Trip Details</th>
-                    <th style="width: 20%;">Price/ Unit (₹)</th>
-                    <th style="width: 25%;">Amount(₹)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Row 1: Dropdown dynamic row (As requested, keeping column 1 & 2 format same) -->
-                <tr>
-                    <td>1</td>
+                    <td style="text-align: center;" class="row-num">1</td>
                     <td>
-                        <select>
-                            <option>Two way trip</option>
-                            <option>One way trip</option>
-                            <option>Local package</option>
+                        <select class="select-input text-target selection-field">
+                            <option value="">-- Select Trip Detail --</option>
+                            <option value="One way trip">One way trip</option>
+                            <option value="Two way trip">Two way trip</option>
+                            <option value="Rental (8h.80km)">Rental (8h.80km)</option>
+                            <option value="Rental (6h.60km)">Rental (6h.60km)</option>
+                            <option value="Rental (4h.40km)">Rental (4h.40km)</option>
+                            <option value="Mumbai darshan">Mumbai darshan</option>
+                            <option value="Out station">Out station</option>
                         </select>
                     </td>
-                    <td><input type="number" value="1200" style="text-align: right;"></td>
-                    <td><input type="number" value="1200" style="text-align: right;"></td>
-                </tr>
-                <!-- Row 2: Pure editable fields for flexible customer inputs -->
-                <tr>
-                    <td>2</td>
-                    <td><input type="text" placeholder="-- Select Trip Detail / Type Here --"></td>
-                    <td><input type="number" placeholder="0" style="text-align: right;"></td>
-                    <td><input type="number" placeholder="0" style="text-align: right;"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Calculations Summary Box -->
-        <div class="summary-wrapper">
-            <table class="summary-table">
-                <tr>
-                    <td><strong>Sub Total</strong></td>
-                    <td><input type="text" value="1200.00" readonly></td>
+                    <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                    <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                 </tr>
                 <tr>
-                    <td><strong>Total</strong></td>
-                    <td><input type="text" value="1200.00" readonly></td>
+                    <td style="text-align: center;" class="row-num">2</td>
+                    <td><input type="text" class="cell-input text-target dynamic-text-field" placeholder="-- Select Trip Detail --"></td>
+                    <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                    <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
                 </tr>
-                <tr>
-                    <td colspan="2" style="font-size: 8px; rgb(90,90,90)">
-                        <strong>Invoice Amount In Words:</strong><br>
-                        <span style="font-style: italic; color:#555;">One Thousand Two Hundred Rupees Only</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Received</strong> <input type="checkbox" checked style="width:auto; inline-block;"> <span style="font-size:8px;">Paid Full</span></td>
-                    <td><input type="text" value="1200.00"></td>
-                </tr>
-                <tr>
-                    <td><strong>Balance</strong></td>
-                    <td><input type="text" value="0.00" readonly></td>
-                </tr>
-            </table>
-        </div>
+            `;
+            
+            document.getElementById('paid_full_chk').checked = false;
+            clearCustomerSignature();
+            autoGenerateMeta();
+            calculateTotals();
+            alert("✨ फ्रेश बिल तैयार है!");
+        }
 
-        <!-- Location & Vision Section -->
-        <div class="notes-grid">
-            <div class="notes-box">
-                <strong>Location:</strong>
-                <textarea placeholder="Enter trip start / destination locations..."></textarea>
-            </div>
-            <div class="notes-box">
-                <strong>Vision:</strong>
-                <div style="color: #666; font-size: 9px; margin-top: 4px;">Providing seamless and elite travel experiences...</div>
-            </div>
-        </div>
+        // Add New Row completely handles creating modern editable fields onwards
+        function addNewRow() {
+            const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+            const nextIndex = tableBody.rows.length + 1;
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+                <td style="text-align: center;" class="row-num">${nextIndex}</td>
+                <td>
+                    <input type="text" class="cell-input text-target dynamic-text-field" placeholder="Enter trip details manually...">
+                </td>
+                <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
+                <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+            `;
+        }
 
-        <!-- Signatures Grid -->
-        <div class="sig-grid">
-            <div class="sig-box">
-                <strong>Customer Signature:</strong>
-                <div class="sig-area">[ Signature / Digital Signed ]</div>
-            </div>
-            <div class="sig-box">
-                <strong>For PRAVAS TOUR AND TRAVELS:</strong>
-                <div class="sig-area" style="font-weight: bold; font-style: normal; font-size: 9px; margin-top: 25px;">Authorized Signatory</div>
-            </div>
-        </div>
+        function togglePaidFull() {
+            const isChecked = document.getElementById('paid_full_chk').checked;
+            const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
+            document.getElementById('received_amt').value = isChecked ? subTotal.toFixed(2) : "";
+            calculateTotals();
+        }
 
-    </div>
+        function calculateTotals() {
+            let runningSubTotal = 0;
+            const amtInputs = document.querySelectorAll('.amt-input');
+            const priceInputs = document.querySelectorAll('.price-input');
+            
+            amtInputs.forEach((input, index) => {
+                let val = parseFloat(input.value) || 0;
+                if (val === 0) val = parseFloat(priceInputs[index].value) || 0;
+                runningSubTotal += val;
+            });
 
-    <!-- Row Control Buttons -->
-    <div class="add-row-container">
-        <button class="btn-add-row">➕ Add New Row</button>
-    </div>
+            document.getElementById('sub_total').value = runningSubTotal.toFixed(2);
+            document.getElementById('total_amount').value = runningSubTotal.toFixed(2);
+            
+            const received = parseFloat(document.getElementById('received_amt').value) || 0;
+            const balance = runningSubTotal - received;
+            document.getElementById('balance_amt').value = balance.toFixed(2);
+            
+            document.getElementById('amount_in_words').innerText = numberToWords(Math.round(runningSubTotal)) + " Rupees Only";
+        }
 
-    <!-- History Panel -->
-    <div class="history-section">
-        <div class="history-title">📜 Saved Bills History (Click to Reload)</div>
-        <div class="history-item">
-            <span>Inv No: <strong>PTT-8975</strong> | suraj yadav</span>
-            <span>₹1200.00 (19/07/2026)</span>
-        </div>
-        <div class="history-item">
-            <span>Inv No: <strong>PTT-6563</strong> | suraj yadav</span>
-            <span>₹2000.00 (18/07/2026)</span>
-        </div>
-    </div>
+        function numberToWords(num) {
+            if (num === 0) return "Zero";
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            
+            const g = ['', 'Thousand', 'Lakh', 'Crore'];
+            let words = '';
+            
+            function convertLessThanOneThousand(n) {
+                let cWords = '';
+                if (n >= 100) {
+                    cWords += a[Math.floor(n / 100)] + ' Hundred ';
+                    n %= 100;
+                }
+                if (n >= 200 || n >= 20) {
+                    cWords += b[Math.floor(n / 10)] + ' ';
+                    n %= 10;
+                }
+                if (n > 0) {
+                    cWords += a[n] + ' ';
+                }
+                return cWords;
+            }
+            
+            let i = 0;
+            while (num > 0) {
+                let divider = (i === 1 || i === 2) ? 100 : 1000;
+                let rem = num % divider;
+                if (rem > 0) {
+                    words = convertLessThanOneThousand(rem) + g[i] + ' ' + words;
+                }
+                num = Math.floor(num / divider);
+                i++;
+            }
+            return words.trim();
+        }
 
-</div>
+        function saveAndPrint() {
+            saveBillToLocalStorage();
+            window.print();
+        }
 
+        function saveBillToLocalStorage() {
+            const billData = {
+                invNo: document.getElementById('invoice_no').value,
+                date: document.getElementById('invoice_date').value,
+                name: document.getElementById('cust_name').value || "Unnamed Customer",
+                total: document.getElementById('total_amount').value
+            };
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            if (!history.some(item => item.invNo === billData.invNo)) {
+                history.unshift(billData);
+                localStorage.setItem('billHistory', JSON.stringify(history));
+                loadHistoryList();
+            }
+        }
+
+        function loadHistoryList() {
+            const list = document.getElementById('historyLogList');
+            list.innerHTML = "";
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            
+            // Default mock entries if empty
+            if(history.length === 0) {
+                history = [
+                    { invNo: "PTT-8975", name: "suraj yadav", total: "1200.00", date: "19/07/2026" },
+                    { invNo: "PTT-6563", name: "suraj yadav", total: "2000.00", date: "18/07/2026" }
+                ];
+            }
+            
+            history.forEach(item => {
+                const li = document.createElement('li');
+                li.className = "history-item";
+                li.innerHTML = `<span>Inv No: <strong>${item.invNo}</strong> | ${item.name}</span><span>₹${item.total} (${item.date})</span>`;
+                list.appendChild(li);
+            });
+        }
+
+        function downloadBillAsImage() {
+            const element = document.getElementById('billContents');
+            html2canvas(element, { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Bill_${document.getElementById('invoice_no').value || 'invoice'}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function copyBillAsImage() {
+            const element = document.getElementById('billContents');
+            html2canvas(element, { scale: 2 }).then(canvas => {
+                canvas.toBlob(blob => {
+                    navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+                    alert("📸 Image copied to clipboard!");
+                });
+            });
+        }
+
+        function sendWhatsApp() {
+            const phone = document.getElementById('cust_phone').value;
+            const name = document.getElementById('cust_name').value;
+            const inv = document.getElementById('invoice_no').value;
+            const total = document.getElementById('total_amount').value;
+            const msg = `Hello ${name}, your bill from Pravash Tour and Travels (Inv No: ${inv}) for Amount ₹${total} is generated successfully.`;
+            window.open(`https://api.whatsapp.com/send?phone=91${phone}&text=${encodeURIComponent(msg)}`);
+        }
+    </script>
 </body>
 </html>
