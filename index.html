@@ -14,7 +14,7 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 10px;
+            padding: 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,37 +23,37 @@
         }
         
         .action-bar {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
             width: 100%;
-            max-width: 700px;
+            max-width: 640px;
             flex-wrap: wrap;
         }
         .btn {
             color: white;
             border: none;
-            padding: 10px 14px;
-            font-size: 12px;
+            padding: 8px 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            gap: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         .print-btn { background-color: #2ea44f; }
         .whatsapp-btn { background-color: #25D366; }
         .copy-btn { background-color: #0284c7; }
         .down-btn { background-color: #ea580c; } 
         .fresh-btn { background-color: #4f46e5; }
-        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 10px 0; width: 150px; justify-content: center; padding: 6px 10px; font-size: 11px; }
 
         .bill-scroll-container {
             width: 100%;
-            max-width: 700px;
+            max-width: 640px;
             display: flex;
             justify-content: center;
         }
@@ -62,9 +62,9 @@
             width: 100%;
             max-width: 100%;
             background-color: #fff;
-            padding: 20px 15px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-radius: 4px;
+            padding: 15px 12px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 2px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -77,27 +77,28 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            height: 50%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.8" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.8"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.8"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
+            width: 75%;
+            height: 45%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.6" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.07;
+            opacity: 0.05;
             z-index: -1;
             pointer-events: none;
         }
 
         .main-title {
             text-align: center;
-            font-size: 24px;
-            margin: 0 0 15px 0;
+            font-size: 20px;
+            margin: 0 0 12px 0;
             font-weight: bold;
             letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .outer-matrix {
-            border: 1.5px solid #000;
+            border: 1px solid #000;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -106,16 +107,17 @@
 
         .header-block {
             display: flex;
-            padding: 10px;
-            border-bottom: 1.5px solid #000;
-            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #000;
+            align-items: flex-start;
         }
         
         .logo-container {
-            width: 85px;
-            height: 85px;
-            margin-right: 12px;
+            width: 70px;
+            height: 70px;
+            margin-right: 10px;
             flex-shrink: 0;
+            margin-top: 2px;
         }
         .logo-img {
             width: 100%;
@@ -127,67 +129,68 @@
             min-width: 0;
         }
         .brand-name {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: bold;
-            margin: 0 0 4px 0;
+            margin: 0 0 2px 0;
         }
         .brand-loc {
-            font-size: 11px;
-            margin: 0 0 8px 0;
+            font-size: 9.5px;
+            margin: 0 0 6px 0;
+            color: #333;
         }
 
         .field-row {
-            margin-bottom: 5px;
-            font-size: 13px;
+            margin-bottom: 4px;
+            font-size: 11.5px;
             font-weight: bold;
             display: flex;
             align-items: center;
             width: 100%;
         }
         .field-row span {
-            margin-right: 5px;
+            margin-right: 4px;
             white-space: nowrap;
         }
         .fill-blank {
             border: none;
-            border-bottom: 1px solid #000;
+            border-bottom: 1px dashed #555;
             outline: none;
-            padding: 2px 4px;
-            font-size: 13px;
+            padding: 1px 2px;
+            font-size: 11.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
             min-width: 0;
         }
         .locked-field {
-            color: #222;
-            border-bottom: 1px dashed #777;
+            color: #000;
         }
         
-        /* क्लीन फ्लेक्स रो ताकि फ़ोन और ईमेल साथ में अच्छे दिखें और बाहर न जाएं */
-        .flex-row {
+        /* मोबाइल और डेस्कटॉप दोनों पर ईमेल को कटने से बचाने के लिए साफ़ व्यवस्था */
+        .contact-group {
             display: flex;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
             width: 100%;
         }
-        .flex-child {
+        .contact-item {
             display: flex;
             align-items: center;
             flex: 1;
-            min-width: 0;
+            min-width: 140px;
         }
 
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border-bottom: 1.5px solid #000;
+            border-bottom: 1px solid #000;
         }
-        .col-box { padding: 8px; min-width: 0; }
-        .col-box:first-child { border-right: 1.5px solid #000; }
+        .col-box { padding: 6px; min-width: 0; }
+        .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 5px;
+            font-size: 11.5px;
+            margin-bottom: 4px;
         }
 
         .data-table {
@@ -195,22 +198,23 @@
             border-collapse: collapse;
         }
         .data-table th, .data-table td {
-            border: 1.5px solid #000;
-            padding: 6px 8px;
-            font-size: 13px;
+            border: 1px solid #000;
+            padding: 4px 6px;
+            font-size: 11.5px;
         }
         .data-table th {
             font-weight: bold;
-            background-color: #e6e6e6;
+            background-color: #f2f2f2;
         }
-        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 5%; text-align: center; }
         
         .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 13px;
+            font-size: 11.5px;
+            padding: 0;
         }
         
         .select-input {
@@ -218,154 +222,154 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
+            padding: 0;
         }
         
         .align-right { text-align: right; }
 
         .billing-summary {
             display: flex;
-            border-bottom: 1.5px solid #000;
-            min-height: 150px;
+            border-bottom: 1px solid #000;
+            min-height: 100px;
         }
         .spacer-side { flex: 1; }
         .math-side {
             flex: 1.2;
-            border-left: 1.5px solid #000;
+            border-left: 1px solid #000;
             display: flex;
             flex-direction: column;
         }
         .math-row {
             display: flex;
-            border-bottom: 1.5px solid #000;
-            font-size: 13px;
+            border-bottom: 1px solid #000;
+            font-size: 11.5px;
             align-items: center;
         }
         .math-label {
-            padding: 6px 8px;
+            padding: 4px 6px;
             font-weight: bold;
             width: 55%;
-            border-right: 1.5px solid #000;
+            border-right: 1px solid #000;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 6px 8px;
+            padding: 4px 6px;
             width: 45%;
         }
         .words-section {
-            border-bottom: 1.5px solid #000;
-            padding: 6px 8px;
+            border-bottom: 1px solid #000;
+            padding: 4px 6px;
         }
-        .words-title { font-weight: bold; font-size: 12px; }
-        .words-output { font-size: 12px; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 10.5px; }
+        .words-output { font-size: 10.5px; font-style: italic; word-break: break-word; color: #333; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 10px;
+            font-size: 9px;
             cursor: pointer;
-            gap: 2px;
+            gap: 1px;
         }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; }
-        .note-chunk { flex: 1; padding: 6px; min-width: 0; }
-        .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 13px; }
+        .footer-notes { display: flex; border-bottom: 1px solid #000; }
+        .note-chunk { flex: 1; padding: 4px; min-width: 0; }
+        .note-chunk:first-child { border-right: 1px solid #000; }
+        .note-title { font-weight: bold; font-size: 11.5px; }
 
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 100px;
+            min-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 6px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
-            border-left: 1.5px solid #000;
-            min-height: 100px;
+            border-left: 1px solid #000;
+            min-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 6px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 13px; width: 100%; }
+        .sig-title { font-weight: bold; font-size: 11.5px; width: 100%; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 60px;
+            height: 45px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
-            border-radius: 4px;
+            border-radius: 2px;
             width: 100%;
             height: 100%;
             background-color: #fafafa;
         }
         .clear-sig-btn {
             position: absolute;
-            right: 3px;
-            bottom: 3px;
+            right: 2px;
+            bottom: 2px;
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 9px;
-            padding: 2px 4px;
-            border-radius: 3px;
+            font-size: 8px;
+            padding: 1px 3px;
+            border-radius: 2px;
         }
         
         .driver-sig-svg {
-            width: 110px;
-            height: 50px;
+            width: 90px;
+            height: 35px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 12px; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 10.5px; font-weight: bold; width: 100%; }
 
-        /* रेंडरिंग टेक्स्ट स्पैन स्टाइल ताकि कोई शब्द न कटे */
         .render-text-span {
-            font-size: 13px;
+            font-size: 11.5px;
             font-weight: normal;
             word-break: break-all;
             display: inline-block;
-            padding: 2px 4px;
+            padding: 1px 2px;
         }
 
         .history-panel {
             width: 100%;
-            max-width: 700px;
+            max-width: 640px;
             background: white;
-            padding: 12px;
-            border-radius: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-top: 12px;
         }
         .history-title {
-            font-size: 13px;
+            font-size: 11.5px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border-bottom: 2px solid #4f46e5;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
         }
         .history-list {
             list-style: none;
             padding: 0;
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px;
+            padding: 4px;
             border-bottom: 1px solid #eee;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         @media print {
@@ -424,19 +428,18 @@
                                     <input type="text" id="car_no" class="fill-blank locked-field" value="MH04LY5124" readonly>
                                 </div>
                                 
-                                <!-- पुरानी इमेज जैसा क्लीन और सीधा रो सिस्टम -->
-                                <div class="field-row flex-row">
-                                    <div class="flex-child">
+                                <div class="contact-group">
+                                    <div class="contact-item">
                                         <span>Phone:</span>
                                         <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
                                     </div>
-                                    <div class="flex-child">
+                                    <div class="contact-item">
                                         <span>Email:</span>
                                         <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
                                     </div>
                                 </div>
                                 
-                                <div class="field-row">
+                                <div class="field-row" style="margin-top: 4px;">
                                     <span>State:</span>
                                     <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
                                 </div>
@@ -448,12 +451,12 @@
                         <div class="col-box">
                             <div class="sect-header">Bill To:</div>
                             <div class="field-row">
-                                <span>Customer Name:</span>
-                                <input type="text" id="cust_name" class="fill-blank text-target" placeholder="Enter Name">
+                                <span>name</span>
+                                <input type="text" id="cust_name" class="fill-blank text-target" placeholder="">
                             </div>
                             <div class="field-row">
                                 <span>Contact No:</span>
-                                <input type="text" id="cust_phone" class="fill-blank text-target" placeholder="Enter Contact">
+                                <input type="text" id="cust_phone" class="fill-blank text-target" placeholder="">
                             </div>
                         </div>
                         <div class="col-box">
@@ -590,7 +593,7 @@
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
             ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 1.5;
             ctx.lineCap = 'round';
 
             function getTouchPos(e) {
@@ -673,7 +676,6 @@
             clearCustomerSignature();
             autoGenerateMeta();
             calculateTotals();
-            alert("✨ फ्रेश बिल तैयार है!");
         }
 
         function addNewRow() {
@@ -791,7 +793,7 @@
             listContainer.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('billHistory')) || [];
             if(history.length === 0) {
-                listContainer.innerHTML = '<li style="color:#888; padding: 8px; font-size:12px;">No records found.</li>';
+                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:11px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
@@ -853,11 +855,9 @@
                         ctx.drawImage(img, 0, 0);
                     };
                 }
-                alert("इनवॉइस " + id + " सफलतापूर्वक लोड हो गया!");
             }
         }
 
-        /* रेंडरिंग फिक्स: यह इमेज बनाने से पहले इनपुट्स को नॉर्मल टेक्स्ट में बदलता है ताकि फोंट कटे नहीं */
         function preProcessDOMBeforeRender(target) {
             const editableInputs = target.querySelectorAll('input[type="text"]');
             editableInputs.forEach(input => {
@@ -902,7 +902,7 @@
             preProcessDOMBeforeRender(target);
 
             html2canvas(target, { 
-                scale: 2.5, 
+                scale: 3, 
                 useCORS: true,
                 logging: false
             }).then(canvas => {
@@ -911,9 +911,9 @@
                     navigator.clipboard.write([
                         new ClipboardItem({ "image/png": blob })
                     ]).then(() => {
-                        alert("📸 परफेक्ट! बिल इमेज बिना कटे कॉपी हो गई है। WhatsApp चैट में पेस्ट करें।");
+                        alert("📸 बिल इमेज कॉपी हो गई है।");
                     }).catch(() => {
-                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
+                        alert("❌ डाउनलोड बटन का उपयोग करें।");
                     });
                 }, "image/png");
             });
@@ -925,7 +925,7 @@
             const invoice = document.getElementById('invoice_no').value || "Bill";
 
             html2canvas(target, { 
-                scale: 2.5,
+                scale: 3,
                 useCORS: true,
                 logging: false
             }).then(canvas => {
@@ -934,7 +934,6 @@
                 link.download = `${invoice}.png`;
                 link.href = canvas.toDataURL("image/png");
                 link.click();
-                alert("📥 बिल सफलतापूर्वक डाउनलोड हो गया है!");
             });
         }
 
@@ -946,7 +945,7 @@
             const balance = document.getElementById('balance_amt').value.trim();
 
             if(!phone) {
-                alert("व्हाट्सएप भेजने के लिए पहले कस्टमर का कांटेक्ट नंबर भरें!");
+                alert("कृपया पहले कांटेक्ट नंबर भरें!");
                 return;
             }
 
@@ -955,7 +954,7 @@
             message += `*Customer Name:* ${name ? name : 'Valued Customer'}%0A`;
             message += `*Total Amount:* ₹${amount ? amount : '0.00'}%0A`;
             message += `*Balance Due:* ₹${balance ? balance : '0.00'}%0A%0A`;
-            message += `Thank you for traveling with us! ✨`;
+            message += `Thank you! ✨`;
 
             const finalPhone = phone.length === 10 ? '91' + phone : phone;
             window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${message}`, '_blank');
