@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Responsive Viewport Fixed: Stops unwanted zooming and cuts on mobile screens -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <!-- Viewport adjusted to ensure standard container width on mobile screens -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill of Supply - Pravash Travels</title>
     <!-- html2canvas library for capturing bill image securely -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -21,7 +21,6 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scrolling on outer body */
         }
         
         /* Control Panel Actions */
@@ -60,17 +59,17 @@
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
         .add-row-btn:hover { background-color: #d97706; }
 
-        /* Mobile Optimization Container Wrapper */
+        /* Outer scroll container ensures full A4 visual frame remains completely untouched */
         .bill-scroll-container {
             width: 100%;
             display: flex;
             justify-content: center;
             padding: 0 10px;
-            overflow-x: auto; /* Fallback for very small devices, scale handles the rest */
+            overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* A4 Page Architecture */
+        /* Fixed Standard A4 Architecture to keep aspect ratio identical to screenshot */
         .bill-wrapper {
             width: 220mm; 
             min-height: 310mm;
@@ -84,7 +83,7 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
-            transform-origin: top center;
+            flex-shrink: 0; /* Prevents narrow squeezing on mobile view */
         }
 
         /* Blurred Background Car Graphic Element */
@@ -209,7 +208,7 @@
             margin-bottom: 6px;
         }
 
-        /* Core Grid Data Table */
+        /* Core Table Properties */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -308,7 +307,7 @@
         .note-chunk:first-child { border-right: 1.5px solid #000; }
         .note-title { font-weight: bold; font-size: 14px; }
 
-        /* Dual Signature Layout Area */
+        /* Signatures Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 55%;
@@ -331,7 +330,6 @@
         }
         .sig-title { font-weight: bold; font-size: 14px; width: 100%; text-align: left; }
         
-        /* Interactive Digital Signature Board */
         .canvas-container {
             position: relative;
             width: 100%;
@@ -401,30 +399,13 @@
         }
         .history-item:hover { background-color: #f7f9fa; }
 
-        /* Custom Auto-Scale Scripting CSS Rules for Perfect Fit without Ugly Manual Zooming */
-        @media screen and (max-width: 225mm) {
-            body {
-                padding: 10px 0;
-            }
-            .bill-scroll-container {
-                /* Dynamically calculated heights ensure container handles the visual matrix shift nicely */
-                height: auto; 
-            }
-            .bill-wrapper {
-                /* Calculates accurate dynamic uniform ratio to stick seamlessly like a picture */
-                transform: scale(calc(var(--mobile-scale-factor, 1)));
-                margin-bottom: calc(310mm * (var(--mobile-scale-factor, 1) - 1));
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-        }
-
         /* Print Specific Modifications */
         @media print {
             body { background-color: #fff; padding: 0; overflow: visible; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .bill-scroll-container { padding: 0; overflow: visible; display: block; height: auto !important; }
-            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0 !important; transform: scale(1) !important; }
+            .bill-scroll-container { padding: 0; overflow: visible; display: block; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0 !important; }
             .select-input { -webkit-appearance: none; appearance: none; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
@@ -440,9 +421,9 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <!-- Scroll Container Wrapper Added for Screen Safety Matrix -->
+    <!-- Scroll container securely wraps the uncompromised wide layout -->
     <div class="bill-scroll-container">
-        <!-- Main Invoice Layout -->
+        <!-- Main Invoice Layout Layout Structure Remains Fully Identical -->
         <div class="bill-wrapper" id="billContents">
             <div>
                 <div class="main-title">Bill of<br>Supply</div>
@@ -605,7 +586,7 @@
                         </div>
                     </div>
 
-                    <!-- Authorization & Client Verification Signatures Layout -->
+                    <!-- Authorization Signatures Layout -->
                     <div class="signature-area">
                         <div class="sig-box-left">
                             <div class="sig-title">Customer Signature:</div>
@@ -645,27 +626,10 @@
         let isDrawing = false;
 
         document.addEventListener("DOMContentLoaded", () => {
-            adjustMobileViewScale();
-            window.addEventListener('resize', adjustMobileViewScale);
             loadHistoryList();
             autoGenerateMeta();
             initializeSignatureCanvas();
         });
-
-        // Dynamic Scaling Script Matrix to Keep the layout consistent like a locked screenshot
-        function adjustMobileViewScale() {
-            const container = document.querySelector('.bill-scroll-container');
-            if (!container) return;
-            const availableWidth = container.offsetWidth;
-            const targetWidth = 220 * 3.7795275591; // Convert 220mm exactly into web pixel metrics
-            
-            if (availableWidth < targetWidth) {
-                const scaleFactor = availableWidth / targetWidth;
-                document.documentElement.style.setProperty('--mobile-scale-factor', scaleFactor * 0.98);
-            } else {
-                document.documentElement.style.setProperty('--mobile-scale-factor', '1');
-            }
-        }
 
         function initializeSignatureCanvas() {
             canvas.width = canvas.offsetWidth;
@@ -674,10 +638,8 @@
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
 
-            // Fixed Touch Coordinates Calculations considering CSS Visual Transformation Scalers
             function getTouchPos(e) {
                 const rect = canvas.getBoundingClientRect();
-                const scaleFactor = parseFloat(document.documentElement.style.getPropertyValue('--mobile-scale-factor')) || 1;
                 return {
                     x: (e.touches[0].clientX - rect.left),
                     y: (e.touches[0].clientY - rect.top)
@@ -974,7 +936,7 @@
                 scale: 2.5, 
                 useCORS: true,
                 logging: false,
-                width: 220 * 3.7795275591, /* Maintain strict original width measurements during array export */
+                width: 220 * 3.7795275591,
                 height: 310 * 3.7795275591
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
@@ -984,7 +946,7 @@
                     ]).then(() => {
                         alert("📸 परफेक्ट! बिल इमेज बिना कटे कॉपी हो गई है। WhatsApp चैट में पेस्ट करें।");
                     }).catch(() => {
-                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन ka istemal karein!");
+                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
                     });
                 }, "image/png");
             });
@@ -1007,7 +969,7 @@
                 link.download = `${invoice}.png`;
                 link.href = canvas.toDataURL("image/png");
                 link.click();
-                alert("📥 बिल सफलतापूर्वक डाउनलोड हो गया है! अब इसे गैलरी से किसी को भी शेयर कर सकते हैं।");
+                alert("📥 बिल सफलतापूर्वक डाउनलोड हो गया है!");
             });
         }
 
