@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=720, initial-scale=1.0"> <!-- न्यू विड्थ फिक्स -->
+    <meta name="viewport" content="width=650, initial-scale=1.0">
     <title>Bill of Supply - Pravash Travels</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -27,14 +27,15 @@
         .action-bar {
             margin-bottom: 20px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            width: 680px; /* दोनों साइड से विड्थ 10% कम की */
+            width: 610px; /* एक्शन बार को भी 610px पर मैच किया */
+            flex-wrap: wrap;
         }
         .btn {
             color: white;
             border: none;
-            padding: 10px 14px;
+            padding: 8px 12px;
             font-size: 11px;
             font-weight: bold;
             cursor: pointer;
@@ -45,13 +46,13 @@
         .copy-btn { background-color: #0284c7; }
         .down-btn { background-color: #ea580c; } 
         .fresh-btn { background-color: #4f46e5; }
-        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto; display: block; padding: 8px 16px; font-size: 12px; border: none; border-radius: 4px; cursor: pointer;}
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto; display: block; padding: 8px 16px; font-size: 11px; border: none; border-radius: 4px; cursor: pointer;}
 
-        /* दोनों साइड से 5% + 5% = 10% और कम करके 680px किया ताकि कुछ कटे नहीं */
+        /* और 10% कम करके 610px किया, पैडिंग एडजस्ट की ताकि कुछ बाहर न जाए */
         .a4-landscape-container {
-            width: 680px; 
+            width: 610px; 
             background-color: #fff;
-            padding: 25px 22px; /* पैडिंग थोड़ी कम की ताकि अंदर का कंटेंट सेफ रहे */
+            padding: 20px 15px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border-radius: 4px;
             position: relative;
@@ -59,8 +60,8 @@
 
         .main-title {
             text-align: center;
-            font-size: 22px;
-            margin: 0 0 15px 0;
+            font-size: 20px;
+            margin: 0 0 12px 0;
             font-weight: normal;
             letter-spacing: 1px;
             line-height: 1.2;
@@ -76,15 +77,15 @@
 
         .header-block {
             display: flex;
-            padding: 12px 10px;
+            padding: 10px 8px;
             border-bottom: 1px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 85px;
-            height: 85px;
-            margin-right: 15px;
+            width: 80px;
+            height: 80px;
+            margin-right: 12px;
             flex-shrink: 0;
         }
         .logo-img {
@@ -94,35 +95,39 @@
         
         .brand-details {
             flex: 1;
+            min-width: 0; /* टेक्स्ट ओवरफ्लो रोकने के लिए */
         }
         .brand-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
-            margin: 0 0 4px 0;
+            margin: 0 0 3px 0;
             letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 9.5px;
-            margin: 0 0 10px 0;
+            font-size: 9px;
+            margin: 0 0 8px 0;
             font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .driver-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 12px;
-            row-gap: 5px;
+            column-gap: 10px;
+            row-gap: 4px;
         }
 
         .field-row {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: bold;
             display: flex;
             align-items: flex-end;
             width: 100%;
         }
         .field-row span {
-            margin-right: 5px;
+            margin-right: 4px;
             white-space: nowrap;
         }
         
@@ -131,7 +136,7 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 1px;
-            font-size: 11px;
+            font-size: 10.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -147,12 +152,12 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid #000;
         }
-        .col-box { padding: 8px 10px; }
+        .col-box { padding: 6px 8px; }
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 11px;
-            margin-bottom: 6px;
+            font-size: 10.5px;
+            margin-bottom: 4px;
         }
 
         .table-and-summary-container {
@@ -160,13 +165,13 @@
             width: 100%;
         }
 
-        /* वाटरमार्क का साइज थोड़ा छोटा किया ताकि स्क्रीन में फिट रहे */
+        /* वाटरमार्क थोड़ा और छोटा किया ताकि 610px विड्थ में परफेक्ट दिखे */
         .car-watermark {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 320px;
+            width: 280px;
             height: auto;
             opacity: 0.04;
             pointer-events: none;
@@ -181,8 +186,8 @@
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
-            padding: 7px 6px;
-            font-size: 11px;
+            padding: 6px 5px;
+            font-size: 10.5px;
             vertical-align: middle;
             background: transparent;
         }
@@ -200,8 +205,8 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
-            padding: 2px 0;
+            font-size: 10.5px;
+            padding: 1px 0;
         }
         
         .select-input {
@@ -209,7 +214,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
+            font-size: 10.5px;
             cursor: pointer;
         }
         
@@ -218,13 +223,13 @@
         .billing-summary {
             display: flex;
             border-bottom: 1px solid #000;
-            min-height: 130px;
+            min-height: 120px;
             position: relative;
             z-index: 1;
         }
-        .spacer-side { flex: 0.9; } /* विड्थ के हिसाब से बैलेंस किया */
+        .spacer-side { flex: 0.8; } 
         .math-side {
-            flex: 1.1;
+            flex: 1.2;
             border-left: 1px solid #000;
             display: flex;
             flex-direction: column;
@@ -233,11 +238,11 @@
         .math-row {
             display: flex;
             border-bottom: 1px solid #000;
-            font-size: 11px;
+            font-size: 10.5px;
             align-items: center;
         }
         .math-label {
-            padding: 5px 8px;
+            padding: 4px 6px;
             font-weight: bold;
             width: 55%;
             border-right: 1px solid #000;
@@ -246,59 +251,59 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 4px 8px;
+            padding: 3px 6px;
             width: 45%;
         }
         
         .words-section {
             border-bottom: 1px solid #000;
-            padding: 5px 8px;
+            padding: 4px 6px;
             flex-grow: 1;
         }
-        .words-title { font-weight: bold; font-size: 10px; }
-        .words-output { font-size: 10px; font-style: italic; color: #333; margin-top: 2px; }
+        .words-title { font-weight: bold; font-size: 9.5px; }
+        .words-output { font-size: 9.5px; font-style: italic; color: #333; margin-top: 1px; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 10px;
+            font-size: 9.5px;
             cursor: pointer;
-            gap: 3px;
+            gap: 2px;
             font-weight: normal;
         }
 
         .footer-notes { display: flex; border-bottom: 1px solid #000; }
-        .note-chunk { flex: 1; padding: 8px; }
+        .note-chunk { flex: 1; padding: 6px; }
         .note-chunk:first-child { border-right: 1px solid #000; }
-        .note-title { font-weight: bold; font-size: 11px; margin-bottom: 4px; }
+        .note-title { font-weight: bold; font-size: 10.5px; margin-bottom: 3px; }
 
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 90px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 6px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
             border-left: 1px solid #000;
-            min-height: 90px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 6px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 11px; width: 100%; }
+        .sig-title { font-weight: bold; font-size: 10.5px; width: 100%; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 55px;
-            margin-top: 4px;
+            height: 48px;
+            margin-top: 3px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
@@ -314,55 +319,55 @@
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 9px;
-            padding: 2px 6px;
+            font-size: 8px;
+            padding: 1px 4px;
             border-radius: 2px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 100px;
-            height: 40px;
+            width: 90px;
+            height: 35px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 10px; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 9.5px; font-weight: bold; width: 100%; }
         
         .render-text-span {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: normal;
             display: inline-block;
             border-bottom: 1px solid transparent;
-            padding: 2px 0;
+            padding: 1px 0;
         }
 
         .history-panel {
-            width: 680px; /* मैच की गई विड्थ */
+            width: 610px; 
             background: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 4px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-top: 20px;
         }
         .history-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border-bottom: 2px solid #4f46e5;
             padding-bottom: 4px;
         }
         .history-list {
             list-style: none;
             padding: 0;
-            max-height: 120px;
+            max-height: 110px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 4px;
+            padding: 5px 4px;
             border-bottom: 1px solid #eee;
-            font-size: 11px;
+            font-size: 10.5px;
             cursor: pointer;
         }
 
@@ -370,7 +375,7 @@
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .a4-landscape-container { box-shadow: none; padding: 15px; width: 100%; }
+            .a4-landscape-container { box-shadow: none; padding: 10px; width: 100%; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -385,7 +390,6 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <!-- 10% और संकीर्ण (Narrow) कॉम्पैक्ट कंटेनर शीट -->
     <div class="a4-landscape-container" id="a4PaperSheet">
         <div class="main-title">Bill of Supply</div>
         
@@ -442,7 +446,7 @@
             <div class="two-column-split">
                 <div class="col-box">
                     <div class="sect-header">Bill To:</div>
-                    <div class="field-row" style="margin-bottom: 6px;">
+                    <div class="field-row" style="margin-bottom: 4px;">
                         <span>name</span>
                         <input type="text" id="cust_name" class="fill-blank text-target">
                     </div>
@@ -453,7 +457,7 @@
                 </div>
                 <div class="col-box">
                     <div class="sect-header">Invoice Details:</div>
-                    <div class="field-row" style="margin-bottom: 6px;">
+                    <div class="field-row" style="margin-bottom: 4px;">
                         <span>No:</span>
                         <input type="text" id="invoice_no" class="fill-blank text-target">
                     </div>
@@ -466,7 +470,6 @@
 
             <!-- वाटरमार्क कंटेनर एरिया -->
             <div class="table-and-summary-container">
-                <!-- कार का वाटरमार्क SVG -->
                 <svg class="car-watermark" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50 160 C50 130, 120 120, 160 110 C200 100, 240 50, 320 50 C400 50, 480 80, 520 120 C560 130, 570 150, 570 170 C570 185, 550 185, 530 185 C510 150, 450 150, 430 185 C290 185, 250 185, 190 185 C170 150, 110 150, 90 185 C70 185, 50 185, 50 160 Z" fill="none" stroke="#000" stroke-width="4"/>
                     <circle cx="140" cy="185" r="30" fill="none" stroke="#000" stroke-width="4"/>
@@ -797,7 +800,7 @@
             listContainer.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('billHistory')) || [];
             if(history.length === 0) {
-                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:11px;">No records found.</li>';
+                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:10.5px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
@@ -915,7 +918,7 @@
                     navigator.clipboard.write([
                         new ClipboardItem({ "image/png": blob })
                     ]).then(() => {
-                        alert("📸 स्क्वायर बिल इमेज कॉपी हो गई है।");
+                        alert("📸 बिल इमेज कॉपी हो गई है।");
                     }).catch(() => {
                         alert("❌ डाउनलोड बटन का उपयोग करें।");
                     });
@@ -935,7 +938,7 @@
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
                 const link = document.createElement('a');
-                link.download = `${invoice}_square.png`;
+                link.download = `${invoice}_compact.png`;
                 link.href = canvas.toDataURL("image/png");
                 link.click();
             });
