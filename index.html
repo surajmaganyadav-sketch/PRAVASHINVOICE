@@ -19,14 +19,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* बिल को वर्टिकली बीच में रखने के लिए */
+            justify-content: center;
             min-height: 100vh;
             width: 100%;
         }
         
-        /* बिल के ऊपर और नीचे बराबर स्पेस देने के लिए रैपर */
         .page-wrapper {
-            padding: 40px 0; /* ऊपर और नीचे परफेक्ट गैप */
+            padding: 40px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -54,29 +53,42 @@
         .down-btn { background-color: #ea580c; } 
         .whatsapp-btn { background-color: #25D366; }
         .fresh-btn { background-color: #4f46e5; }
-        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto 0 auto; display: block; padding: 6px 12px; font-size: 10px; border: none; border-radius: 4px; cursor: pointer;}
+        
+        /* वेबसाइट पर दिखने वाला Add Row बटन - अब यह बिल बॉक्स से बाहर है */
+        .add-row-btn { 
+            background-color: #f59e0b; 
+            color: #fff; 
+            margin: 15px auto 0 auto; 
+            display: block; 
+            padding: 6px 12px; 
+            font-size: 10px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-        /* परफेक्ट स्क्वायर कंटेनर */
+        /* मुख्य प्रीमियम कंटेनर - इमेज में ऊपर और नीचे परफेक्ट गैप सुनिश्चित करने के लिए */
         .a4-landscape-container {
             width: 360px; 
             background-color: #fff;
-            padding: 12px; 
+            padding: 25px 12px 25px 12px; /* ऊपर और नीचे 25px का शानदार गैप */
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            position: relative; /* वॉटरमार्क के लिए */
+            position: relative; 
             overflow: hidden;
         }
 
-        /* बैकग्राउंड में प्रीमियम ब्लर कार वॉटरमार्क */
+        /* बैकग्राउंड में परमानेंट प्रीमियम ब्लर कार वॉटरमार्क */
         .car-watermark {
             position: absolute;
             top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 85%;
-            opacity: 0.04; /* बहुत हल्का ताकि लिखावट साफ़ दिखे */
+            opacity: 0.04; 
             pointer-events: none;
             z-index: 0;
             filter: blur(1px);
@@ -85,7 +97,7 @@
         .main-title {
             text-align: center;
             font-size: 15px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 12px auto; /* नीचे थोड़ा सा गैप */
             font-weight: normal;
             letter-spacing: 0.5px;
             line-height: 1.2;
@@ -95,7 +107,7 @@
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9); /* वॉटरमार्क के ऊपर क्लैरिटी के लिए */
+            background: rgba(255, 255, 255, 0.85); 
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -382,7 +394,7 @@
             .page-wrapper { padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .a4-landscape-container { box-shadow: none; padding: 0; width: 360px !important; }
+            .a4-landscape-container { box-shadow: none; padding: 25px 0 !important; width: 360px !important; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -398,8 +410,9 @@
             <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
         </div>
 
+        <!-- मुख्य बिल बॉक्स -->
         <div class="a4-landscape-container" id="a4PaperSheet">
-            <!-- बैकग्राउंड प्रीमियम ब्लर कार SVG वॉटरमार्क -->
+            <!-- बैकग्राउंड कार वॉटरमार्क (अब रेंडरिंग में हमेशा साथ आएगा) -->
             <svg class="car-watermark" viewBox="0 0 100 45" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10,30 L15,18 Q20,12 35,12 L65,12 Q75,12 82,18 L90,30 Q96,31 96,35 L94,39 Q93,40 90,40 L86,40 Q84,35 78,35 Q72,35 70,40 L30,40 Q28,35 22,35 Q16,35 14,40 L6,40 Q4,38 4,35 Q4,31 10,30 Z" fill="#0d233a"/>
                 <circle cx="22" cy="40" r="5" fill="#0d233a"/>
@@ -410,19 +423,16 @@
             <div class="main-title">Bill of<br>Supply</div>
             
             <div class="outer-matrix">
-                <!-- नया डिज़ाइनर लोगो ब्रांडिंग के साथ -->
+                <!-- शानदार ट्रैवल लोगो और ब्रांडिंग -->
                 <div class="header-block">
                     <div class="logo-container">
                         <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="100" cy="100" r="96" fill="#0d233a" stroke="#ba9447" stroke-width="4"/>
                             <circle cx="100" cy="100" r="84" fill="none" stroke="#ba9447" stroke-width="1" stroke-dasharray="5 3"/>
-                            <!-- कार/ट्रेवल सिंबल -->
                             <path d="M60,115 L70,95 Q75,85 95,85 L125,85 Q140,85 145,95 L155,115 Q165,117 165,123 L162,130 L42,130 L38,123 Q38,117 60,115 Z" fill="#ba9447"/>
                             <circle cx="65" cy="132" r="10" fill="#0d233a" stroke="#ba9447" stroke-width="3"/>
                             <circle cx="135" cy="132" r="10" fill="#0d233a" stroke="#ba9447" stroke-width="3"/>
-                            <!-- ग्लोब लाइन्स -->
                             <path d="M30,100 Q100,60 170,100" fill="none" stroke="#ba9447" stroke-width="1.5" opacity="0.4"/>
-                            <!-- टेक्स्ट कस्टमाइजेशन अंदर ही -->
                             <text x="50%" y="45" dominant-baseline="middle" text-anchor="middle" fill="#ba9447" font-size="16" font-weight="bold" font-family="Arial">PRAVASH</text>
                             <text x="50%" y="65" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-size="11" letter-spacing="2" font-family="Arial">TOURS & TRAVELS</text>
                         </svg>
@@ -460,7 +470,7 @@
                     </div>
                 </div>
 
-                <!-- बिल डिटेल्स -->
+                <!-- बिल इन्फो -->
                 <div class="two-column-split">
                     <div class="col-box">
                         <div class="sect-header">Bill To:</div>
@@ -486,7 +496,7 @@
                     </div>
                 </div>
 
-                <!-- आइटम टेबल -->
+                <!-- आइटम्स टेबल -->
                 <div class="table-and-summary-container">
                     <table class="data-table" id="itemsTable">
                         <thead>
@@ -498,7 +508,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- रो 1: ड्रॉपडाउन ऑप्शन वैसे ही रहेगा -->
                             <tr>
                                 <td class="row-num">1</td>
                                 <td>
@@ -519,7 +528,7 @@
                         </tbody>
                     </table>
 
-                    <!-- समरी ब्लॉक -->
+                    <!-- समरी कैलकुलेशन -->
                     <div class="billing-summary">
                         <div class="spacer-side"></div>
                         <div class="math-side">
@@ -554,7 +563,7 @@
                     </div>
                 </div>
 
-                <!-- फुटर नोट्स: Description बदला Location में, Vision हुआ Permanent -->
+                <!-- फुटर नोट्स (Location & Vision) -->
                 <div class="footer-notes">
                     <div class="note-chunk">
                         <div class="note-title">Location:</div>
@@ -566,7 +575,7 @@
                     </div>
                 </div>
 
-                <!-- सिग्नेचर सेक्शन -->
+                <!-- सिग्नेचर एरिया -->
                 <div class="signature-area">
                     <div class="sig-box-left">
                         <div class="sig-title">Customer Signature:</div>
@@ -588,10 +597,12 @@
                     </div>
                 </div>
             </div>
-            
-            <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
         </div>
 
+        <!-- बटन अब बिल बॉक्स से बाहर आ गया है ताकि फ़ोटो में न आए -->
+        <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
+
+        <!-- सेव्ड हिस्ट्री -->
         <div class="history-panel">
             <div class="history-title">📜 Saved Bills History</div>
             <ul class="history-list" id="historyLogList"></ul>
@@ -687,7 +698,6 @@
             clearCustomerSignature(); autoGenerateMeta(); calculateTotals();
         }
 
-        // नई रो जोड़ने पर नॉर्मल इनपुट बॉक्स (टेक्स्ट टाइप करने के लिए) ओपन होगा
         function addNewRow() {
             const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
             const nextIndex = tableBody.rows.length + 1;
@@ -809,7 +819,6 @@
                 const tableBody = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
                 tableBody.innerHTML = ''; 
                 
-                let textFieldIndex = 0;
                 for(let i=0; i < record.rowCount; i++) {
                     const newRow = tableBody.insertRow();
                     if(i === 0) {
