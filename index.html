@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport adjusted to ensure standard container width on mobile screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill of Supply - Pravash Travels</title>
-    <!-- html2canvas library for capturing bill image securely -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
@@ -23,14 +21,13 @@
             min-height: 100vh;
         }
         
-        /* Control Panel Actions */
         .action-bar {
             margin-bottom: 15px;
             display: flex;
             gap: 8px;
             justify-content: center;
             width: 95%;
-            max-width: 220mm;
+            max-width: 185mm;
             flex-wrap: wrap;
         }
         .btn {
@@ -59,7 +56,6 @@
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
         .add-row-btn:hover { background-color: #d97706; }
 
-        /* Outer scroll container ensures full A4 visual frame remains completely untouched */
         .bill-scroll-container {
             width: 100%;
             display: flex;
@@ -69,12 +65,12 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Fixed Standard A4 Architecture to keep aspect ratio identical to screenshot */
+        /* Bill dimensions lightly optimized to fit perfectly on standard mobile views */
         .bill-wrapper {
-            width: 220mm; 
-            min-height: 310mm;
+            width: 185mm; 
+            min-height: 275mm;
             background-color: #fff;
-            padding: 45px 40px; 
+            padding: 30px 25px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
@@ -83,10 +79,9 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
-            flex-shrink: 0; /* Prevents narrow squeezing on mobile view */
+            flex-shrink: 0;
         }
 
-        /* Blurred Background Car Graphic Element */
         .bill-wrapper::before {
             content: "";
             position: absolute;
@@ -107,9 +102,9 @@
 
         .main-title {
             text-align: center;
-            font-size: 28px;
+            font-size: 26px;
             line-height: 1.2;
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
@@ -131,9 +126,9 @@
         }
         
         .logo-container {
-            width: 115px;
-            height: 115px;
-            margin-right: 20px;
+            width: 105px;
+            height: 105px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -149,20 +144,20 @@
             flex: 1;
         }
         .brand-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             margin: 0 0 4px 0;
             letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 12px;
+            font-size: 11.5px;
             margin: 0 0 10px 0;
             font-weight: 500;
         }
 
         .field-row {
             margin-bottom: 6px;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: bold;
             display: flex;
             align-items: baseline;
@@ -177,7 +172,7 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 2px 4px;
-            font-size: 14px;
+            font-size: 13.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -191,7 +186,7 @@
         .grid-contact {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
             margin-top: 8px;
         }
 
@@ -200,15 +195,14 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 12px; }
+        .col-box { padding: 10px; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13.5px;
             margin-bottom: 6px;
         }
 
-        /* Core Table Properties */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -216,7 +210,7 @@
         .data-table th, .data-table td {
             border: 1.5px solid #000;
             padding: 8px 10px;
-            font-size: 14px;
+            font-size: 13.5px;
         }
         .data-table th {
             font-weight: bold;
@@ -231,7 +225,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 14px;
+            font-size: 13.5px;
             padding: 2px 0;
         }
         
@@ -240,7 +234,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             padding: 2px 0;
@@ -251,16 +245,15 @@
         
         .align-right { text-align: right; }
 
-        /* Calculation block */
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
             flex: 1;
-            min-height: 200px;
+            min-height: 180px;
         }
-        .spacer-side { flex: 1.2; }
+        .spacer-side { flex: 1.1; }
         .math-side {
-            flex: 1;
+            flex: 1.1;
             border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
@@ -268,7 +261,7 @@
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 14px;
+            font-size: 13.5px;
             align-items: center;
         }
         .math-label {
@@ -286,11 +279,11 @@
         }
         .words-section {
             border-bottom: 1.5px solid #000;
-            min-height: 60px;
+            min-height: 55px;
             padding: 8px 10px;
         }
-        .words-title { font-weight: bold; font-size: 14px; margin-bottom: 4px; }
-        .words-output { font-size: 13.5px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 13.5px; margin-bottom: 4px; }
+        .words-output { font-size: 13px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
@@ -302,38 +295,37 @@
         }
         .chk-container input { cursor: pointer; margin: 0; }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 70px; }
-        .note-chunk { flex: 1; padding: 10px; }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 65px; }
+        .note-chunk { flex: 1; padding: 8px; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 14px; }
+        .note-title { font-weight: bold; font-size: 13.5px; }
 
-        /* Signatures Area */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 55%;
-            min-height: 125px;
+            min-height: 115px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 12px;
+            padding: 10px;
             position: relative;
         }
         .sig-box-right {
             width: 45%;
             border-left: 1.5px solid #000;
-            min-height: 125px;
+            min-height: 115px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 12px;
+            padding: 10px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 14px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 13.5px; width: 100%; text-align: left; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 75px;
+            height: 70px;
             margin-top: 5px;
         }
         .sig-canvas {
@@ -358,16 +350,15 @@
         }
         
         .driver-sig-svg {
-            width: 135px;
-            height: 70px;
+            width: 125px;
+            height: 65px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 14px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 13.5px; color: #333; font-weight: bold; width: 100%; }
 
-        /* Log Panel Dashboard */
         .history-panel {
             width: 95%;
-            max-width: 220mm;
+            max-width: 185mm;
             background: white;
             padding: 15px;
             border-radius: 6px;
@@ -375,7 +366,7 @@
             margin-top: 15px;
         }
         .history-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 10px;
             border-bottom: 2px solid #4f46e5;
@@ -395,11 +386,10 @@
             padding: 8px;
             border-bottom: 1px solid #eee;
             cursor: pointer;
-            font-size: 12.5px;
+            font-size: 12px;
         }
         .history-item:hover { background-color: #f7f9fa; }
 
-        /* Print Specific Modifications */
         @media print {
             body { background-color: #fff; padding: 0; overflow: visible; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
@@ -421,15 +411,12 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <!-- Scroll container securely wraps the uncompromised wide layout -->
     <div class="bill-scroll-container">
-        <!-- Main Invoice Layout Layout Structure Remains Fully Identical -->
         <div class="bill-wrapper" id="billContents">
             <div>
                 <div class="main-title">Bill of<br>Supply</div>
                 
                 <div class="outer-matrix">
-                    <!-- Header Identity Area -->
                     <div class="header-block">
                         <div class="logo-container">
                             <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
@@ -483,7 +470,6 @@
                         </div>
                     </div>
 
-                    <!-- Client Billing Metadata Split -->
                     <div class="two-column-split">
                         <div class="col-box">
                             <div class="sect-header">Bill To:</div>
@@ -509,7 +495,6 @@
                         </div>
                     </div>
 
-                    <!-- Core Ledger Grid Table -->
                     <table class="data-table" id="itemsTable">
                         <thead>
                             <tr>
@@ -540,7 +525,6 @@
                         </tbody>
                     </table>
 
-                    <!-- Financial Calculation Matrix -->
                     <div class="billing-summary">
                         <div class="spacer-side"></div>
                         <div class="math-side">
@@ -574,7 +558,6 @@
                         </div>
                     </div>
 
-                    <!-- Footer Vision Segment -->
                     <div class="footer-notes">
                         <div class="note-chunk">
                             <div class="note-title">Description:</div>
@@ -586,7 +569,6 @@
                         </div>
                     </div>
 
-                    <!-- Authorization Signatures Layout -->
                     <div class="signature-area">
                         <div class="sig-box-left">
                             <div class="sig-title">Customer Signature:</div>
@@ -614,7 +596,6 @@
 
     <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
 
-    <!-- History Logs Dashboard Panel -->
     <div class="history-panel">
         <div class="history-title">📜 Saved Bills History (Click to Reload)</div>
         <ul class="history-list" id="historyLogList"></ul>
@@ -914,7 +895,7 @@
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
                 replacementSpan.className = 'temp-span-fix';
-                replacementSpan.style.fontSize = '14px';
+                replacementSpan.style.fontSize = '13.5px';
                 replacementSpan.appendChild(textNode);
                 parent.appendChild(replacementSpan);
                 select.style.display = 'none';
@@ -936,8 +917,8 @@
                 scale: 2.5, 
                 useCORS: true,
                 logging: false,
-                width: 220 * 3.7795275591,
-                height: 310 * 3.7795275591
+                width: 185 * 3.7795275591,
+                height: 275 * 3.7795275591
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
                 canvas.toBlob(blob => {
@@ -961,8 +942,8 @@
                 scale: 2.5,
                 useCORS: true,
                 logging: false,
-                width: 220 * 3.7795275591,
-                height: 310 * 3.7795275591
+                width: 185 * 3.7795275591,
+                height: 275 * 3.7795275591
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
                 const link = document.createElement('a');
