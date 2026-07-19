@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=650, initial-scale=1.0">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
     <title>Bill of Supply - Pravash Travels</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -27,16 +27,16 @@
         .action-bar {
             margin-bottom: 20px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
-            width: 610px; /* एक्शन बार को भी 610px पर मैच किया */
+            width: 550px; /* विड्थ 550px पर मैच की */
             flex-wrap: wrap;
         }
         .btn {
             color: white;
             border: none;
-            padding: 8px 12px;
-            font-size: 11px;
+            padding: 8px 10px;
+            font-size: 10.5px;
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
@@ -48,11 +48,11 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto; display: block; padding: 8px 16px; font-size: 11px; border: none; border-radius: 4px; cursor: pointer;}
 
-        /* और 10% कम करके 610px किया, पैडिंग एडजस्ट की ताकि कुछ बाहर न जाए */
+        /* विड्थ को 550px किया (10% left + 10% right कम) और पैडिंग सुरक्षित की */
         .a4-landscape-container {
-            width: 610px; 
+            width: 550px; 
             background-color: #fff;
-            padding: 20px 15px; 
+            padding: 15px 10px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border-radius: 4px;
             position: relative;
@@ -60,8 +60,8 @@
 
         .main-title {
             text-align: center;
-            font-size: 20px;
-            margin: 0 0 12px 0;
+            font-size: 18px;
+            margin: 0 0 10px 0;
             font-weight: normal;
             letter-spacing: 1px;
             line-height: 1.2;
@@ -77,15 +77,15 @@
 
         .header-block {
             display: flex;
-            padding: 10px 8px;
+            padding: 8px 6px;
             border-bottom: 1px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 80px;
-            height: 80px;
-            margin-right: 12px;
+            width: 75px;
+            height: 75px;
+            margin-right: 10px;
             flex-shrink: 0;
         }
         .logo-img {
@@ -95,17 +95,17 @@
         
         .brand-details {
             flex: 1;
-            min-width: 0; /* टेक्स्ट ओवरफ्लो रोकने के लिए */
+            min-width: 0;
         }
         .brand-name {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 0 0 3px 0;
+            margin: 0 0 2px 0;
             letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 9px;
-            margin: 0 0 8px 0;
+            font-size: 8.5px;
+            margin: 0 0 6px 0;
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
@@ -115,12 +115,12 @@
         .driver-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 10px;
-            row-gap: 4px;
+            column-gap: 8px;
+            row-gap: 3px;
         }
 
         .field-row {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: bold;
             display: flex;
             align-items: flex-end;
@@ -136,7 +136,7 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 1px;
-            font-size: 10.5px;
+            font-size: 10px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -152,12 +152,12 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid #000;
         }
-        .col-box { padding: 6px 8px; }
+        .col-box { padding: 5px 6px; }
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 10.5px;
-            margin-bottom: 4px;
+            font-size: 10px;
+            margin-bottom: 3px;
         }
 
         .table-and-summary-container {
@@ -165,13 +165,12 @@
             width: 100%;
         }
 
-        /* वाटरमार्क थोड़ा और छोटा किया ताकि 610px विड्थ में परफेक्ट दिखे */
         .car-watermark {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 280px;
+            width: 250px;
             height: auto;
             opacity: 0.04;
             pointer-events: none;
@@ -186,8 +185,8 @@
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
-            padding: 6px 5px;
-            font-size: 10.5px;
+            padding: 5px 4px;
+            font-size: 10px;
             vertical-align: middle;
             background: transparent;
         }
@@ -205,7 +204,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 10.5px;
+            font-size: 10px;
             padding: 1px 0;
         }
         
@@ -214,7 +213,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 10.5px;
+            font-size: 10px;
             cursor: pointer;
         }
         
@@ -223,13 +222,13 @@
         .billing-summary {
             display: flex;
             border-bottom: 1px solid #000;
-            min-height: 120px;
+            min-height: 110px;
             position: relative;
             z-index: 1;
         }
-        .spacer-side { flex: 0.8; } 
+        .spacer-side { flex: 0.7; } 
         .math-side {
-            flex: 1.2;
+            flex: 1.3;
             border-left: 1px solid #000;
             display: flex;
             flex-direction: column;
@@ -238,11 +237,11 @@
         .math-row {
             display: flex;
             border-bottom: 1px solid #000;
-            font-size: 10.5px;
+            font-size: 10px;
             align-items: center;
         }
         .math-label {
-            padding: 4px 6px;
+            padding: 3px 5px;
             font-weight: bold;
             width: 55%;
             border-right: 1px solid #000;
@@ -251,59 +250,59 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 3px 6px;
+            padding: 2px 5px;
             width: 45%;
         }
         
         .words-section {
             border-bottom: 1px solid #000;
-            padding: 4px 6px;
+            padding: 3px 5px;
             flex-grow: 1;
         }
-        .words-title { font-weight: bold; font-size: 9.5px; }
-        .words-output { font-size: 9.5px; font-style: italic; color: #333; margin-top: 1px; }
+        .words-title { font-weight: bold; font-size: 9px; }
+        .words-output { font-size: 9px; font-style: italic; color: #333; margin-top: 1px; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 9.5px;
+            font-size: 9px;
             cursor: pointer;
             gap: 2px;
             font-weight: normal;
         }
 
         .footer-notes { display: flex; border-bottom: 1px solid #000; }
-        .note-chunk { flex: 1; padding: 6px; }
+        .note-chunk { flex: 1; padding: 5px; }
         .note-chunk:first-child { border-right: 1px solid #000; }
-        .note-title { font-weight: bold; font-size: 10.5px; margin-bottom: 3px; }
+        .note-title { font-weight: bold; font-size: 10px; margin-bottom: 2px; }
 
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 80px;
+            min-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 6px;
+            padding: 5px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
             border-left: 1px solid #000;
-            min-height: 80px;
+            min-height: 75px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 6px;
+            padding: 5px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 10.5px; width: 100%; }
+        .sig-title { font-weight: bold; font-size: 10px; width: 100%; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 48px;
-            margin-top: 3px;
+            height: 44px;
+            margin-top: 2px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
@@ -326,14 +325,14 @@
         }
         
         .driver-sig-svg {
-            width: 90px;
-            height: 35px;
+            width: 85px;
+            height: 32px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 9.5px; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 9px; font-weight: bold; width: 100%; }
         
         .render-text-span {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: normal;
             display: inline-block;
             border-bottom: 1px solid transparent;
@@ -341,33 +340,33 @@
         }
 
         .history-panel {
-            width: 610px; 
+            width: 550px; 
             background: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 4px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-top: 20px;
         }
         .history-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             border-bottom: 2px solid #4f46e5;
             padding-bottom: 4px;
         }
         .history-list {
             list-style: none;
             padding: 0;
-            max-height: 110px;
+            max-height: 100px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px 4px;
+            padding: 4px;
             border-bottom: 1px solid #eee;
-            font-size: 10.5px;
+            font-size: 10px;
             cursor: pointer;
         }
 
@@ -375,7 +374,7 @@
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .a4-landscape-container { box-shadow: none; padding: 10px; width: 100%; }
+            .a4-landscape-container { box-shadow: none; padding: 5px; width: 100%; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -542,10 +541,10 @@
                 </div>
             </div>
 
-            <!-- फुटर नोट्स -->
+            <!-- फुटर नोट्स (Description की जगह Location सेट किया) -->
             <div class="footer-notes">
                 <div class="note-chunk">
-                    <div class="note-title">Description:</div>
+                    <div class="note-title">Location:</div>
                     <input type="text" class="cell-input text-target">
                 </div>
                 <div class="note-chunk">
@@ -800,7 +799,7 @@
             listContainer.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('billHistory')) || [];
             if(history.length === 0) {
-                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:10.5px;">No records found.</li>';
+                listContainer.innerHTML = '<li style="color:#888; padding: 6px; font-size:10px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
