@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bill of Supply - Pravash Travels</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -14,7 +14,7 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 15px 0;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,8 +26,8 @@
             display: flex;
             gap: 8px;
             justify-content: center;
-            width: 95%;
-            max-width: 185mm;
+            width: 100%;
+            max-width: 700px;
             flex-wrap: wrap;
         }
         .btn {
@@ -44,42 +44,28 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .print-btn { background-color: #2ea44f; }
-        .print-btn:hover { background-color: #2c974b; }
         .whatsapp-btn { background-color: #25D366; }
-        .whatsapp-btn:hover { background-color: #20ba5a; }
         .copy-btn { background-color: #0284c7; }
-        .copy-btn:hover { background-color: #0369a1; }
         .down-btn { background-color: #ea580c; } 
-        .down-btn:hover { background-color: #c2410c; }
         .fresh-btn { background-color: #4f46e5; }
-        .fresh-btn:hover { background-color: #4338ca; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
-        .add-row-btn:hover { background-color: #d97706; }
 
         .bill-scroll-container {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 0 10px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            max-width: 700px;
+            overflow: visible;
         }
 
-        /* Bill dimensions lightly optimized to fit perfectly on standard mobile views */
         .bill-wrapper {
-            width: 185mm; 
-            min-height: 275mm;
+            width: 100%;
             background-color: #fff;
-            padding: 30px 25px; 
+            padding: 20px 15px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
             z-index: 1;
-            overflow: hidden;
-            flex-shrink: 0;
         }
 
         .bill-wrapper::before {
@@ -95,17 +81,15 @@
             background-position: center;
             background-size: contain;
             opacity: 0.07;
-            filter: blur(1px);
             z-index: -1;
             pointer-events: none;
         }
 
         .main-title {
             text-align: center;
-            font-size: 26px;
-            line-height: 1.2;
-            margin: 0 0 20px 0;
-            font-weight: 400;
+            font-size: 24px;
+            margin: 0 0 15px 0;
+            font-weight: bold;
             letter-spacing: 0.5px;
         }
 
@@ -114,53 +98,46 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            flex: 1;
             background: transparent;
         }
 
         .header-block {
             display: flex;
-            padding: 15px 12px;
+            padding: 10px;
             border-bottom: 1.5px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 105px;
-            height: 105px;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 85px;
+            height: 85px;
+            margin-right: 12px;
             flex-shrink: 0;
         }
         .logo-img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
         }
         
         .brand-details {
             flex: 1;
         }
         .brand-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             margin: 0 0 4px 0;
-            letter-spacing: 0.5px;
         }
         .brand-loc {
-            font-size: 11.5px;
-            margin: 0 0 10px 0;
-            font-weight: 500;
+            font-size: 11px;
+            margin: 0 0 8px 0;
         }
 
         .field-row {
-            margin-bottom: 6px;
-            font-size: 13.5px;
+            margin-bottom: 5px;
+            font-size: 13px;
             font-weight: bold;
             display: flex;
-            align-items: baseline;
+            align-items: center;
             width: 100%;
         }
         .field-row span {
@@ -172,22 +149,22 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 2px 4px;
-            font-size: 13.5px;
+            font-size: 13px;
             flex: 1;
             font-weight: normal;
             background: transparent;
+            min-width: 0;
         }
         .locked-field {
             color: #222;
             border-bottom: 1px dashed #777;
-            font-weight: 500;
         }
         
         .grid-contact {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 8px;
+            gap: 10px;
+            margin-top: 5px;
         }
 
         .two-column-split {
@@ -195,12 +172,12 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 10px; }
+        .col-box { padding: 8px; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 13.5px;
-            margin-bottom: 6px;
+            font-size: 13px;
+            margin-bottom: 5px;
         }
 
         .data-table {
@@ -209,24 +186,21 @@
         }
         .data-table th, .data-table td {
             border: 1.5px solid #000;
-            padding: 8px 10px;
-            font-size: 13.5px;
+            padding: 6px 8px;
+            font-size: 13px;
         }
         .data-table th {
             font-weight: bold;
             background-color: #e6e6e6;
-            text-align: left;
         }
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 58%; }
         
         .cell-input {
             width: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-size: 13.5px;
-            padding: 2px 0;
+            font-size: 13px;
         }
         
         .select-input {
@@ -234,13 +208,8 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
             cursor: pointer;
-            padding: 2px 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
         
         .align-right { text-align: right; }
@@ -248,12 +217,11 @@
         .billing-summary {
             display: flex;
             border-bottom: 1.5px solid #000;
-            flex: 1;
-            min-height: 180px;
+            min-height: 150px;
         }
-        .spacer-side { flex: 1.1; }
+        .spacer-side { flex: 1; }
         .math-side {
-            flex: 1.1;
+            flex: 1.2;
             border-left: 1.5px solid #000;
             display: flex;
             flex-direction: column;
@@ -261,11 +229,11 @@
         .math-row {
             display: flex;
             border-bottom: 1.5px solid #000;
-            font-size: 13.5px;
+            font-size: 13px;
             align-items: center;
         }
         .math-label {
-            padding: 8px 10px;
+            padding: 6px 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1.5px solid #000;
@@ -274,59 +242,55 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 8px 10px;
+            padding: 6px 8px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1.5px solid #000;
-            min-height: 55px;
-            padding: 8px 10px;
+            padding: 6px 8px;
         }
-        .words-title { font-weight: bold; font-size: 13.5px; margin-bottom: 4px; }
-        .words-output { font-size: 13px; font-weight: normal; color: #333; font-style: italic; word-break: break-word; }
+        .words-title { font-weight: bold; font-size: 12px; }
+        .words-output { font-size: 12px; font-style: italic; word-break: break-word; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 11px;
-            font-weight: normal;
+            font-size: 10px;
             cursor: pointer;
-            gap: 3px;
+            gap: 2px;
         }
-        .chk-container input { cursor: pointer; margin: 0; }
 
-        .footer-notes { display: flex; border-bottom: 1.5px solid #000; min-height: 65px; }
-        .note-chunk { flex: 1; padding: 8px; }
+        .footer-notes { display: flex; border-bottom: 1.5px solid #000; }
+        .note-chunk { flex: 1; padding: 6px; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
-        .note-title { font-weight: bold; font-size: 13.5px; }
+        .note-title { font-weight: bold; font-size: 13px; }
 
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
-            width: 55%;
-            min-height: 115px;
+            width: 50%;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             position: relative;
         }
         .sig-box-right {
-            width: 45%;
+            width: 50%;
             border-left: 1.5px solid #000;
-            min-height: 115px;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             align-items: center;
         }
-        .sig-title { font-weight: bold; font-size: 13.5px; width: 100%; text-align: left; }
+        .sig-title { font-weight: bold; font-size: 13px; width: 100%; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 70px;
-            margin-top: 5px;
+            height: 60px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
@@ -334,69 +298,62 @@
             width: 100%;
             height: 100%;
             background-color: #fafafa;
-            cursor: crosshair;
         }
         .clear-sig-btn {
             position: absolute;
-            right: 5px;
-            bottom: 5px;
+            right: 3px;
+            bottom: 3px;
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 10px;
-            padding: 2px 6px;
+            font-size: 9px;
+            padding: 2px 4px;
             border-radius: 3px;
-            cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 125px;
-            height: 65px;
+            width: 110px;
+            height: 50px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 13.5px; color: #333; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 12px; font-weight: bold; width: 100%; }
 
         .history-panel {
-            width: 95%;
-            max-width: 185mm;
+            width: 100%;
+            max-width: 700px;
             background: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 6px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-top: 15px;
         }
         .history-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border-bottom: 2px solid #4f46e5;
-            padding-bottom: 5px;
+            padding-bottom: 4px;
         }
         .history-list {
             list-style: none;
             padding: 0;
-            margin: 0;
-            max-height: 180px;
+            max-height: 150px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
+            padding: 6px;
             border-bottom: 1px solid #eee;
-            cursor: pointer;
             font-size: 12px;
         }
-        .history-item:hover { background-color: #f7f9fa; }
 
         @media print {
-            body { background-color: #fff; padding: 0; overflow: visible; }
+            body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .bill-scroll-container { padding: 0; overflow: visible; display: block; }
-            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; margin: 0 !important; }
-            .select-input { -webkit-appearance: none; appearance: none; }
+            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; border-radius: 0; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -414,7 +371,7 @@
     <div class="bill-scroll-container">
         <div class="bill-wrapper" id="billContents">
             <div>
-                <div class="main-title">Bill of<br>Supply</div>
+                <div class="main-title">Bill of Supply</div>
                 
                 <div class="outer-matrix">
                     <div class="header-block">
@@ -474,12 +431,12 @@
                         <div class="col-box">
                             <div class="sect-header">Bill To:</div>
                             <div class="field-row">
-                                <span>name</span>
-                                <input type="text" id="cust_name" class="fill-blank text-target">
+                                <span>Customer Name:</span>
+                                <input type="text" id="cust_name" class="fill-blank text-target" placeholder="Enter Name">
                             </div>
                             <div class="field-row">
                                 <span>Contact No:</span>
-                                <input type="text" id="cust_phone" class="fill-blank text-target">
+                                <input type="text" id="cust_phone" class="fill-blank text-target" placeholder="Enter Contact">
                             </div>
                         </div>
                         <div class="col-box">
@@ -500,8 +457,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Trip Details</th>
-                                <th style="text-align: center; width:18%;">Price/ Unit (₹)</th>
-                                <th style="text-align: center; width:18%;">Amount(₹)</th>
+                                <th style="text-align: center; width:22%;">Price/ Unit (₹)</th>
+                                <th style="text-align: center; width:22%;">Amount(₹)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -895,7 +852,7 @@
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
                 replacementSpan.className = 'temp-span-fix';
-                replacementSpan.style.fontSize = '13.5px';
+                replacementSpan.style.fontSize = '13px';
                 replacementSpan.appendChild(textNode);
                 parent.appendChild(replacementSpan);
                 select.style.display = 'none';
@@ -916,9 +873,7 @@
             html2canvas(target, { 
                 scale: 2.5, 
                 useCORS: true,
-                logging: false,
-                width: 185 * 3.7795275591,
-                height: 275 * 3.7795275591
+                logging: false
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
                 canvas.toBlob(blob => {
@@ -927,7 +882,7 @@
                     ]).then(() => {
                         alert("📸 परफेक्ट! बिल इमेज बिना कटे कॉपी हो गई है। WhatsApp चैट में पेस्ट करें।");
                     }).catch(() => {
-                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
+                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टed नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
                     });
                 }, "image/png");
             });
@@ -941,9 +896,7 @@
             html2canvas(target, { 
                 scale: 2.5,
                 useCORS: true,
-                logging: false,
-                width: 185 * 3.7795275591,
-                height: 275 * 3.7795275591
+                logging: false
             }).then(canvas => {
                 postProcessDOMAfterRender(target);
                 const link = document.createElement('a');
