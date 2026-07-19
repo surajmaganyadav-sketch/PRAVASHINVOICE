@@ -164,13 +164,17 @@
             border-bottom: 1px dashed #777;
         }
         
-        /* ग्रिड और ईमेल लेआउट फिक्स */
-        .grid-contact {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 10px;
-            margin-top: 5px;
+        /* क्लीन फ्लेक्स रो ताकि फ़ोन और ईमेल साथ में अच्छे दिखें और बाहर न जाएं */
+        .flex-row {
+            display: flex;
+            gap: 15px;
             width: 100%;
+        }
+        .flex-child {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .two-column-split {
@@ -324,7 +328,7 @@
         }
         .sig-designation { text-align: center; font-size: 12px; font-weight: bold; width: 100%; }
 
-        /* रेंडरिंग के समय दिखने वाले रिप्लेसमेंट स्पैन का स्टाइल */
+        /* रेंडरिंग टेक्स्ट स्पैन स्टाइल ताकि कोई शब्द न कटे */
         .render-text-span {
             font-size: 13px;
             font-weight: normal;
@@ -420,23 +424,21 @@
                                     <input type="text" id="car_no" class="fill-blank locked-field" value="MH04LY5124" readonly>
                                 </div>
                                 
-                                <div class="grid-contact">
-                                    <div>
-                                        <div class="field-row">
-                                            <span>Phone:</span>
-                                            <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
-                                        </div>
-                                        <div class="field-row">
-                                            <span>State:</span>
-                                            <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
-                                        </div>
+                                <!-- पुरानी इमेज जैसा क्लीन और सीधा रो सिस्टम -->
+                                <div class="field-row flex-row">
+                                    <div class="flex-child">
+                                        <span>Phone:</span>
+                                        <input type="text" class="fill-blank locked-field" value="9327477072" readonly>
                                     </div>
-                                    <div>
-                                        <div class="field-row">
-                                            <span>Email:</span>
-                                            <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
-                                        </div>
+                                    <div class="flex-child">
+                                        <span>Email:</span>
+                                        <input type="text" class="fill-blank locked-field" value="Rajit.syadav@gmail.com" readonly>
                                     </div>
+                                </div>
+                                
+                                <div class="field-row">
+                                    <span>State:</span>
+                                    <input type="text" class="fill-blank locked-field" value="Maharashtra" readonly>
                                 </div>
                             </div>
                         </div>
@@ -855,7 +857,7 @@
             }
         }
 
-        /* न्यू रेंडरिंग अपग्रेड: ये इमेज बनते समय सभी इनपुट को सॉलिड टेक्स्ट में बदल देगा ताकि कुछ भी कटे नहीं */
+        /* रेंडरिंग फिक्स: यह इमेज बनाने से पहले इनपुट्स को नॉर्मल टेक्स्ट में बदलता है ताकि फोंट कटे नहीं */
         function preProcessDOMBeforeRender(target) {
             const editableInputs = target.querySelectorAll('input[type="text"]');
             editableInputs.forEach(input => {
@@ -863,7 +865,6 @@
                 const replacementSpan = document.createElement('span');
                 replacementSpan.className = 'temp-span-fix render-text-span';
                 
-                // पेरेंट का अलाइनमेंट चेक करके स्पैन पर सेट करें
                 if (input.classList.contains('align-right')) {
                     replacementSpan.style.width = '100%';
                     replacementSpan.style.textAlign = 'right';
