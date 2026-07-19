@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bill of Supply - Pravash Travels</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -19,6 +19,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden; /* स्क्रीन को राइट में भागने से रोकेगा */
         }
         
         .action-bar {
@@ -50,14 +51,17 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
 
+        /* पेज मैनेजमेंट फिक्स: पूरे कंटेनर को सेंटर में रखेगा और मोबाइल स्क्रीन के अंदर समेटेगा */
         .bill-scroll-container {
             width: 100%;
             max-width: 700px;
-            overflow: visible;
+            display: flex;
+            justify-content: center;
         }
 
         .bill-wrapper {
             width: 100%;
+            max-width: 100%; /* बिल बाहर नहीं जाएगा */
             background-color: #fff;
             padding: 20px 15px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -121,6 +125,7 @@
         
         .brand-details {
             flex: 1;
+            min-width: 0; /* टेक्स्ट ओवरफ्लो फिक्स */
         }
         .brand-name {
             font-size: 18px;
@@ -172,7 +177,7 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1.5px solid #000;
         }
-        .col-box { padding: 8px; }
+        .col-box { padding: 8px; min-width: 0; }
         .col-box:first-child { border-right: 1.5px solid #000; }
         .sect-header {
             font-weight: bold;
@@ -261,7 +266,7 @@
         }
 
         .footer-notes { display: flex; border-bottom: 1.5px solid #000; }
-        .note-chunk { flex: 1; padding: 6px; }
+        .note-chunk { flex: 1; padding: 6px; min-width: 0; }
         .note-chunk:first-child { border-right: 1.5px solid #000; }
         .note-title { font-weight: bold; font-size: 13px; }
 
