@@ -11,10 +11,11 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             color: #000;
         }
+        
         body {
-            background-color: #f0f2f5; /* बैकग्राउंड का रंग ताकि A4 पेज उठ कर दिखे */
+            background-color: #f0f2f5;
             margin: 0;
-            padding: 20px 10px; /* ऊपर और नीचे जगह छोड़ने के लिए ताकि A4 पेज स्क्रीन से न चिपके */
+            padding: 30px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -23,18 +24,18 @@
         }
         
         .action-bar {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             gap: 6px;
             justify-content: center;
             width: 100%;
-            max-width: 500px; /* बटन बार को भी बिल की चौड़ाई में रखा */
+            max-width: 794px;
             flex-wrap: wrap;
         }
         .btn {
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 8px 14px;
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
@@ -42,62 +43,67 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         .print-btn { background-color: #2ea44f; }
         .whatsapp-btn { background-color: #25D366; }
         .copy-btn { background-color: #0284c7; }
         .down-btn { background-color: #ea580c; } 
         .fresh-btn { background-color: #4f46e5; }
-        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto 0 auto; display: flex; width: 150px; justify-content: center; padding: 6px 10px; font-size: 11px; }
+        .add-row-btn { background-color: #f59e0b; color: #fff; margin: 20px auto; display: block; width: 150px; justify-content: center; padding: 7px 10px; font-size: 11px; border: none; border-radius: 4px; cursor: pointer;}
 
-        .bill-scroll-container {
+        /* मुख्य A4 शीट - जो इमेज 2 की तरह सफ़ेद बैकग्राउंड और मार्जिन देगी */
+        .a4-page-container {
             width: 100%;
+            max-width: 794px; /* A4 Width */
+            background-color: #fff;
+            padding: 60px 50px; /* पर्याप्त स्पेसिंग ऊपर-नीचे और दाएं-बाएं */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 5px;
+            box-sizing: border-box;
             display: flex;
-            justify-content: center;
-            padding: 5px 0;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* यहाँ बदलाव किया है: इसे बिल्कुल A4 साइज पेपर के अनुपात में फिक्स और छोटा किया है */
+        /* बिल का कंटेनर - इसे 100% न रखकर फिक्स और छोटा किया है ताकि ये खिंचे नहीं */
         .bill-wrapper {
             width: 100%;
-            max-width: 500px; /* बिल की चौड़ाई को स्क्रीन से छोटा और फिक्स कर दिया */
+            max-width: 680px; /* बिल की साइज को परफेक्ट रखने के लिए */
             background-color: #fff;
-            padding: 25px 20px; /* अंदरूनी स्पेसिंग को प्रॉपर पेपर जैसा लुक दिया */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* पेपर को थोड़ा उभार देने के लिए हल्की शैडो */
-            border-radius: 4px;
             display: flex;
             flex-direction: column;
             position: relative;
             z-index: 1;
         }
 
+        /* कार की वाटरमार्क इमेज */
         .bill-wrapper::before {
             content: "";
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 75%;
-            height: 45%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.6" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.6"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
+            width: 70%;
+            height: 40%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 45" fill="none" stroke="black" stroke-width="0.5" stroke-linecap="round"><path d="M12,30 Q20,30 25,24 L38,24 Q48,10 65,10 L78,16 Q92,20 96,28 L98,34 Q98,37 92,37 L86,37 C85,32 77,32 76,37 L30,37 C29,32 21,32 20,37 L6,37 Q2,37 2,34 L3,31 Q4,29 12,30 Z"/><circle cx="25" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.5"/><circle cx="81" cy="37" r="4.5" fill="white" stroke="black" stroke-width="0.5"/><path d="M38,24 L62,24 L58,13 L43,13 Z M65,24 L84,24 L76,16 L64,16 Z"/></svg>');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            opacity: 0.05;
+            opacity: 0.04;
             z-index: -1;
             pointer-events: none;
         }
 
         .main-title {
             text-align: center;
-            font-size: 20px;
-            margin: 0 0 12px 0;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            font-weight: 400;
+            letter-spacing: 0.8px;
+            line-height: 1.3;
         }
 
+        /* आउटर बिल मैट्रिक्स */
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
@@ -108,17 +114,16 @@
 
         .header-block {
             display: flex;
-            padding: 8px;
+            padding: 12px;
             border-bottom: 1px solid #000;
             align-items: flex-start;
         }
         
         .logo-container {
-            width: 70px;
-            height: 70px;
-            margin-right: 10px;
+            width: 85px;
+            height: 85px;
+            margin-right: 15px;
             flex-shrink: 0;
-            margin-top: 2px;
         }
         .logo-img {
             width: 100%;
@@ -130,18 +135,19 @@
             min-width: 0;
         }
         .brand-name {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            margin: 0 0 2px 0;
+            margin: 0 0 4px 0;
+            letter-spacing: 0.3px;
         }
         .brand-loc {
             font-size: 9.5px;
-            margin: 0 0 6px 0;
-            color: #333;
+            margin: 0 0 10px 0;
+            color: #222;
         }
 
         .field-row {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             font-size: 11.5px;
             font-weight: bold;
             display: flex;
@@ -149,12 +155,12 @@
             width: 100%;
         }
         .field-row span {
-            margin-right: 4px;
+            margin-right: 5px;
             white-space: nowrap;
         }
         .fill-blank {
             border: none;
-            border-bottom: 1px dashed #555;
+            border-bottom: 1px dashed #666;
             outline: none;
             padding: 1px 2px;
             font-size: 11.5px;
@@ -170,14 +176,14 @@
         .contact-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
             width: 100%;
         }
         .contact-item {
             display: flex;
             align-items: center;
             flex: 1;
-            min-width: 140px;
+            min-width: 150px;
         }
 
         .two-column-split {
@@ -185,12 +191,12 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid #000;
         }
-        .col-box { padding: 6px; min-width: 0; }
+        .col-box { padding: 10px 8px; min-width: 0; }
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
             font-size: 11.5px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .data-table {
@@ -199,14 +205,15 @@
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
-            padding: 4px 6px;
+            padding: 6px 8px;
             font-size: 11.5px;
+            vertical-align: middle;
         }
         .data-table th {
             font-weight: bold;
-            background-color: #f2f2f2;
+            background-color: #f7f7f7;
         }
-        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 5%; text-align: center; }
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
         
         .cell-input {
             width: 100%;
@@ -222,7 +229,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 11px;
+            font-size: 11.5px;
             cursor: pointer;
             padding: 0;
         }
@@ -232,9 +239,9 @@
         .billing-summary {
             display: flex;
             border-bottom: 1px solid #000;
-            min-height: 100px;
+            min-height: 120px;
         }
-        .spacer-side { flex: 1; }
+        .spacer-side { flex: 1.1; }
         .math-side {
             flex: 1.2;
             border-left: 1px solid #000;
@@ -248,7 +255,7 @@
             align-items: center;
         }
         .math-label {
-            padding: 4px 6px;
+            padding: 6px 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1px solid #000;
@@ -257,47 +264,54 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 4px 6px;
+            padding: 6px 8px;
             width: 45%;
         }
         .words-section {
             border-bottom: 1px solid #000;
-            padding: 4px 6px;
+            padding: 6px 8px;
         }
         .words-title { font-weight: bold; font-size: 10.5px; }
-        .words-output { font-size: 10.5px; font-style: italic; word-break: break-word; color: #333; }
+        .words-output { font-size: 10.5px; font-style: italic; word-break: break-word; color: #333; margin-top: 2px; }
 
+        /* चेकबॉक्स कंटेनर फिक्स ताकि ओवरलैप न हो */
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 9px;
+            font-size: 10px;
             cursor: pointer;
-            gap: 1px;
+            gap: 3px;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+        .chk-container input {
+            margin: 0;
+            cursor: pointer;
         }
 
         .footer-notes { display: flex; border-bottom: 1px solid #000; }
-        .note-chunk { flex: 1; padding: 4px; min-width: 0; }
+        .note-chunk { flex: 1; padding: 8px; min-width: 0; }
         .note-chunk:first-child { border-right: 1px solid #000; }
-        .note-title { font-weight: bold; font-size: 11.5px; }
+        .note-title { font-weight: bold; font-size: 11.5px; margin-bottom: 4px; }
 
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 75px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 6px;
+            padding: 8px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
             border-left: 1px solid #000;
-            min-height: 75px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 6px;
+            padding: 8px;
             align-items: center;
         }
         .sig-title { font-weight: bold; font-size: 11.5px; width: 100%; }
@@ -305,10 +319,11 @@
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 45px;
+            height: 50px;
+            margin-top: 5px;
         }
         .sig-canvas {
-            border: 1px dashed #ccc;
+            border: 1px dashed #bbb;
             border-radius: 2px;
             width: 100%;
             height: 100%;
@@ -316,19 +331,20 @@
         }
         .clear-sig-btn {
             position: absolute;
-            right: 2px;
-            bottom: 2px;
+            right: 3px;
+            bottom: 3px;
             background: #e11d48;
             color: white;
             border: none;
             font-size: 8px;
-            padding: 1px 3px;
+            padding: 1px 4px;
             border-radius: 2px;
+            cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 90px;
-            height: 35px;
+            width: 100px;
+            height: 40px;
             margin: auto;
         }
         .sig-designation { text-align: center; font-size: 10.5px; font-weight: bold; width: 100%; }
@@ -343,19 +359,19 @@
 
         .history-panel {
             width: 100%;
-            max-width: 500px; /* हिस्ट्री पैनल को भी बिल के साइज में सेट किया */
+            max-width: 794px;
             background: white;
-            padding: 10px;
+            padding: 12px;
             border-radius: 4px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            margin-top: 15px;
+            margin-top: 20px;
         }
         .history-title {
             font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 6px;
             border-bottom: 2px solid #4f46e5;
-            padding-bottom: 3px;
+            padding-bottom: 4px;
         }
         .history-list {
             list-style: none;
@@ -367,16 +383,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 4px;
+            padding: 5px 4px;
             border-bottom: 1px solid #eee;
             font-size: 11px;
+            cursor: pointer;
         }
 
         @media print {
             body { background-color: #fff; padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .bill-wrapper { box-shadow: none; padding: 0; width: 100%; max-width: 100%; border-radius: 0; }
+            .a4-page-container { box-shadow: none; padding: 40px 30px; width: 100%; max-width: 100%; border-radius: 0; }
+            .bill-wrapper { max-width: 680px; margin: 0 auto; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -391,7 +409,8 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <div class="bill-scroll-container">
+    <!-- मुख्य A4 पेज ढांचा जो किनारों पर स्पेस छोड़ता है -->
+    <div class="a4-page-container" id="a4PaperSheet">
         <div class="bill-wrapper" id="billContents">
             <div>
                 <div class="main-title">Bill of Supply</div>
@@ -898,7 +917,7 @@
         }
 
         function copyBillAsImage() {
-            const target = document.getElementById('billContents');
+            const target = document.getElementById('a4PaperSheet'); 
             preProcessDOMBeforeRender(target);
 
             html2canvas(target, { 
@@ -920,7 +939,7 @@
         }
 
         function downloadBillAsImage() {
-            const target = document.getElementById('billContents');
+            const target = document.getElementById('a4PaperSheet'); 
             preProcessDOMBeforeRender(target);
             const invoice = document.getElementById('invoice_no').value || "Bill";
 
