@@ -19,7 +19,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden; /* स्क्रीन को राइट में भागने से रोकेगा */
+            overflow-x: hidden;
         }
         
         .action-bar {
@@ -51,7 +51,6 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px 0; width: 180px; justify-content: center; }
 
-        /* पेज मैनेजमेंट फिक्स: पूरे कंटेनर को सेंटर में रखेगा और मोबाइल स्क्रीन के अंदर समेटेगा */
         .bill-scroll-container {
             width: 100%;
             max-width: 700px;
@@ -61,7 +60,7 @@
 
         .bill-wrapper {
             width: 100%;
-            max-width: 100%; /* बिल बाहर नहीं जाएगा */
+            max-width: 100%;
             background-color: #fff;
             padding: 20px 15px; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -125,7 +124,7 @@
         
         .brand-details {
             flex: 1;
-            min-width: 0; /* टेक्स्ट ओवरफ्लो फिक्स */
+            min-width: 0;
         }
         .brand-name {
             font-size: 18px;
@@ -165,11 +164,13 @@
             border-bottom: 1px dashed #777;
         }
         
+        /* ग्रिड और ईमेल लेआउट फिक्स */
         .grid-contact {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.1fr 0.9fr;
             gap: 10px;
             margin-top: 5px;
+            width: 100%;
         }
 
         .two-column-split {
@@ -322,6 +323,15 @@
             margin: auto;
         }
         .sig-designation { text-align: center; font-size: 12px; font-weight: bold; width: 100%; }
+
+        /* रेंडरिंग के समय दिखने वाले रिप्लेसमेंट स्पैन का स्टाइल */
+        .render-text-span {
+            font-size: 13px;
+            font-weight: normal;
+            word-break: break-all;
+            display: inline-block;
+            padding: 2px 4px;
+        }
 
         .history-panel {
             width: 100%;
@@ -845,28 +855,43 @@
             }
         }
 
+        /* न्यू रेंडरिंग अपग्रेड: ये इमेज बनते समय सभी इनपुट को सॉलिड टेक्स्ट में बदल देगा ताकि कुछ भी कटे नहीं */
         function preProcessDOMBeforeRender(target) {
-            const editableInputs = target.querySelectorAll('input');
+            const editableInputs = target.querySelectorAll('input[type="text"]');
             editableInputs.forEach(input => {
-                input.setAttribute('value', input.value);
+                const parent = input.parentNode;
+                const replacementSpan = document.createElement('span');
+                replacementSpan.className = 'temp-span-fix render-text-span';
+                
+                // पेरेंट का अलाइनमेंट चेक करके स्पैन पर सेट करें
+                if (input.classList.contains('align-right')) {
+                    replacementSpan.style.width = '100%';
+                    replacementSpan.style.textAlign = 'right';
+                }
+                
+                replacementSpan.innerText = input.value || " ";
+                input.style.display = 'none';
+                parent.appendChild(replacementSpan);
             });
             
             const selects = target.querySelectorAll('select');
             selects.forEach(select => {
-                const textNode = document.createTextNode(select.value || " ");
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
-                replacementSpan.className = 'temp-span-fix';
-                replacementSpan.style.fontSize = '13px';
-                replacementSpan.appendChild(textNode);
-                parent.appendChild(replacementSpan);
+                replacementSpan.className = 'temp-span-fix render-text-span';
+                replacementSpan.innerText = select.value || " ";
                 select.style.display = 'none';
+                parent.appendChild(replacementSpan);
             });
         }
 
         function postProcessDOMAfterRender(target) {
             const tempSpans = target.querySelectorAll('.temp-span-fix');
             tempSpans.forEach(span => span.remove());
+            
+            const inputs = target.querySelectorAll('input[type="text"]');
+            inputs.forEach(input => input.style.display = 'block');
+            
             const selects = target.querySelectorAll('select');
             selects.forEach(select => select.style.display = 'block');
         }
@@ -887,7 +912,7 @@
                     ]).then(() => {
                         alert("📸 परफेक्ट! बिल इमेज बिना कटे कॉपी हो गई है। WhatsApp चैट में पेस्ट करें।");
                     }).catch(() => {
-                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टed नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
+                        alert("❌ इस डिवाइस पर डायरेक्ट कॉपी सपोर्टेड नहीं है, कृपया 'Download Bill Image' बटन का इस्तेमाल करें!");
                     });
                 }, "image/png");
             });
