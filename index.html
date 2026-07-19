@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=860, initial-scale=1.0"> <!-- स्क्वायर लेआउट को मोबाइल पर फिक्स रखने के लिए -->
+    <meta name="viewport" content="width=800, initial-scale=1.0"> <!-- न्यू विड्थ फिक्स -->
     <title>Bill of Supply - Pravash Travels</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -29,13 +29,13 @@
             display: flex;
             gap: 10px;
             justify-content: center;
-            width: 820px; /* स्क्वायर कंटेनर के बराबर विड्थ */
+            width: 760px; /* दोनों साइड से विड्थ कम की */
         }
         .btn {
             color: white;
             border: none;
-            padding: 10px 16px;
-            font-size: 12px;
+            padding: 10px 14px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
@@ -47,11 +47,11 @@
         .fresh-btn { background-color: #4f46e5; }
         .add-row-btn { background-color: #f59e0b; color: #fff; margin: 15px auto; display: block; padding: 8px 16px; font-size: 12px; border: none; border-radius: 4px; cursor: pointer;}
 
-        /* परफेक्ट स्क्वायर (Square) लुक देने के लिए चौड़ाई को छोटा किया */
+        /* दोनों साइड से 3.5% + 3.5% = 7% चौड़ाई कम करके 760px की */
         .a4-landscape-container {
-            width: 820px; /* हल्की छोटी चौड़ाई ताकि यह स्क्वायर शेप में दिखे */
+            width: 760px; 
             background-color: #fff;
-            padding: 35px 40px;
+            padding: 30px 32px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border-radius: 4px;
             position: relative;
@@ -59,14 +59,13 @@
 
         .main-title {
             text-align: center;
-            font-size: 24px;
-            margin: 0 0 20px 0;
+            font-size: 22px;
+            margin: 0 0 15px 0;
             font-weight: normal;
             letter-spacing: 1px;
             line-height: 1.2;
         }
 
-        /* मुख्य आउटर बॉर्डर बॉक्स */
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
@@ -75,18 +74,17 @@
             z-index: 1;
         }
 
-        /* हेडर ब्लॉक */
         .header-block {
             display: flex;
-            padding: 15px 12px;
+            padding: 12px 10px;
             border-bottom: 1px solid #000;
             align-items: center;
         }
         
         .logo-container {
-            width: 95px;
-            height: 95px;
-            margin-right: 20px;
+            width: 90px;
+            height: 90px;
+            margin-right: 15px;
             flex-shrink: 0;
         }
         .logo-img {
@@ -98,23 +96,22 @@
             flex: 1;
         }
         .brand-name {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
             margin: 0 0 4px 0;
             letter-spacing: 0.5px;
         }
         .brand-loc {
             font-size: 10px;
-            margin: 0 0 12px 0;
+            margin: 0 0 10px 0;
             font-weight: bold;
         }
 
-        /* स्क्वायर डिज़ाइन के हिसाब से सेट ग्रिड */
         .driver-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 25px;
-            row-gap: 6px;
+            column-gap: 15px;
+            row-gap: 5px;
         }
 
         .field-row {
@@ -129,7 +126,6 @@
             white-space: nowrap;
         }
         
-        /* बारीक सॉलिड अंडरलाइन */
         .fill-blank {
             border: none;
             border-bottom: 1px solid #000;
@@ -146,40 +142,36 @@
             border-bottom: 1px dotted #999;
         }
 
-        /* 50-50 स्प्लिट बॉक्स */
         .two-column-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid #000;
         }
-        .col-box { padding: 10px 12px; }
+        .col-box { padding: 8px 10px; }
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
             font-size: 11px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        /* मिडिल एरिया वाटरमार्क कंटेनर */
         .table-and-summary-container {
             position: relative;
             width: 100%;
         }
 
-        /* लाइट कार वाटरमार्क */
         .car-watermark {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 420px;
+            width: 380px;
             height: auto;
             opacity: 0.04;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* स्क्वायर लेआउट टेबल विड्थ */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -188,7 +180,7 @@
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 7px 6px;
             font-size: 11px;
             vertical-align: middle;
             background: transparent;
@@ -222,15 +214,14 @@
         
         .align-right { text-align: right; }
 
-        /* स्क्वायर समरी ब्लॉक */
         .billing-summary {
             display: flex;
             border-bottom: 1px solid #000;
-            min-height: 140px;
+            min-height: 130px;
             position: relative;
             z-index: 1;
         }
-        .spacer-side { flex: 1.2; }
+        .spacer-side { flex: 1.1; }
         .math-side {
             flex: 1;
             border-left: 1px solid #000;
@@ -245,7 +236,7 @@
             align-items: center;
         }
         .math-label {
-            padding: 6px 10px;
+            padding: 5px 8px;
             font-weight: bold;
             width: 55%;
             border-right: 1px solid #000;
@@ -254,13 +245,13 @@
             justify-content: space-between;
         }
         .math-input-wrap {
-            padding: 4px 10px;
+            padding: 4px 8px;
             width: 45%;
         }
         
         .words-section {
             border-bottom: 1px solid #000;
-            padding: 6px 10px;
+            padding: 5px 8px;
             flex-grow: 1;
         }
         .words-title { font-weight: bold; font-size: 10px; }
@@ -271,35 +262,33 @@
             align-items: center;
             font-size: 10px;
             cursor: pointer;
-            gap: 4px;
+            gap: 3px;
             font-weight: normal;
         }
 
-        /* डिस्क्रिप्शन और विज़न */
         .footer-notes { display: flex; border-bottom: 1px solid #000; }
-        .note-chunk { flex: 1; padding: 10px; }
+        .note-chunk { flex: 1; padding: 8px; }
         .note-chunk:first-child { border-right: 1px solid #000; }
         .note-title { font-weight: bold; font-size: 11px; margin-bottom: 4px; }
 
-        /* सिग्नेचर ब्लॉक */
         .signature-area { display: flex; width: 100%; background: #fff; }
         .sig-box-left {
             width: 50%;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             position: relative;
         }
         .sig-box-right {
             width: 50%;
             border-left: 1px solid #000;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             align-items: center;
         }
         .sig-title { font-weight: bold; font-size: 11px; width: 100%; }
@@ -307,7 +296,7 @@
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 60px;
+            height: 55px;
             margin-top: 4px;
         }
         .sig-canvas {
@@ -331,13 +320,12 @@
         }
         
         .driver-sig-svg {
-            width: 110px;
-            height: 45px;
+            width: 100px;
+            height: 40px;
             margin: auto;
         }
         .sig-designation { text-align: center; font-size: 10px; font-weight: bold; width: 100%; }
         
-        /* रेंडरिंग फिक्स */
         .render-text-span {
             font-size: 11px;
             font-weight: normal;
@@ -347,7 +335,7 @@
         }
 
         .history-panel {
-            width: 820px;
+            width: 760px; /* मैच की गई विड्थ */
             background: white;
             padding: 15px;
             border-radius: 4px;
@@ -396,7 +384,7 @@
         <button class="btn fresh-btn" onclick="triggerFreshBill()">➕ Add Fresh Bill</button>
     </div>
 
-    <!-- चौकोर (Square Shape) कंटेनर शीट -->
+    <!-- 7% कॉम्पैक्ट नैरो स्क्वायर शेप कंटेनर शीट -->
     <div class="a4-landscape-container" id="a4PaperSheet">
         <div class="main-title">Bill of Supply</div>
         
