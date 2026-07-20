@@ -79,8 +79,22 @@
             overflow: hidden;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 250' fill='none'><path d='M40,165 C30,165 15,160 15,145 C15,120 45,115 70,110 C90,105 115,85 140,75 C175,60 230,48 300,48 C360,48 440,52 475,70 C500,82 535,102 555,112 C575,122 585,130 585,142 C585,155 570,162 550,165 C540,165 530,160 525,150 C515,130 475,130 465,150 C460,162 450,165 300,165 C150,165 140,162 135,150 C125,130 85,130 75,150 C70,160 55,165 40,165 Z' stroke='%23333333' stroke-width='2' fill='none'/><circle cx='105' cy='150' r='25' stroke='%23333333' stroke-width='3' fill='none'/><circle cx='495' cy='150' r='25' stroke='%23333333' stroke-width='3' fill='none'/><path d='M145,78 L285,55 L285,110 L135,110 Z' stroke='%23333333' stroke-width='1.5'/><path d='M295,55 L445,74 L425,110 L295,110 Z' stroke='%23333333' stroke-width='1.5'/></svg>");
             background-repeat: no-repeat;
-            background-position: center 55%;
-            background-size: 92% auto;
+            background-position: center 58%;
+            background-size: 88% auto;
+        }
+
+        .a4-landscape-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: inherit;
+            background-repeat: no-repeat;
+            background-position: center 58%;
+            background-size: 88% auto;
+            opacity: 0.22;
+            filter: contrast(1.1) brightness(1.05);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .main-title {
@@ -96,7 +110,7 @@
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.85);
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -118,6 +132,8 @@
         .logo-img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
         
         .brand-details {
@@ -214,15 +230,20 @@
             padding: 3px;
             font-size: 8px;
             vertical-align: middle;
+            background: rgba(255, 255, 255, 0.4);
         }
         .data-table th {
             font-weight: bold;
             text-align: left;
+            background: rgba(245, 245, 245, 0.8);
         }
-        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 7%; text-align: center; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 48%; }
-        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 22%; text-align: center; }
-        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 23%; text-align: center; }
+        
+        /* कॉलम की नई साइज़िंग: #, Trip Details, Qty, Price, Amt */
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 44%; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 14%; text-align: center; }
+        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 18%; text-align: center; }
+        .data-table th:nth-child(5), .data-table td:nth-child(5) { width: 18%; text-align: center; }
         
         .cell-input {
             width: 100%;
@@ -242,6 +263,7 @@
         }
         
         .align-right { text-align: right; }
+        .align-center { text-align: center; }
 
         .billing-summary {
             display: flex;
@@ -253,6 +275,7 @@
             border-left: 1px solid #000;
             display: flex;
             flex-direction: column;
+            background: rgba(255, 255, 255, 0.7);
         }
         .math-row {
             display: flex;
@@ -290,13 +313,13 @@
             font-weight: normal;
         }
 
-        .footer-notes { display: flex; border-bottom: 1px solid #000; }
+        .footer-notes { display: flex; border-bottom: 1px solid #000; background: rgba(255, 255, 255, 0.7); }
         .note-chunk { flex: 1; padding: 3px 4px; }
         .note-chunk:first-child { border-right: 1px solid #000; }
         .note-title { font-weight: bold; font-size: 8px; margin-bottom: 1px; }
         .vision-text { font-size: 7.5px; font-style: italic; color: #444; margin-top: 2px; line-height: 1.1; }
 
-        .signature-area { display: flex; width: 100%; background: #fff; }
+        .signature-area { display: flex; width: 100%; background: rgba(255, 255, 255, 0.85); }
         .sig-box-left {
             width: 50%;
             height: 48px;
@@ -409,15 +432,8 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
-                        <svg viewBox="0 0 200 200" class="logo-img" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="100" cy="100" r="96" fill="#0d233a" stroke="#ba9447" stroke-width="4"/>
-                            <circle cx="100" cy="100" r="84" fill="none" stroke="#ba9447" stroke-width="1" stroke-dasharray="5 3"/>
-                            <path d="M60,115 L70,95 Q75,85 95,85 L125,85 Q140,85 145,95 L155,115 Q165,117 165,123 L162,130 L42,130 L38,123 Q38,117 60,115 Z" fill="#ba9447"/>
-                            <circle cx="65" cy="132" r="10" fill="#0d233a" stroke="#ba9447" stroke-width="3"/>
-                            <circle cx="135" cy="132" r="10" fill="#0d233a" stroke="#ba9447" stroke-width="3"/>
-                            <text x="50%" y="45" dominant-baseline="middle" text-anchor="middle" fill="#ba9447" font-size="16" font-weight="bold">PRAVASH</text>
-                            <text x="50%" y="65" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-size="11" letter-spacing="2">TOURS & TRAVELS</text>
-                        </svg>
+                        <!-- नया वाला यूजर द्वारा दिया गया गोल लोगो -->
+                        <img src="1000062656.png" class="logo-img" alt="Pravash Logo">
                     </div>
                     <div class="brand-details">
                         <h1 class="brand-name" style="color: #0d233a; font-size: 11px;">PRAVASH TOUR AND TRAVELS</h1>
@@ -437,7 +453,6 @@
                             <div class="grid-two-col">
                                 <div class="field-row w-half-left">
                                     <span>Phone:</span>
-                                    <!-- ड्राइवर का नया फ़ोन नंबर यहाँ अपडेट कर दिया गया है -->
                                     <input type="text" class="fill-blank locked-field" value="9326477072" readonly>
                                 </div>
                                 <div class="field-row w-half-right">
@@ -484,6 +499,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Trip Details</th>
+                                <th style="text-align: center;">Qty</th>
                                 <th style="text-align: center;">Price (₹)</th>
                                 <th style="text-align: center;">Amt (₹)</th>
                             </tr>
@@ -503,8 +519,9 @@
                                         <option value="Out station">Out station</option>
                                     </select>
                                 </td>
+                                <td><input type="text" class="cell-input align-center qty-input text-target" oninput="calculateTotals()"></td>
                                 <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                                <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                                <td><input type="text" class="cell-input align-right amt-input text-target" readonly></td>
                             </tr>
                         </tbody>
                     </table>
@@ -654,8 +671,9 @@
                 <td>
                     <input type="text" class="cell-input text-target dynamic-text-field" placeholder="Type trip details here...">
                 </td>
+                <td><input type="text" class="cell-input align-center qty-input text-target" oninput="calculateTotals()"></td>
                 <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                <td><input type="text" class="cell-input align-right amt-input text-target" readonly></td>
             `;
         }
 
@@ -668,13 +686,20 @@
 
         function calculateTotals() {
             let runningSubTotal = 0;
-            const amtInputs = document.querySelectorAll('.amt-input');
-            const priceInputs = document.querySelectorAll('.price-input');
+            const rows = document.querySelectorAll('#itemsTable tbody tr');
             
-            amtInputs.forEach((input, index) => {
-                let val = parseFloat(input.value) || 0;
-                if (val === 0) val = parseFloat(priceInputs[index].value) || 0;
-                runningSubTotal += val;
+            rows.forEach((row) => {
+                const qtyInput = row.querySelector('.qty-input');
+                const priceInput = row.querySelector('.price-input');
+                const amtInput = row.querySelector('.amt-input');
+                
+                let qty = parseFloat(qtyInput.value) || 1;
+                if (qty <= 0) qty = 1;
+                let price = parseFloat(priceInput.value) || 0;
+                
+                let calculatedAmt = price * qty;
+                amtInput.value = calculatedAmt > 0 ? calculatedAmt.toFixed(2) : "";
+                runningSubTotal += calculatedAmt;
             });
 
             document.getElementById('sub_total').value = runningSubTotal.toFixed(2);
@@ -726,12 +751,15 @@
             const selectedTrips = []; document.querySelectorAll('.selection-field').forEach(sel => { selectedTrips.push(sel.value); });
             const typedTrips = []; document.querySelectorAll('.dynamic-text-field').forEach(txt => { typedTrips.push(txt.value); });
             
+            // Quantities save state
+            const quantities = []; document.querySelectorAll('.qty-input').forEach(q => { quantities.push(q.value); });
+
             const isPaidChecked = document.getElementById('paid_full_chk').checked;
             const sigImgData = canvas.toDataURL();
 
             const billRecord = { 
                 id: invoiceNo, custName: custName, totalAmt: totalAmt, date: dateStr, 
-                rowCount: rowCount, formData: stateData, selections: selectedTrips, typedFields: typedTrips, paidChecked: isPaidChecked, customerSignature: sigImgData
+                rowCount: rowCount, formData: stateData, selections: selectedTrips, typedFields: typedTrips, quantities: quantities, paidChecked: isPaidChecked, customerSignature: sigImgData
             };
             
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
@@ -805,8 +833,9 @@
                                     <option value="Out station">Out station</option>
                                 </select>
                             </td>
+                            <td><input type="text" class="cell-input align-center qty-input text-target" oninput="calculateTotals()"></td>
                             <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                            <td><input type="text" class="cell-input align-right amt-input text-target" readonly></td>
                         `;
                     } else {
                         newRow.innerHTML = `
@@ -814,8 +843,9 @@
                             <td>
                                 <input type="text" class="cell-input text-target dynamic-text-field" placeholder="Type trip details here...">
                             </td>
+                            <td><input type="text" class="cell-input align-center qty-input text-target" oninput="calculateTotals()"></td>
                             <td><input type="text" class="cell-input align-right price-input text-target" oninput="calculateTotals()"></td>
-                            <td><input type="text" class="cell-input align-right amt-input text-target" oninput="calculateTotals()"></td>
+                            <td><input type="text" class="cell-input align-right amt-input text-target" readonly></td>
                         `;
                     }
                 }
@@ -827,6 +857,12 @@
                 if(record.typedFields) {
                     document.querySelectorAll('.dynamic-text-field').forEach((txt, idx) => {
                         if(record.typedFields[idx] !== undefined) txt.value = record.typedFields[idx];
+                    });
+                }
+
+                if(record.quantities) {
+                    document.querySelectorAll('.qty-input').forEach((q, idx) => {
+                        if(record.quantities[idx] !== undefined) q.value = record.quantities[idx];
                     });
                 }
 
@@ -853,6 +889,8 @@
                 replacementSpan.className = 'temp-span-fix render-text-span';
                 if (input.classList.contains('align-right')) {
                     replacementSpan.style.width = '100%'; replacementSpan.style.textAlign = 'right';
+                } else if (input.classList.contains('align-center')) {
+                    replacementSpan.style.width = '100%'; replacementSpan.style.textAlign = 'center';
                 }
                 replacementSpan.innerText = input.value || " ";
                 input.style.display = 'none'; parent.appendChild(replacementSpan);
