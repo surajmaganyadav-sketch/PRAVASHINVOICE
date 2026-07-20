@@ -110,7 +110,7 @@
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
-            background: rgba(255, 255, 255, 0.85);
+            background: #ffffff;
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -121,6 +121,7 @@
             padding: 4px;
             border-bottom: 1px solid #000;
             align-items: center;
+            background: #ffffff;
         }
         
         .logo-container {
@@ -128,7 +129,7 @@
             height: 52px;
             margin-right: 6px;
             flex-shrink: 0;
-            background: #fff;
+            background: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -142,6 +143,7 @@
             border-radius: 50%;
             object-fit: cover;
             display: block;
+            background: #ffffff;
         }
         
         .brand-details {
@@ -213,8 +215,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid #000;
+            background: #ffffff;
         }
-        .col-box { padding: 3px 4px; }
+        .col-box { padding: 3px 4px; background: #ffffff; }
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
@@ -227,23 +230,25 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            background: #ffffff;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            background: #ffffff;
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
             padding: 3px;
             font-size: 8px;
             vertical-align: middle;
-            background: rgba(255, 255, 255, 0.4);
+            background: #ffffff;
         }
         .data-table th {
             font-weight: bold;
             text-align: left;
-            background: rgba(245, 245, 245, 0.8);
+            background: #f5f5f5;
         }
         
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
@@ -275,20 +280,22 @@
         .billing-summary {
             display: flex;
             border-bottom: 1px solid #000;
+            background: #ffffff;
         }
-        .spacer-side { flex: 0.4; } 
+        .spacer-side { flex: 0.4; background: #ffffff; } 
         .math-side {
             flex: 1.6;
             border-left: 1px solid #000;
             display: flex;
             flex-direction: column;
-            background: rgba(255, 255, 255, 0.7);
+            background: #ffffff;
         }
         .math-row {
             display: flex;
             border-bottom: 1px solid #000;
             font-size: 8px;
             align-items: center;
+            background: #ffffff;
         }
         .math-label {
             padding: 2px 4px;
@@ -298,15 +305,18 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: #ffffff;
         }
         .math-input-wrap {
             padding: 2px 4px;
             width: 48%;
+            background: #ffffff;
         }
         
         .words-section {
             border-bottom: 1px solid #000;
             padding: 2px 4px;
+            background: #ffffff;
         }
         .words-title { font-weight: bold; font-size: 7.5px; }
         .words-output { font-size: 7.5px; font-style: italic; color: #333; margin-top: 1px; }
@@ -320,13 +330,13 @@
             font-weight: normal;
         }
 
-        .footer-notes { display: flex; border-bottom: 1px solid #000; background: rgba(255, 255, 255, 0.7); }
-        .note-chunk { flex: 1; padding: 3px 4px; }
+        .footer-notes { display: flex; border-bottom: 1px solid #000; background: #ffffff; }
+        .note-chunk { flex: 1; padding: 3px 4px; background: #ffffff; }
         .note-chunk:first-child { border-right: 1px solid #000; }
         .note-title { font-weight: bold; font-size: 8px; margin-bottom: 1px; }
         .vision-text { font-size: 7.5px; font-style: italic; color: #444; margin-top: 2px; line-height: 1.1; }
 
-        .signature-area { display: flex; width: 100%; background: rgba(255, 255, 255, 0.85); }
+        .signature-area { display: flex; width: 100%; background: #ffffff; }
         .sig-box-left {
             width: 50%;
             height: 48px;
@@ -335,6 +345,7 @@
             justify-content: space-between;
             padding: 3px;
             position: relative;
+            background: #ffffff;
         }
         .sig-box-right {
             width: 50%;
@@ -345,6 +356,7 @@
             justify-content: space-between;
             padding: 3px;
             align-items: center;
+            background: #ffffff;
         }
         .sig-title { font-weight: bold; font-size: 8px; width: 100%; }
         
@@ -404,17 +416,20 @@
         .history-list {
             list-style: none;
             padding: 0;
-            max-height: 70px;
+            max-height: 120px;
             overflow-y: auto;
         }
         .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 3px;
+            padding: 4px 6px;
             border-bottom: 1px solid #eee;
             font-size: 8px;
             cursor: pointer;
+        }
+        .history-item:hover {
+            background-color: #f8fafc;
         }
 
         @media print {
@@ -439,8 +454,8 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
-                        <!-- Premium Blue and Golden Logo Data URL -->
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='gold' x1='0%य' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23BF953F'/><stop offset='25%' stop-color='%23FCF6BA'/><stop offset='50%' stop-color='%23B38728'/><stop offset='75%' stop-color='%23FBF5B7'/><stop offset='100%' stop-color='%23AA771C'/></linearGradient><linearGradient id='blue' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230b2341'/><stop offset='100%' stop-color='%23193a6f'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='url(%23blue)' stroke='url(%23gold)' stroke-width='3'/><circle cx='50' cy='50' r='40' fill='none' stroke='url(%23gold)' stroke-width='1' stroke-dasharray='3,2'/><path d='M35 52 L50 32 L65 52 Z' fill='url(%23gold)'/><path d='M30 58 L70 58 L65 52 L35 52 Z' fill='url(%23gold)'/><path d='M42 32 L58 32 L55 26 L45 26 Z' fill='url(%23gold)'/><path d='M30 68 C40 73 60 73 70 68 C70 68 65 62 50 63 C35 62 30 68 30 68 Z' fill='url(%23gold)'/><text x='50' y='82' font-size='10' font-weight='bold' fill='%23FCF6BA' text-anchor='middle' font-family='Arial'>PRAVASH</text></svg>" class="logo-img" alt="Pravash Logo">
+                        <!-- Custom Blue and Golden Logo with Mountain and Flying Eagle -->
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='gold' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23BF953F'/><stop offset='25%' stop-color='%23FCF6BA'/><stop offset='50%' stop-color='%23B38728'/><stop offset='75%' stop-color='%23FBF5B7'/><stop offset='100%' stop-color='%23AA771C'/></linearGradient><linearGradient id='blue' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230b2341'/><stop offset='100%' stop-color='%23193a6f'/></linearGradient></defs><rect width='100' height='100' fill='%23ffffff'/><circle cx='50' cy='50' r='48' fill='url(%23blue)' stroke='url(%23gold)' stroke-width='3'/><circle cx='50' cy='50' r='41' fill='none' stroke='url(%23gold)' stroke-width='1' stroke-dasharray='3,2'/><text x='50' y='24' font-size='6.5' font-weight='bold' fill='%23FCF6BA' text-anchor='middle' font-family='Arial'>PRAVASH TOUR & TRAVELS</text><path d='M 25 72 L 40 48 L 52 64 L 62 52 L 78 72 Z' fill='url(%23blue)' stroke='url(%23gold)' stroke-width='1.5'/><path d='M 40 48 L 52 64 L 62 52 L 78 72 L 25 72 Z' fill='url(%23blue)'/><path d='M 35 72 L 40 48 L 47 58 Z' fill='%23112b50'/><path d='M 52 64 L 62 52 L 70 63 Z' fill='%23112b50'/><path d='M 45 42 Q 52 35 60 40 Q 55 45 45 42 Z' fill='url(%23gold)'/></svg>" class="logo-img" alt="Pravash Logo">
                     </div>
                     <div class="brand-details">
                         <h1 class="brand-name" style="color: #0d233a; font-size: 11px;">PRAVASH TOUR AND TRAVELS</h1>
@@ -491,7 +506,7 @@
                         <div class="sect-header">Invoice Details:</div>
                         <div class="field-row" style="margin-bottom: 2px;">
                             <span>No:</span>
-                            <input type="text" id="invoice_no" class="fill-blank text-target">
+                            <input type="text" id="invoice_no" class="fill-blank text-target" readonly>
                         </div>
                         <div class="field-row">
                             <span>Date:</span>
@@ -604,7 +619,7 @@
         <button class="btn add-row-btn" onclick="addNewRow()">➕ Add New Row</button>
 
         <div class="history-panel">
-            <div class="history-title">📜 Saved Bills History</div>
+            <div class="history-title">📜 Saved Bills History (101 onwards)</div>
             <ul class="history-list" id="historyLogList"></ul>
         </div>
     </div>
@@ -666,7 +681,16 @@
                                   (today.getMonth() + 1).toString().padStart(2, '0') + '/' + 
                                   today.getFullYear();
             document.getElementById('invoice_date').value = formattedDate;
-            document.getElementById('invoice_no').value = "PTT-" + Math.floor(1000 + Math.random() * 9000);
+            
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            let nextInvoiceNo = 101;
+            if (history.length > 0) {
+                const numericIds = history.map(item => parseInt(item.id)).filter(id => !isNaN(id));
+                if (numericIds.length > 0) {
+                    nextInvoiceNo = Math.max(...numericIds) + 1;
+                }
+            }
+            document.getElementById('invoice_no').value = nextInvoiceNo;
         }
 
         function addNewRow() {
@@ -746,7 +770,7 @@
         }
 
         function executeMasterAction() {
-            const invoiceNo = document.getElementById('invoice_no').value || "TEMP-" + Date.now();
+            const invoiceNo = document.getElementById('invoice_no').value || "101";
             const custName = document.getElementById('cust_name').value || "Unknown";
             const totalAmt = document.getElementById('total_amount').value || "0";
             const dateStr = document.getElementById('invoice_date').value;
@@ -771,6 +795,7 @@
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
             history = history.filter(item => item.id !== invoiceNo);
             history.unshift(billRecord);
+            history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
             localStorage.setItem('billHistory', JSON.stringify(history));
             loadHistoryList();
 
@@ -801,7 +826,10 @@
         function loadHistoryList() {
             const listContainer = document.getElementById('historyLogList');
             listContainer.innerHTML = '';
-            const history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            
+            history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+            
             if(history.length === 0) {
                 listContainer.innerHTML = '<li style="color:#888; padding: 4px; font-size:8px;">No records found.</li>';
                 return;
@@ -809,7 +837,7 @@
             history.forEach(item => {
                 const li = document.createElement('li');
                 li.className = 'history-item';
-                li.innerHTML = `<div>Inv No: <b>${item.id}</b> | ${item.custName}</div><div>₹${item.totalAmt}</div>`;
+                li.innerHTML = `<div>Bill No: <b>${item.id}</b> | ${item.custName} | ${item.date}</div><div>₹${item.totalAmt}</div>`;
                 li.onclick = () => reloadBillFromHistory(item.id);
                 listContainer.appendChild(li);
             });
@@ -906,7 +934,7 @@
             selects.forEach(select => {
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
-                replacementSpan.className = 'temp-span-fix render-text-span';
+                replacementSpan.className, replacementSpan.className = 'temp-span-fix render-text-span';
                 replacementSpan.innerText = select.value || " ";
                 select.style.display = 'none'; parent.appendChild(replacementSpan);
             });
