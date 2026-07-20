@@ -128,12 +128,20 @@
             height: 52px;
             margin-right: 6px;
             flex-shrink: 0;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #ccc;
         }
         .logo-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
+            display: block;
         }
         
         .brand-details {
@@ -238,7 +246,6 @@
             background: rgba(245, 245, 245, 0.8);
         }
         
-        /* कॉलम की नई साइज़िंग: #, Trip Details, Qty, Price, Amt */
         .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 6%; text-align: center; }
         .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 44%; }
         .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 14%; text-align: center; }
@@ -432,7 +439,7 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
-                        <!-- नया वाला यूजर द्वारा दिया गया गोल लोगो -->
+                        <!-- यूजर द्वारा दिया गया नया गोल लोगो फाइल नेम -->
                         <img src="1000062656.png" class="logo-img" alt="Pravash Logo">
                     </div>
                     <div class="brand-details">
@@ -751,7 +758,6 @@
             const selectedTrips = []; document.querySelectorAll('.selection-field').forEach(sel => { selectedTrips.push(sel.value); });
             const typedTrips = []; document.querySelectorAll('.dynamic-text-field').forEach(txt => { typedTrips.push(txt.value); });
             
-            // Quantities save state
             const quantities = []; document.querySelectorAll('.qty-input').forEach(q => { quantities.push(q.value); });
 
             const isPaidChecked = document.getElementById('paid_full_chk').checked;
