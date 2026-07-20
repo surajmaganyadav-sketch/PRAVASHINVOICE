@@ -15,11 +15,11 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 10px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
             width: 100%;
         }
@@ -29,7 +29,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 380px;
+            max-width: 340px; /* Reduced to bring content inside the red box margins */
             margin: 0 auto;
         }
         
@@ -70,9 +70,9 @@
         .a4-landscape-container {
             width: 100%; 
             background-color: #fff;
-            padding: 20px 10px;
+            padding: 15px 12px; /* Margins on all sides inside the paper sheet */
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             position: relative; 
@@ -99,8 +99,8 @@
 
         .main-title {
             text-align: center;
-            font-size: 15px;
-            margin: 0 auto 12px auto;
+            font-size: 14px;
+            margin: 0 auto 10px auto;
             font-weight: normal;
             letter-spacing: 0.5px;
             line-height: 1.2;
@@ -125,9 +125,9 @@
         }
         
         .logo-container {
-            width: 52px;
-            height: 52px;
-            margin-right: 6px;
+            width: 46px;
+            height: 46px;
+            margin-right: 5px;
             flex-shrink: 0;
             background: #0b2341;
             border-radius: 50%;
@@ -151,20 +151,20 @@
             min-width: 0;
         }
         .brand-name {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: bold;
             margin: 0 0 1px 0;
         }
         .brand-loc {
-            font-size: 6.8px;
-            margin: 0 0 4px 0;
+            font-size: 6px;
+            margin: 0 0 3px 0;
             font-weight: bold;
         }
 
         .driver-info-grid {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 1px;
             width: 100%;
         }
         
@@ -175,7 +175,7 @@
         }
 
         .field-row {
-            font-size: 8px;
+            font-size: 7.5px;
             font-weight: bold;
             display: flex;
             align-items: flex-end;
@@ -196,7 +196,7 @@
             border-bottom: 1px solid #000;
             outline: none;
             padding: 0px 1px;
-            font-size: 8px;
+            font-size: 7.5px;
             flex: 1;
             font-weight: normal;
             background: transparent;
@@ -221,7 +221,7 @@
         .col-box:first-child { border-right: 1px solid #000; }
         .sect-header {
             font-weight: bold;
-            font-size: 8px;
+            font-size: 7.5px;
             margin-bottom: 2px;
         }
 
@@ -240,8 +240,8 @@
         }
         .data-table th, .data-table td {
             border: 1px solid #000;
-            padding: 3px;
-            font-size: 8px;
+            padding: 2.5px 3px;
+            font-size: 7.5px;
             vertical-align: middle;
             background: #ffffff;
         }
@@ -262,7 +262,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 8px;
+            font-size: 7.5px;
         }
         
         .select-input {
@@ -270,7 +270,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 8px;
+            font-size: 7.5px;
             cursor: pointer;
         }
         
@@ -293,7 +293,7 @@
         .math-row {
             display: flex;
             border-bottom: 1px solid #000;
-            font-size: 8px;
+            font-size: 7.5px;
             align-items: center;
             background: #ffffff;
         }
@@ -318,13 +318,13 @@
             padding: 2px 4px;
             background: #ffffff;
         }
-        .words-title { font-weight: bold; font-size: 7.5px; }
-        .words-output { font-size: 7.5px; font-style: italic; color: #333; margin-top: 1px; }
+        .words-title { font-weight: bold; font-size: 7px; }
+        .words-output { font-size: 7px; font-style: italic; color: #333; margin-top: 1px; }
 
         .chk-container {
             display: inline-flex;
             align-items: center;
-            font-size: 7px;
+            font-size: 6.5px;
             cursor: pointer;
             gap: 1px;
             font-weight: normal;
@@ -333,13 +333,13 @@
         .footer-notes { display: flex; border-bottom: 1px solid #000; background: #ffffff; }
         .note-chunk { flex: 1; padding: 3px 4px; background: #ffffff; }
         .note-chunk:first-child { border-right: 1px solid #000; }
-        .note-title { font-weight: bold; font-size: 8px; margin-bottom: 1px; }
-        .vision-text { font-size: 7.5px; font-style: italic; color: #444; margin-top: 2px; line-height: 1.1; }
+        .note-title { font-weight: bold; font-size: 7.5px; margin-bottom: 1px; }
+        .vision-text { font-size: 7px; font-style: italic; color: #444; margin-top: 2px; line-height: 1.1; }
 
         .signature-area { display: flex; width: 100%; background: #ffffff; }
         .sig-box-left {
             width: 50%;
-            height: 48px;
+            height: 44px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -350,7 +350,7 @@
         .sig-box-right {
             width: 50%;
             border-left: 1px solid #000;
-            height: 48px;
+            height: 44px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -358,12 +358,12 @@
             align-items: center;
             background: #ffffff;
         }
-        .sig-title { font-weight: bold; font-size: 8px; width: 100%; }
+        .sig-title { font-weight: bold; font-size: 7.5px; width: 100%; }
         
         .canvas-container {
             position: relative;
             width: 100%;
-            height: 24px;
+            height: 22px;
         }
         .sig-canvas {
             border: 1px dashed #ccc;
@@ -379,21 +379,21 @@
             background: #e11d48;
             color: white;
             border: none;
-            font-size: 6.5px;
+            font-size: 6px;
             padding: 0px 1px;
             border-radius: 2px;
             cursor: pointer;
         }
         
         .driver-sig-svg {
-            width: 55px;
-            height: 18px;
+            width: 50px;
+            height: 16px;
             margin: auto;
         }
-        .sig-designation { text-align: center; font-size: 7.5px; font-weight: bold; width: 100%; }
+        .sig-designation { text-align: center; font-size: 7px; font-weight: bold; width: 100%; }
         
         .render-text-span {
-            font-size: 8px;
+            font-size: 7.5px;
             font-weight: normal;
             display: inline-block;
         }
@@ -480,7 +480,7 @@
                         </svg>
                     </div>
                     <div class="brand-details">
-                        <h1 class="brand-name" style="color: #0d233a; font-size: 11px;">PRAVASH TOUR AND TRAVELS</h1>
+                        <h1 class="brand-name" style="color: #0d233a;">PRAVASH TOUR AND TRAVELS</h1>
                         <div class="brand-loc">R MALL MANPADA Thane West MUMBAI MAHARASHTRA</div>
                         
                         <div class="driver-info-grid">
