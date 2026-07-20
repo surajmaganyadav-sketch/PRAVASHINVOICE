@@ -129,13 +129,13 @@
             height: 52px;
             margin-right: 6px;
             flex-shrink: 0;
-            background: #ffffff;
+            background: #0b2341;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 1px solid #ccc;
+            border: 1.5px solid #d4af37;
         }
         .logo-img {
             width: 100%;
@@ -143,7 +143,7 @@
             border-radius: 50%;
             object-fit: cover;
             display: block;
-            background: #ffffff;
+            background: #0b2341;
         }
         
         .brand-details {
@@ -454,8 +454,30 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
-                        <!-- Custom Blue and Golden Logo with Mountain and Flying Eagle -->
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='gold' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23BF953F'/><stop offset='25%' stop-color='%23FCF6BA'/><stop offset='50%' stop-color='%23B38728'/><stop offset='75%' stop-color='%23FBF5B7'/><stop offset='100%' stop-color='%23AA771C'/></linearGradient><linearGradient id='blue' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230b2341'/><stop offset='100%' stop-color='%23193a6f'/></linearGradient></defs><rect width='100' height='100' fill='%23ffffff'/><circle cx='50' cy='50' r='48' fill='url(%23blue)' stroke='url(%23gold)' stroke-width='3'/><circle cx='50' cy='50' r='41' fill='none' stroke='url(%23gold)' stroke-width='1' stroke-dasharray='3,2'/><text x='50' y='24' font-size='6.5' font-weight='bold' fill='%23FCF6BA' text-anchor='middle' font-family='Arial'>PRAVASH TOUR & TRAVELS</text><path d='M 25 72 L 40 48 L 52 64 L 62 52 L 78 72 Z' fill='url(%23blue)' stroke='url(%23gold)' stroke-width='1.5'/><path d='M 40 48 L 52 64 L 62 52 L 78 72 L 25 72 Z' fill='url(%23blue)'/><path d='M 35 72 L 40 48 L 47 58 Z' fill='%23112b50'/><path d='M 52 64 L 62 52 L 70 63 Z' fill='%23112b50'/><path d='M 45 42 Q 52 35 60 40 Q 55 45 45 42 Z' fill='url(%23gold)'/></svg>" class="logo-img" alt="Pravash Logo">
+                        <!-- Solid Background Royal Blue & Golden Emblem with Clear Mountain & Eagle Graphics -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-img">
+                            <defs>
+                                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#D4AF37"/>
+                                    <stop offset="50%" stop-color="#FFF2B2"/>
+                                    <stop offset="100%" stop-color="#AA771C"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Solid Background to Prevent Transparency Issue on WhatsApp -->
+                            <rect width="100" height="100" fill="#0b2341"/>
+                            <!-- Outer Gold Ring -->
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="41" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="2,2"/>
+                            
+                            <!-- Mountains Backdrop -->
+                            <polygon points="15,75 35,45 52,65 70,40 85,75" fill="#15365c" stroke="url(#goldGrad)" stroke-width="1"/>
+                            
+                            <!-- Flying Eagle Silhouette -->
+                            <path d="M 40 32 Q 50 20 60 28 Q 50 35 40 32 Z" fill="url(#goldGrad)"/>
+                            
+                            <!-- Brand Text inside Logo -->
+                            <text x="50" y="86" font-size="7.5" font-weight="bold" fill="#FFF2B2" text-anchor="middle" font-family="Arial">PRAVAS</text>
+                        </svg>
                     </div>
                     <div class="brand-details">
                         <h1 class="brand-name" style="color: #0d233a; font-size: 11px;">PRAVASH TOUR AND TRAVELS</h1>
@@ -934,7 +956,7 @@
             selects.forEach(select => {
                 const parent = select.parentNode;
                 const replacementSpan = document.createElement('span');
-                replacementSpan.className, replacementSpan.className = 'temp-span-fix render-text-span';
+                replacementSpan.className = 'temp-span-fix render-text-span';
                 replacementSpan.innerText = select.value || " ";
                 select.style.display = 'none'; parent.appendChild(replacementSpan);
             });
