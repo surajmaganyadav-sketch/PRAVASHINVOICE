@@ -15,7 +15,7 @@
         body {
             background-color: #f0f2f5;
             margin: 0;
-            padding: 0;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -25,25 +25,27 @@
         }
         
         .page-wrapper {
-            padding: 30px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+            max-width: 380px; /* हर फोन की स्क्रीन में फिट होने के लिए परफेक्ट मैक्स विड्थ */
+            margin: 0 auto;
         }
         
         .action-bar {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: center;
-            width: 360px;
+            width: 100%;
         }
         
         .whatsapp-super-btn { 
             background-color: #25D366; 
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 12px;
+            padding: 12px 20px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             border-radius: 6px;
@@ -57,36 +59,30 @@
             color: #fff; 
             margin: 15px auto 0 auto; 
             display: block; 
-            padding: 6px 12px; 
-            font-size: 10px; 
+            padding: 8px 16px; 
+            font-size: 11px; 
             border: none; 
             border-radius: 4px; 
             cursor: pointer;
             font-weight: bold;
         }
 
+        /* बिल कंटेनर: अब यह स्क्रीन के हिसाब से छोटा-बड़ा होगा और कभी नहीं कटेगा */
         .a4-landscape-container {
-            width: 360px; 
+            width: 100%; 
             background-color: #fff;
-            padding: 25px 12px;
+            padding: 20px 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             position: relative; 
             overflow: hidden;
-        }
-
-        /* स्क्रीनशॉट जैसी प्रीमियम रियलिस्टिक सेडान कार वॉटरमार्क */
-        .car-watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -42%);
-            width: 95%; /* स्क्रीनशॉट की तरह पूरी विड्थ में फैली हुई */
-            opacity: 0.11; /* बिल्कुल हल्की नजर आने के लिए परफेक्ट ओपेसिटी */
-            pointer-events: none;
-            z-index: 0;
+            /* असली प्रीमियम सेडान कार का वॉटरमार्क बैकग्राउंड इमेज के रूप में */
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 250' fill='none'><path d='M40,165 C30,165 15,160 15,145 C15,120 45,115 70,110 C90,105 115,85 140,75 C175,60 230,48 300,48 C360,48 440,52 475,70 C500,82 535,102 555,112 C575,122 585,130 585,142 C585,155 570,162 550,165 C540,165 530,160 525,150 C515,130 475,130 465,150 C460,162 450,165 300,165 C150,165 140,162 135,150 C125,130 85,130 75,150 C70,160 55,165 40,165 Z' stroke='%23333333' stroke-width='2' fill='none'/><circle cx='105' cy='150' r='25' stroke='%23333333' stroke-width='3' fill='none'/><circle cx='495' cy='150' r='25' stroke='%23333333' stroke-width='3' fill='none'/><path d='M145,78 L285,55 L285,110 L135,110 Z' stroke='%23333333' stroke-width='1.5'/><path d='M295,55 L445,74 L425,110 L295,110 Z' stroke='%23333333' stroke-width='1.5'/></svg>");
+            background-repeat: no-repeat;
+            background-position: center 55%;
+            background-size: 92% auto;
         }
 
         .main-title {
@@ -102,7 +98,7 @@
         .outer-matrix {
             border: 1px solid #000;
             width: 100%;
-            background: rgba(255, 255, 255, 0.85); 
+            background: rgba(255, 255, 255, 0.82); /* हल्का ट्रांसपेरेंट ताकि बैकग्राउंड कार साफ़ दिखे */
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -363,7 +359,7 @@
         }
 
         .history-panel {
-            width: 360px; 
+            width: 100%; 
             background: white;
             padding: 6px;
             border-radius: 4px;
@@ -395,10 +391,9 @@
 
         @media print {
             body { background-color: #fff; padding: 0; justify-content: flex-start; }
-            .page-wrapper { padding: 0; }
             .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
-            .a4-landscape-container { box-shadow: none; padding: 25px 0 !important; width: 360px !important; }
+            .a4-landscape-container { box-shadow: none; padding: 20px 0 !important; width: 100% !important; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
@@ -407,28 +402,10 @@
 
     <div class="page-wrapper">
         <div class="action-bar">
-            <button class="whatsapp-super-btn" onclick="executeMasterAction()">💬 Save, Copy & Send via WhatsApp</button>
+            <button class="whatsapp-super-btn" onclick="executeMasterAction()">💬 Save, Copy Image & Open WhatsApp</button>
         </div>
 
         <div class="a4-landscape-container" id="a4PaperSheet">
-            
-            <!-- यहाँ लगी है एकदम रियलिस्टिक सेडान कार का सुंदर वॉटरमार्क -->
-            <svg class="car-watermark" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" fill="none">
-                <path d="M40,165 C30,165 15,160 15,145 C15,120 45,115 70,110 C90,105 115,85 140,75 C175,60 230,48 300,48 C360,48 440,52 475,70 C500,82 535,102 555,112 C575,122 585,130 585,142 C585,155 570,162 550,165 C540,165 530,160 525,150 C515,130 475,130 465,150 C460,162 450,165 300,165 C150,165 140,162 135,150 C125,130 85,130 75,150 C70,160 55,165 40,165 Z" stroke="#333" stroke-width="3" fill="none"/>
-                <!-- पहिए -->
-                <circle cx="105" cy="150" r="28" stroke="#333" stroke-width="4" fill="none"/>
-                <circle cx="105" cy="150" r="12" stroke="#333" stroke-width="2" fill="none"/>
-                <circle cx="495" cy="150" r="28" stroke="#333" stroke-width="4" fill="none"/>
-                <circle cx="495" cy="150" r="12" stroke="#333" stroke-width="2" fill="none"/>
-                <!-- विंडो और डोर्स की रूपरेखा -->
-                <path d="M145,78 L285,55 L285,110 L135,110 Z" stroke="#333" stroke-width="2" fill="none"/>
-                <path d="M295,55 L445,74 L425,110 L295,110 Z" stroke="#333" stroke-width="2" fill="none"/>
-                <!-- लाइट्स और कैरेक्टर लाइन्स -->
-                <path d="M15,132 L55,128" stroke="#333" stroke-width="2"/>
-                <path d="M585,132 L545,130" stroke="#333" stroke-width="2"/>
-                <path d="M140,122 L460,122" stroke="#333" stroke-width="1.5" stroke-dasharray="8 4"/>
-            </svg>
-
             <div class="main-title">Bill of<br>Supply</div>
             
             <div class="outer-matrix">
@@ -782,22 +759,11 @@
 
         function triggerWhatsAppOpen() {
             const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
-            const name = document.getElementById('cust_name').value.trim();
-            const invoice = document.getElementById('invoice_no').value.trim();
-            const amount = document.getElementById('total_amount').value.trim();
-            const balance = document.getElementById('balance_amt').value.trim();
-
-            if(!phone) { alert("बिल सेव हो गया है, पर व्हाट्सएप खोलने के लिए ग्राहक का कांटेक्ट नंबर जरूरी है!"); return; }
-
-            let message = `*PRAVASH TOUR AND TRAVELS*%0A%0A`;
-            message += `*Invoice No:* ${invoice ? invoice : 'N/A'}%0A`;
-            message += `*Customer Name:* ${name ? name : 'Valued Customer'}%0A`;
-            message += `*Total Amount:* ₹${amount ? amount : '0.00'}%0A`;
-            message += `*Balance Due:* ₹${balance ? balance : '0.00'}%0A%0A`;
-            message += `💡 _(नोट: बिल की इमेज आपकी गैलरी/क्लिपबोर्ड पर कॉपी हो चुकी है, आप उसे यहाँ डायरेक्ट पेस्ट करके भेज सकते हैं।)_`;
-
+            if(!phone) { alert("बिल इमेज क्लिपबोर्ड पर कॉपी हो गई है! व्हाट्सएप खोलने के लिए कस्टमर का नंबर दर्ज करें।"); return; }
+            
             const finalPhone = phone.length === 10 ? '91' + phone : phone;
-            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${message}`, '_blank');
+            // टेक्स्ट मैसेज को पूरी तरह ब्लैंक रखा है ताकि व्हाट्सएप पर कोई टेक्स्ट न जाए, सिर्फ इमेज आप पेस्ट करके भेजें
+            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=`, '_blank');
         }
 
         function loadHistoryList() {
