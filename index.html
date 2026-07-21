@@ -662,7 +662,7 @@
         </div>
     </div>
 
-    <!-- jsPDF Library for Generating PDF -->
+    <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
@@ -828,7 +828,7 @@
             });
         }
 
-        // New function to generate and download/share PDF via WhatsApp
+        // Updated function for generating full page proper PDF
         function sendBillAsPDF() {
             const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
             if(!phone) { 
@@ -840,7 +840,8 @@
             const target = document.getElementById('a4PaperSheet');
             preProcessDOMBeforeRender(target);
 
-            html2canvas(target, { scale: 2, useCORS: true, logging: false }).then(canvasObj => {
+            // Scale 3 for high definition full bill cover
+            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
                 postProcessDOMAfterRender(target);
 
                 const imgData = canvasObj.toDataURL('image/jpeg', 1.0);
@@ -848,11 +849,15 @@
                 const pdf = new jsPDF('landscape', 'mm', 'a4');
                 
                 const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (canvasObj.height * pdfWidth) / canvasObj.width;
+                const pdfHeight = pdf.internal.pageSize.getHeight();
                 
-                pdf.addImage(imgData, 'JPEG', 0, 10, pdfWidth, pdfHeight);
+                // Ensure full image fits properly inside the single A4 page without getting cut off
+                const imgHeight = (canvasObj.height * pdfWidth) / canvasObj.width;
+                let heightPosition = (pdfHeight - imgHeight) / 2;
+                if(heightPosition < 5) heightPosition = 5;
+
+                pdf.addImage(imgData, 'JPEG', 0, heightPosition, pdfWidth, imgHeight);
                 
-                // PDF download trigger taaki user ise WhatsApp par attach kar sake
                 const invoiceNo = document.getElementById('invoice_no').value || "Bill";
                 pdf.save(`Pravash_Travels_Bill_${invoiceNo}.pdf`);
 
@@ -886,7 +891,7 @@
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
             history = history.filter(item => item.id !== invoiceNo);
             history.unshift(billRecord);
-            history.sort((a, b) => parseInt(b.id) - parseInt(b.id));
+            history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
             localStorage.setItem('billHistory', JSON.stringify(history));
             loadHistoryList();
         }
@@ -898,7 +903,7 @@
             const finalPhone = phone.length === 10 ? '91' + phone : phone;
             const invoiceNo = document.getElementById('invoice_no').value;
             const totalAmt = document.getElementById('total_amount').value;
-            const msg = encodeURIComponent(`Hello, Pravash Tour and Travels ki taraf se aapka Bill No: ${invoiceNo} (Total: ₹${totalAmt}) taiyar hai. Kripya PDF check karein.`);
+            const msg = encodeURIComponent(`Hello, Pravash Tour and Travels ki taraf se aapka Bill No: ${invoiceNo} (Total: ₹${totalAmt}) ka PDF download ho gaya hai. Kripya ise check karein.`);
             
             window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${msg}`, '_blank');
         }
@@ -911,7 +916,7 @@
             history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
             
             if(history.length === 0) {
-                listContainer.html = '<li style="color:#888; padding: 4px; font-size:8px;">No records found.</li>';
+                listContainer.innerHTML = '<li style="color:#888; padding: 4px; font-size:8px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
