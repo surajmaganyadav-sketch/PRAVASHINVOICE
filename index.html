@@ -36,27 +36,12 @@
         .action-bar {
             margin-bottom: 15px;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            justify-content: center;
             width: 100%;
         }
         
         .whatsapp-super-btn { 
             background-color: #25D366; 
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 6px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 100%;
-            text-align: center;
-        }
-
-        .whatsapp-pdf-btn { 
-            background-color: #128C7E; 
             color: white;
             border: none;
             padding: 12px 20px;
@@ -460,8 +445,7 @@
 
     <div class="page-wrapper">
         <div class="action-bar">
-            <button class="whatsapp-super-btn" onclick="executeMasterAction()">💬 Save & Open WhatsApp</button>
-            <button class="whatsapp-pdf-btn" onclick="sendBillAsPDF()">📎 Send Bill PDF on WhatsApp (No Text)</button>
+            <button class="whatsapp-super-btn" onclick="executeMasterAction()">💬 Save, Copy Image & Open WhatsApp</button>
         </div>
 
         <div class="a4-landscape-container" id="a4PaperSheet">
@@ -470,6 +454,7 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
+                        <!-- Solid Background Royal Blue & Golden Emblem with Clear Mountain & Eagle Graphics -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-img">
                             <defs>
                                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -478,11 +463,19 @@
                                     <stop offset="100%" stop-color="#AA771C"/>
                                 </linearGradient>
                             </defs>
+                            <!-- Solid Background to Prevent Transparency Issue on WhatsApp -->
                             <rect width="100" height="100" fill="#0b2341"/>
+                            <!-- Outer Gold Ring -->
                             <circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
                             <circle cx="50" cy="50" r="41" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="2,2"/>
+                            
+                            <!-- Mountains Backdrop -->
                             <polygon points="15,75 35,45 52,65 70,40 85,75" fill="#15365c" stroke="url(#goldGrad)" stroke-width="1"/>
+                            
+                            <!-- Flying Eagle Silhouette -->
                             <path d="M 40 32 Q 50 20 60 28 Q 50 35 40 32 Z" fill="url(#goldGrad)"/>
+                            
+                            <!-- Brand Text inside Logo -->
                             <text x="50" y="86" font-size="7.5" font-weight="bold" fill="#FFF2B2" text-anchor="middle" font-family="Arial">PRAVAS</text>
                         </svg>
                     </div>
@@ -653,9 +646,6 @@
         </div>
     </div>
 
-    <!-- jsPDF Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
     <script>
         const canvas = document.getElementById('customerSigCanvas');
         const ctx = canvas.getContext('2d');
@@ -802,59 +792,6 @@
         }
 
         function executeMasterAction() {
-            saveCurrentBillToHistory();
-            const target = document.getElementById('a4PaperSheet'); 
-            preProcessDOMBeforeRender(target);
-            
-            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
-                postProcessDOMAfterRender(target);
-                
-                canvasObj.toBlob(blob => {
-                    navigator.clipboard.write([ new ClipboardItem({ "image/png": blob }) ]).then(() => {
-                        triggerWhatsAppOpen(false);
-                    }).catch(() => {
-                        triggerWhatsAppOpen(false);
-                    });
-                }, "image/png");
-            });
-        }
-
-        // Updated function to download complete PDF and open WhatsApp without text message
-        function sendBillAsPDF() {
-            const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
-            if(!phone) { 
-                alert("कृपया कस्टमर का WhatsApp नंबर दर्ज करें!"); 
-                return; 
-            }
-            
-            saveCurrentBillToHistory();
-            const target = document.getElementById('a4PaperSheet');
-            preProcessDOMBeforeRender(target);
-
-            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
-                postProcessDOMAfterRender(target);
-
-                const imgData = canvasObj.toDataURL('image/jpeg', 1.0);
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('landscape', 'mm', 'a4');
-                
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                
-                const imgHeight = (canvasObj.height * pdfWidth) / canvasObj.width;
-                let heightPosition = (pdfHeight - imgHeight) / 2;
-                if(heightPosition < 5) heightPosition = 5;
-
-                pdf.addImage(imgData, 'JPEG', 0, heightPosition, pdfWidth, imgHeight);
-                
-                const invoiceNo = document.getElementById('invoice_no').value || "Bill";
-                pdf.save(`Pravash_Travels_Bill_${invoiceNo}.pdf`);
-
-                triggerWhatsAppOpen(true);
-            });
-        }
-
-        function saveCurrentBillToHistory() {
             const invoiceNo = document.getElementById('invoice_no').value || "101";
             const custName = document.getElementById('cust_name').value || "Unknown";
             const totalAmt = document.getElementById('total_amount').value || "0";
@@ -883,23 +820,29 @@
             history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
             localStorage.setItem('billHistory', JSON.stringify(history));
             loadHistoryList();
+
+            const target = document.getElementById('a4PaperSheet'); 
+            preProcessDOMBeforeRender(target);
+            
+            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
+                postProcessDOMAfterRender(target);
+                
+                canvasObj.toBlob(blob => {
+                    navigator.clipboard.write([ new ClipboardItem({ "image/png": blob }) ]).then(() => {
+                        triggerWhatsAppOpen();
+                    }).catch(() => {
+                        triggerWhatsAppOpen();
+                    });
+                }, "image/png");
+            });
         }
 
-        function triggerWhatsAppOpen(isOnlyPdfMode = false) {
+        function triggerWhatsAppOpen() {
             const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
-            if(!phone) { alert("कृपया कस्टमर का मोबाइल नंबर दर्ज करें!"); return; }
+            if(!phone) { alert("बिल इमेज क्लिपबोर्ड पर कॉपी हो गई है! व्हाट्सएप खोलने के लिए कस्टमर का नंबर दर्ज करें।"); return; }
             
             const finalPhone = phone.length === 10 ? '91' + phone : phone;
-            
-            if (isOnlyPdfMode) {
-                // Sirf chat khulegi bina kisi text message ke
-                window.open(`https://api.whatsapp.com/send?phone=${finalPhone}`, '_blank');
-            } else {
-                const invoiceNo = document.getElementById('invoice_no').value;
-                const totalAmt = document.getElementById('total_amount').value;
-                const msg = encodeURIComponent(`Hello, Pravash Tour and Travels ki taraf se aapka Bill No: ${invoiceNo} (Total: ₹${totalAmt}) ka PDF download ho gaya hai.`);
-                window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${msg}`, '_blank');
-            }
+            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=`, '_blank');
         }
 
         function loadHistoryList() {
