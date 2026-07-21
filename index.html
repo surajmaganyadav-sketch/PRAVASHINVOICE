@@ -36,12 +36,27 @@
         .action-bar {
             margin-bottom: 15px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
             width: 100%;
         }
         
         .whatsapp-super-btn { 
             background-color: #25D366; 
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            text-align: center;
+        }
+
+        .whatsapp-pdf-btn { 
+            background-color: #128C7E; 
             color: white;
             border: none;
             padding: 12px 20px;
@@ -446,6 +461,7 @@
     <div class="page-wrapper">
         <div class="action-bar">
             <button class="whatsapp-super-btn" onclick="executeMasterAction()">💬 Save, Copy Image & Open WhatsApp</button>
+            <button class="whatsapp-pdf-btn" onclick="sendBillAsPDF()">📎 Send Bill PDF on WhatsApp</button>
         </div>
 
         <div class="a4-landscape-container" id="a4PaperSheet">
@@ -646,6 +662,9 @@
         </div>
     </div>
 
+    <!-- jsPDF Library for Generating PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script>
         const canvas = document.getElementById('customerSigCanvas');
         const ctx = canvas.getContext('2d');
@@ -792,6 +811,56 @@
         }
 
         function executeMasterAction() {
+            saveCurrentBillToHistory();
+            const target = document.getElementById('a4PaperSheet'); 
+            preProcessDOMBeforeRender(target);
+            
+            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
+                postProcessDOMAfterRender(target);
+                
+                canvasObj.toBlob(blob => {
+                    navigator.clipboard.write([ new ClipboardItem({ "image/png": blob }) ]).then(() => {
+                        triggerWhatsAppOpen();
+                    }).catch(() => {
+                        triggerWhatsAppOpen();
+                    });
+                }, "image/png");
+            });
+        }
+
+        // New function to generate and download/share PDF via WhatsApp
+        function sendBillAsPDF() {
+            const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
+            if(!phone) { 
+                alert("कृपया कस्टमर का WhatsApp नंबर दर्ज करें!"); 
+                return; 
+            }
+            
+            saveCurrentBillToHistory();
+            const target = document.getElementById('a4PaperSheet');
+            preProcessDOMBeforeRender(target);
+
+            html2canvas(target, { scale: 2, useCORS: true, logging: false }).then(canvasObj => {
+                postProcessDOMAfterRender(target);
+
+                const imgData = canvasObj.toDataURL('image/jpeg', 1.0);
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('landscape', 'mm', 'a4');
+                
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvasObj.height * pdfWidth) / canvasObj.width;
+                
+                pdf.addImage(imgData, 'JPEG', 0, 10, pdfWidth, pdfHeight);
+                
+                // PDF download trigger taaki user ise WhatsApp par attach kar sake
+                const invoiceNo = document.getElementById('invoice_no').value || "Bill";
+                pdf.save(`Pravash_Travels_Bill_${invoiceNo}.pdf`);
+
+                triggerWhatsAppOpen();
+            });
+        }
+
+        function saveCurrentBillToHistory() {
             const invoiceNo = document.getElementById('invoice_no').value || "101";
             const custName = document.getElementById('cust_name').value || "Unknown";
             const totalAmt = document.getElementById('total_amount').value || "0";
@@ -817,32 +886,21 @@
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
             history = history.filter(item => item.id !== invoiceNo);
             history.unshift(billRecord);
-            history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+            history.sort((a, b) => parseInt(b.id) - parseInt(b.id));
             localStorage.setItem('billHistory', JSON.stringify(history));
             loadHistoryList();
-
-            const target = document.getElementById('a4PaperSheet'); 
-            preProcessDOMBeforeRender(target);
-            
-            html2canvas(target, { scale: 3, useCORS: true, logging: false }).then(canvasObj => {
-                postProcessDOMAfterRender(target);
-                
-                canvasObj.toBlob(blob => {
-                    navigator.clipboard.write([ new ClipboardItem({ "image/png": blob }) ]).then(() => {
-                        triggerWhatsAppOpen();
-                    }).catch(() => {
-                        triggerWhatsAppOpen();
-                    });
-                }, "image/png");
-            });
         }
 
         function triggerWhatsAppOpen() {
             const phone = document.getElementById('cust_phone').value.replace(/\D/g, '');
-            if(!phone) { alert("बिल इमेज क्लिपबोर्ड पर कॉपी हो गई है! व्हाट्सएप खोलने के लिए कस्टमर का नंबर दर्ज करें।"); return; }
+            if(!phone) { alert("कृपया कस्टमर का मोबाइल नंबर दर्ज करें!"); return; }
             
             const finalPhone = phone.length === 10 ? '91' + phone : phone;
-            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=`, '_blank');
+            const invoiceNo = document.getElementById('invoice_no').value;
+            const totalAmt = document.getElementById('total_amount').value;
+            const msg = encodeURIComponent(`Hello, Pravash Tour and Travels ki taraf se aapka Bill No: ${invoiceNo} (Total: ₹${totalAmt}) taiyar hai. Kripya PDF check karein.`);
+            
+            window.open(`https://api.whatsapp.com/send?phone=${finalPhone}&text=${msg}`, '_blank');
         }
 
         function loadHistoryList() {
@@ -853,7 +911,7 @@
             history.sort((a, b) => parseInt(b.id) - parseInt(a.id));
             
             if(history.length === 0) {
-                listContainer.innerHTML = '<li style="color:#888; padding: 4px; font-size:8px;">No records found.</li>';
+                listContainer.html = '<li style="color:#888; padding: 4px; font-size:8px;">No records found.</li>';
                 return;
             }
             history.forEach(item => {
