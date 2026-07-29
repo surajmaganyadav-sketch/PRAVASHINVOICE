@@ -180,6 +180,7 @@
             display: flex;
             align-items: flex-end;
             min-width: 0;
+            position: relative;
         }
         
         .w-half-left { width: 55%; }
@@ -209,6 +210,31 @@
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+        }
+
+        /* Suggestion Dropdown styling */
+        .suggestions-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-top: none;
+            z-index: 99;
+            max-height: 100px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .suggestion-item {
+            padding: 4px 6px;
+            font-size: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .suggestion-item:hover {
+            background-color: #e0e7ff;
         }
 
         .two-column-split {
@@ -434,7 +460,7 @@
 
         @media print {
             body { background-color: #fff; padding: 0; justify-content: flex-start; }
-            .action-bar, .history-panel, .add-row-btn, .clear-sig-btn { display: none !important; }
+            .action-bar, .history-panel, .add-row-btn, .clear-sig-btn, .suggestions-dropdown { display: none !important; }
             .sig-canvas { border: none !important; background: transparent !important; }
             .a4-landscape-container { box-shadow: none; padding: 20px 0 !important; width: 100% !important; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -454,7 +480,6 @@
             <div class="outer-matrix">
                 <div class="header-block">
                     <div class="logo-container">
-                        <!-- Solid Background Royal Blue & Golden Emblem with Clear Mountain & Eagle Graphics -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-img">
                             <defs>
                                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -463,19 +488,11 @@
                                     <stop offset="100%" stop-color="#AA771C"/>
                                 </linearGradient>
                             </defs>
-                            <!-- Solid Background to Prevent Transparency Issue on WhatsApp -->
                             <rect width="100" height="100" fill="#0b2341"/>
-                            <!-- Outer Gold Ring -->
                             <circle cx="50" cy="50" r="46" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
                             <circle cx="50" cy="50" r="41" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="2,2"/>
-                            
-                            <!-- Mountains Backdrop -->
                             <polygon points="15,75 35,45 52,65 70,40 85,75" fill="#15365c" stroke="url(#goldGrad)" stroke-width="1"/>
-                            
-                            <!-- Flying Eagle Silhouette -->
                             <path d="M 40 32 Q 50 20 60 28 Q 50 35 40 32 Z" fill="url(#goldGrad)"/>
-                            
-                            <!-- Brand Text inside Logo -->
                             <text x="50" y="86" font-size="7.5" font-weight="bold" fill="#FFF2B2" text-anchor="middle" font-family="Arial">PRAVAS</text>
                         </svg>
                     </div>
@@ -517,7 +534,8 @@
                         <div class="sect-header">Bill To:</div>
                         <div class="field-row" style="margin-bottom: 2px;">
                             <span>name</span>
-                            <input type="text" id="cust_name" class="fill-blank text-target">
+                            <input type="text" id="cust_name" class="fill-blank text-target" autocomplete="off" oninput="handleCustomerInput(this.value)">
+                            <div id="nameSuggestions" class="suggestions-dropdown"></div>
                         </div>
                         <div class="field-row">
                             <span>Contact:</span>
@@ -655,6 +673,13 @@
             loadHistoryList();
             autoGenerateMeta();
             initializeSignatureCanvas();
+
+            // Hide suggestions if clicked outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#cust_name') && !e.target.closest('#nameSuggestions')) {
+                    document.getElementById('nameSuggestions').style.display = 'none';
+                }
+            });
         });
 
         function initializeSignatureCanvas() {
@@ -713,6 +738,62 @@
                 }
             }
             document.getElementById('invoice_no').value = nextInvoiceNo;
+        }
+
+        // Customer Name Auto-Complete Logic based on History
+        function handleCustomerInput(query) {
+            const dropdown = document.getElementById('nameSuggestions');
+            dropdown.innerHTML = '';
+            
+            if (!query || query.trim() === '') {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            let history = JSON.parse(localStorage.getItem('billHistory')) || [];
+            
+            // Unique customers map se filter karenge taaki duplicate names bar-bar na aayein
+            let uniqueCustomers = {};
+            history.forEach(item => {
+                if (item.custName && item.formData) {
+                    // formData array mein phone number ya specific index find karne ke liye ya record se phone nikalne ke liye
+                    // Hamare structure mein formData ke andar sabhi inputs stored hain. Let's find customer phone from history items.
+                    // Ya hum record mein directly custPhone store kar sakte hain. Niche secure lookup banate hain:
+                    let cName = item.custName.trim();
+                    let cPhone = item.custPhone || ""; 
+                    // Agar history mein custPhone property save nahi thi purane records mein, toh formData se nikalne ki koshish karein ya blank rakhein
+                    if (!cPhone && item.formData) {
+                        // Index 4 usually cust_phone hota hai outer-matrix inputs mein (check kar sakte hain)
+                        // Behtar hai hum save karte waqt custPhone bhi object mein daal dein.
+                    }
+                    uniqueIdKey = cName.toLowerCase();
+                    if(!uniqueCustomers[uniqueIdKey]) {
+                        uniqueCustomers[uniqueIdKey] = { name: item.custName, phone: item.custPhone || "" };
+                    }
+                }
+            });
+
+            // Matched results filter karein
+            let matches = Object.values(uniqueCustomers).filter(c => c.name.toLowerCase().includes(query.toLowerCase()));
+
+            if (matches.length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.innerHTML = `<b>${match.name}</b> ${match.phone ? '('+match.phone+')' : ''}`;
+                div.onclick = () => {
+                    document.getElementById('cust_name').value = match.name;
+                    document.getElementById('cust_phone').value = match.phone;
+                    dropdown.style.display = 'none';
+                };
+                dropdown.appendChild(div);
+            });
+
+            dropdown.style.display = 'block';
         }
 
         function addNewRow() {
@@ -794,6 +875,7 @@
         function executeMasterAction() {
             const invoiceNo = document.getElementById('invoice_no').value || "101";
             const custName = document.getElementById('cust_name').value || "Unknown";
+            const custPhone = document.getElementById('cust_phone').value || "";
             const totalAmt = document.getElementById('total_amount').value || "0";
             const dateStr = document.getElementById('invoice_date').value;
             const rowCount = document.getElementById('itemsTable').getElementsByTagName('tbody')[0].rows.length;
@@ -810,7 +892,7 @@
             const sigImgData = canvas.toDataURL();
 
             const billRecord = { 
-                id: invoiceNo, custName: custName, totalAmt: totalAmt, date: dateStr, 
+                id: invoiceNo, custName: custName, custPhone: custPhone, totalAmt: totalAmt, date: dateStr, 
                 rowCount: rowCount, formData: stateData, selections: selectedTrips, typedFields: typedTrips, quantities: quantities, paidChecked: isPaidChecked, customerSignature: sigImgData
             };
             
