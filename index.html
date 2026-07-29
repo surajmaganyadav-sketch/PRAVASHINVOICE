@@ -212,7 +212,6 @@
             white-space: nowrap;
         }
 
-        /* Suggestion Dropdown styling */
         .suggestions-dropdown {
             position: absolute;
             top: 100%;
@@ -674,7 +673,6 @@
             autoGenerateMeta();
             initializeSignatureCanvas();
 
-            // Hide suggestions if clicked outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('#cust_name') && !e.target.closest('#nameSuggestions')) {
                     document.getElementById('nameSuggestions').style.display = 'none';
@@ -740,7 +738,7 @@
             document.getElementById('invoice_no').value = nextInvoiceNo;
         }
 
-        // Customer Name Auto-Complete Logic based on History
+        // Updated function to handle customer selection and auto-fill both name and phone
         function handleCustomerInput(query) {
             const dropdown = document.getElementById('nameSuggestions');
             dropdown.innerHTML = '';
@@ -751,29 +749,20 @@
             }
 
             let history = JSON.parse(localStorage.getItem('billHistory')) || [];
-            
-            // Unique customers map se filter karenge taaki duplicate names bar-bar na aayein
             let uniqueCustomers = {};
+
             history.forEach(item => {
-                if (item.custName && item.formData) {
-                    // formData array mein phone number ya specific index find karne ke liye ya record se phone nikalne ke liye
-                    // Hamare structure mein formData ke andar sabhi inputs stored hain. Let's find customer phone from history items.
-                    // Ya hum record mein directly custPhone store kar sakte hain. Niche secure lookup banate hain:
+                if (item.custName) {
                     let cName = item.custName.trim();
                     let cPhone = item.custPhone || ""; 
-                    // Agar history mein custPhone property save nahi thi purane records mein, toh formData se nikalne ki koshish karein ya blank rakhein
-                    if (!cPhone && item.formData) {
-                        // Index 4 usually cust_phone hota hai outer-matrix inputs mein (check kar sakte hain)
-                        // Behtar hai hum save karte waqt custPhone bhi object mein daal dein.
-                    }
-                    uniqueIdKey = cName.toLowerCase();
-                    if(!uniqueCustomers[uniqueIdKey]) {
-                        uniqueCustomers[uniqueIdKey] = { name: item.custName, phone: item.custPhone || "" };
+                    let uniqueIdKey = cName.toLowerCase();
+                    
+                    if(!uniqueCustomers[uniqueIdKey] || (!uniqueCustomers[uniqueIdKey].phone && cPhone)) {
+                        uniqueCustomers[uniqueIdKey] = { name: item.custName, phone: cPhone };
                     }
                 }
             });
 
-            // Matched results filter karein
             let matches = Object.values(uniqueCustomers).filter(c => c.name.toLowerCase().includes(query.toLowerCase()));
 
             if (matches.length === 0) {
